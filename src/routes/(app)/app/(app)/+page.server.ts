@@ -6,7 +6,13 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { create_tenant_schema } from '$lib/schemas';
 import { eq } from 'drizzle-orm';
 import { isAuthenticated } from '$lib/helpers';
-import { CF_ACCOUNT_ID, CF_API_KEY, CF_PROJECT_NAME } from '$env/static/private';
+import {
+	CF_ACCOUNT_ID,
+	CF_API_KEY,
+	CF_PAGES_DOMAIN,
+	CF_PROJECT_NAME,
+	CF_ZONE_ID
+} from '$env/static/private';
 
 export const load: PageServerLoad = async (event) => {
 	const { user } = isAuthenticated(event);
@@ -64,16 +70,28 @@ export const actions: Actions = {
 				.values({ tenant_id: tenant.id, user_id: user.id, role: 'admin' });
 		});
 
-		const options = {
+		const response = await fetch(
+			`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/${CF_PROJECT_NAME}/domains`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${CF_API_KEY}` },
+				body: JSON.stringify({ name: `${form.data.slug}.sk-platform.sernhede.com` })
+			}
+		);
+
+		const result = await response.json();
+		console.log(result);
+		await fetch(`https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/dns_records`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${CF_API_KEY}` },
-			body: JSON.stringify({ name: `${form.data.slug}.sk-platform.sernhede.com` })
-		};
-
-		await fetch(
-			`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/pages/projects/${CF_PROJECT_NAME}/domains`,
-			options
-		)
+			body: JSON.stringify({
+				content: CF_PAGES_DOMAIN,
+				name: `${form.data.slug}.sk-platform`,
+				proxied: true,
+				type: 'CNAME'
+			})
+			// body: '{"content":"198.51.100.4","name":"example.com","proxied":false,"type":"A","comment":"Domain verification record","tags":["owner:dns-team"],"ttl":3600}'
+		})
 			.then((response) => response.json())
 			.then((response) => console.log(response))
 			.catch((err) => console.error(err));

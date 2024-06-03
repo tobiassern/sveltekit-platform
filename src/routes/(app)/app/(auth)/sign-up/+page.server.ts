@@ -6,6 +6,7 @@ import { sign_up_email_schema, users_table } from '$lib/schemas';
 import { fail, error, redirect } from '@sveltejs/kit';
 import { generateEmailVerificationToken } from '$lib/server/auth';
 import { eq } from 'drizzle-orm';
+import { dev } from '$app/environment';
 
 export const load: PageServerLoad = async (event) => {
 	return {
@@ -52,7 +53,13 @@ export const actions: Actions = {
 		if (!email_verification_token) {
 			error(400, 'Could not generate email verification token');
 		}
-
-		redirect(302, `/verification/?email=${new_user.email}&code=${email_verification_token.code}`);
+		if (dev) {
+			redirect(
+				302,
+				`/verification/?email=${email_verification_token.email}&code=${email_verification_token.code}`
+			);
+		} else {
+			redirect(302, `/verification/?email=${email_verification_token.email}`);
+		}
 	}
 };

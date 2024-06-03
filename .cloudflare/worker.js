@@ -32,54 +32,6 @@ var __toESM = (mod, isNodeMode, target2) => (target2 = mod != null ? __create(__
 ));
 
 // .svelte-kit/output/server/chunks/stringify.js
-function error(status, body2) {
-  if (isNaN(status) || status < 400 || status > 599) {
-    throw new Error(`HTTP error status codes must be between 400 and 599 \u2014 ${status} is invalid`);
-  }
-  throw new HttpError(status, body2);
-}
-function redirect(status, location2) {
-  if (isNaN(status) || status < 300 || status > 308) {
-    throw new Error("Invalid status code");
-  }
-  throw new Redirect(
-    // @ts-ignore
-    status,
-    location2.toString()
-  );
-}
-function json(data, init2) {
-  const body2 = JSON.stringify(data);
-  const headers2 = new Headers(init2?.headers);
-  if (!headers2.has("content-length")) {
-    headers2.set("content-length", encoder.encode(body2).byteLength.toString());
-  }
-  if (!headers2.has("content-type")) {
-    headers2.set("content-type", "application/json");
-  }
-  return new Response(body2, {
-    ...init2,
-    headers: headers2
-  });
-}
-function text(body2, init2) {
-  const headers2 = new Headers(init2?.headers);
-  if (!headers2.has("content-length")) {
-    const encoded = encoder.encode(body2);
-    headers2.set("content-length", encoded.byteLength.toString());
-    return new Response(encoded, {
-      ...init2,
-      headers: headers2
-    });
-  }
-  return new Response(body2, {
-    ...init2,
-    headers: headers2
-  });
-}
-function fail(status, data) {
-  return new ActionFailure(status, data);
-}
 function is_primitive(thing) {
   return Object(thing) !== thing;
 }
@@ -263,9 +215,9 @@ function stringify(value, reducers) {
     stringified[index22] = str;
     return index22;
   }
-  const index13 = flatten2(value);
-  if (index13 < 0)
-    return `${index13}`;
+  const index14 = flatten2(value);
+  if (index14 < 0)
+    return `${index14}`;
   return `[${stringified.join(",")}]`;
 }
 function stringify_primitive(thing) {
@@ -282,63 +234,11 @@ function stringify_primitive(thing) {
     return `["BigInt","${thing}"]`;
   return String(thing);
 }
-var BROWSER, DEV, HttpError, Redirect, SvelteKitError, ActionFailure, encoder, escaped, DevalueError, object_proto_names, UNDEFINED, HOLE, NAN, POSITIVE_INFINITY, NEGATIVE_INFINITY, NEGATIVE_ZERO;
+var BROWSER, DEV, escaped, DevalueError, object_proto_names, UNDEFINED, HOLE, NAN, POSITIVE_INFINITY, NEGATIVE_INFINITY, NEGATIVE_ZERO;
 var init_stringify = __esm({
   ".svelte-kit/output/server/chunks/stringify.js"() {
     BROWSER = false;
     DEV = false;
-    HttpError = class {
-      /**
-       * @param {number} status
-       * @param {{message: string} extends App.Error ? (App.Error | string | undefined) : App.Error} body
-       */
-      constructor(status, body2) {
-        this.status = status;
-        if (typeof body2 === "string") {
-          this.body = { message: body2 };
-        } else if (body2) {
-          this.body = body2;
-        } else {
-          this.body = { message: `Error: ${status}` };
-        }
-      }
-      toString() {
-        return JSON.stringify(this.body);
-      }
-    };
-    Redirect = class {
-      /**
-       * @param {300 | 301 | 302 | 303 | 304 | 305 | 306 | 307 | 308} status
-       * @param {string} location
-       */
-      constructor(status, location2) {
-        this.status = status;
-        this.location = location2;
-      }
-    };
-    SvelteKitError = class extends Error {
-      /**
-       * @param {number} status
-       * @param {string} text
-       * @param {string} message
-       */
-      constructor(status, text22, message) {
-        super(message);
-        this.status = status;
-        this.text = text22;
-      }
-    };
-    ActionFailure = class {
-      /**
-       * @param {number} status
-       * @param {T} data
-       */
-      constructor(status, data) {
-        this.status = status;
-        this.data = data;
-      }
-    };
-    encoder = new TextEncoder();
     escaped = {
       "<": "\\u003C",
       "\\": "\\\\",
@@ -373,7 +273,7 @@ var init_stringify = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/index2.js
+// .svelte-kit/output/server/chunks/index3.js
 function run_all(arr) {
   for (var i2 = 0; i2 < arr.length; i2++) {
     arr[i2]();
@@ -437,15 +337,15 @@ function push(fn) {
   current_component = { p: current_component, c: null, d: null };
 }
 function pop() {
-  var component13 = (
+  var component14 = (
     /** @type {import('#server').Component} */
     current_component
   );
-  var ondestroy = component13.d;
+  var ondestroy = component14.d;
   if (ondestroy) {
     on_destroy.push(...ondestroy);
   }
-  current_component = component13.p;
+  current_component = component14.p;
 }
 function get_parent_context(component_context) {
   let parent = component_context.p;
@@ -487,7 +387,7 @@ function element(payload, tag, attributes_fn, children_fn) {
     payload.out += `</${tag}>`;
   }
 }
-function render(component13, options3) {
+function render(component14, options3) {
   const payload = create_payload();
   const prev_on_destroy = on_destroy;
   on_destroy = [];
@@ -496,7 +396,7 @@ function render(component13, options3) {
     push();
     current_component.c = options3.context;
   }
-  component13(payload, options3.props, {}, {});
+  component14(payload, options3.props, {}, {});
   if (options3.context) {
     pop();
   }
@@ -621,8 +521,8 @@ function ensure_array_like(array_like_or_iterator) {
   return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
 }
 var noop, HYDRATION_START, HYDRATION_END, HYDRATION_ERROR, ELEMENT_IS_NAMESPACED, ELEMENT_PRESERVE_ATTRIBUTE_CASE, UNINITIALIZED, RawTextElements, PassiveDelegatedEvents, DOMBooleanAttributes, ATTR_REGEX, CONTENT_REGEX, current_component, BLOCK_OPEN, BLOCK_CLOSE, INVALID_ATTR_NAME_CHAR_REGEX, VoidElements, on_destroy;
-var init_index2 = __esm({
-  ".svelte-kit/output/server/chunks/index2.js"() {
+var init_index3 = __esm({
+  ".svelte-kit/output/server/chunks/index3.js"() {
     noop = () => {
     };
     HYDRATION_START = "[";
@@ -2729,8 +2629,8 @@ function haveSameKeys(left2, right2) {
   if (leftKeys.length !== rightKeys.length) {
     return false;
   }
-  for (const [index13, key2] of leftKeys.entries()) {
-    if (key2 !== rightKeys[index13]) {
+  for (const [index14, key2] of leftKeys.entries()) {
+    if (key2 !== rightKeys[index14]) {
       return false;
     }
   }
@@ -3547,7 +3447,7 @@ var init_real = __esm({
 });
 
 // node_modules/.pnpm/drizzle-orm@0.31.0_@cloudflare+workers-types@4.20240529.0_@libsql+client@0.6.2_react@18.2.0/node_modules/drizzle-orm/sqlite-core/columns/text.js
-function text2(name3, config = {}) {
+function text(name3, config = {}) {
   return config.mode === "json" ? new SQLiteTextJsonBuilder(name3) : new SQLiteTextBuilder(name3, config);
 }
 var SQLiteTextBuilder, SQLiteText, SQLiteTextJsonBuilder, SQLiteTextJson;
@@ -3792,8 +3692,8 @@ var init_dialect = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index13, joinMeta] of joins.entries()) {
-            if (index13 === 0) {
+          for (const [index14, joinMeta] of joins.entries()) {
+            if (index14 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -3810,7 +3710,7 @@ var init_dialect = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join ${table2} on ${joinMeta.on}`
               );
             }
-            if (index13 < joins.length - 1) {
+            if (index14 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -3820,18 +3720,18 @@ var init_dialect = __esm({
         const havingSql = having ? sql` having ${having}` : void 0;
         const orderByList = [];
         if (orderBy) {
-          for (const [index13, orderByValue] of orderBy.entries()) {
+          for (const [index14, orderByValue] of orderBy.entries()) {
             orderByList.push(orderByValue);
-            if (index13 < orderBy.length - 1) {
+            if (index14 < orderBy.length - 1) {
               orderByList.push(sql`, `);
             }
           }
         }
         const groupByList = [];
         if (groupBy2) {
-          for (const [index13, groupByValue] of groupBy2.entries()) {
+          for (const [index14, groupByValue] of groupBy2.entries()) {
             groupByList.push(groupByValue);
-            if (index13 < groupBy2.length - 1) {
+            if (index14 < groupBy2.length - 1) {
               groupByList.push(sql`, `);
             }
           }
@@ -7475,14 +7375,14 @@ var init_stmt = __esm({
         return this;
       }
       /** Binds a parameter by a 1-based index. */
-      bindIndex(index13, value) {
-        if (index13 !== (index13 | 0) || index13 <= 0) {
+      bindIndex(index14, value) {
+        if (index14 !== (index14 | 0) || index14 <= 0) {
           throw new RangeError("Index of a positional argument must be positive integer");
         }
-        while (this._args.length < index13) {
+        while (this._args.length < index14) {
           this._args.push(null);
         }
-        this._args[index13 - 1] = valueToProto(value);
+        this._args[index14 - 1] = valueToProto(value);
         return this;
       }
       /** Binds a parameter by name. */
@@ -11189,16 +11089,17 @@ var init_web3 = __esm({
 });
 
 // .svelte-kit/output/server/chunks/private.js
-var DB_URL, DB_TOKEN, RESEND_API_KEY, CF_API_KEY, CF_ACCOUNT_ID, CF_WORKER_SERVICE_NAME, CF_ZONE_ID;
+var DB_URL, DB_TOKEN, RESEND_API_KEY, CLOUDFLARE_API_KEY, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_WORKER_NAME, CLOUDFLARE_ZONE_ID, CLOUDFLARE_BASE_HOSTNAME;
 var init_private = __esm({
   ".svelte-kit/output/server/chunks/private.js"() {
     DB_URL = "libsql://sk-platform-db-tobiassern.turso.io";
     DB_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3MTc0MjE2MTQsImlkIjoiMWE0NDhkZGMtM2ExYS00NTQyLTkzN2EtMzMxMzhhNDk1NDU1In0.8PnJJGuXk1mGhjfmujQ_Guo0eyScUeO80L-WZdxedjPcgrdAGRM7lR67oeeiT2GQ-OrQQKL2KlP6rsYBJdnNCQ";
     RESEND_API_KEY = "re_71gwRgdM_A7ohVYigna9y2VGMb7JMg2xv";
-    CF_API_KEY = "d98d6b28d45cba7c454caf535a067d091ec91";
-    CF_ACCOUNT_ID = "f12fbed58509c482af4cf50d8b7e2c76";
-    CF_WORKER_SERVICE_NAME = "sk-platform";
-    CF_ZONE_ID = "b99c3fa090ba5ac6a90b4da600747b07";
+    CLOUDFLARE_API_KEY = "uzjfIkKOJjH-VEMX6KkPdoaNdHTeJ_4_PNvC3TBy";
+    CLOUDFLARE_ACCOUNT_ID = "f12fbed58509c482af4cf50d8b7e2c76";
+    CLOUDFLARE_WORKER_NAME = "sk-platform";
+    CLOUDFLARE_ZONE_ID = "b99c3fa090ba5ac6a90b4da600747b07";
+    CLOUDFLARE_BASE_HOSTNAME = "sk-platform.sernhede.com";
   }
 });
 
@@ -12827,8 +12728,8 @@ var init_dialect2 = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index13, joinMeta] of joins.entries()) {
-            if (index13 === 0) {
+          for (const [index14, joinMeta] of joins.entries()) {
+            if (index14 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -12854,7 +12755,7 @@ var init_dialect2 = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join${lateralSql} ${table2} on ${joinMeta.on}`
               );
             }
-            if (index13 < joins.length - 1) {
+            if (index14 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -16800,8 +16701,8 @@ var init_dialect3 = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index13, joinMeta] of joins.entries()) {
-            if (index13 === 0) {
+          for (const [index14, joinMeta] of joins.entries()) {
+            if (index14 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -16827,7 +16728,7 @@ var init_dialect3 = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join${lateralSql} ${table2} on ${joinMeta.on}`
               );
             }
-            if (index13 < joins.length - 1) {
+            if (index14 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -19775,9 +19676,9 @@ function mergeValues(a2, b) {
       return { valid: false };
     }
     const newArray = [];
-    for (let index13 = 0; index13 < a2.length; index13++) {
-      const itemA = a2[index13];
-      const itemB = b[index13];
+    for (let index14 = 0; index14 < a2.length; index14++) {
+      const itemA = a2[index14];
+      const itemB = b[index14];
       const sharedValue = mergeValues(itemA, itemB);
       if (!sharedValue.valid) {
         return { valid: false };
@@ -22046,10 +21947,10 @@ var init_lib = __esm({
       //   }) as any;
       //   return merged;
       // }
-      catchall(index13) {
+      catchall(index14) {
         return new _ZodObject({
           ...this._def,
-          catchall: index13
+          catchall: index14
         });
       }
       pick(mask) {
@@ -22537,10 +22438,10 @@ var init_lib = __esm({
         }
         const keyType = this._def.keyType;
         const valueType = this._def.valueType;
-        const pairs = [...ctx.data.entries()].map(([key2, value], index13) => {
+        const pairs = [...ctx.data.entries()].map(([key2, value], index14) => {
           return {
-            key: keyType._parse(new ParseInputLazyPath(ctx, key2, ctx.path, [index13, "key"])),
-            value: valueType._parse(new ParseInputLazyPath(ctx, value, ctx.path, [index13, "value"]))
+            key: keyType._parse(new ParseInputLazyPath(ctx, key2, ctx.path, [index14, "key"])),
+            value: valueType._parse(new ParseInputLazyPath(ctx, value, ctx.path, [index14, "value"]))
           };
         });
         if (ctx.common.async) {
@@ -25871,24 +25772,24 @@ var init_tenants = __esm({
     init_crypto();
     users_table = sqliteTable("users", {
       id: integer("id").notNull().primaryKey(),
-      email: text2("email").notNull().unique(),
-      first_name: text2("first_name"),
-      last_name: text2("last_name"),
+      email: text("email").notNull().unique(),
+      first_name: text("first_name"),
+      last_name: text("last_name"),
       email_verified: integer("email_verified", { mode: "boolean" }),
-      avatar_url: text2("avatar_url")
+      avatar_url: text("avatar_url")
     });
     users_relations = relations(users_table, ({ many: many2 }) => ({
       tenants: many2(tenant_users_table)
     }));
     sessions_table = sqliteTable("sessions", {
-      id: text2("id").notNull().primaryKey(),
+      id: text("id").notNull().primaryKey(),
       userId: integer("user_id").notNull().references(() => users_table.id),
       expiresAt: integer("expires_at").notNull()
     });
     email_verification_tokens_table = sqliteTable("email_verification_tokens", {
       id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-      code: text2("code").$defaultFn(() => generateRandomString(6, alphabet("0-9"))).notNull(),
-      email: text2("email").notNull(),
+      code: text("code").$defaultFn(() => generateRandomString(6, alphabet("0-9"))).notNull(),
+      email: text("email").notNull(),
       user_id: integer("user_id", { mode: "number" }).notNull().references(() => users_table.id, {
         onDelete: "cascade"
       }),
@@ -25906,12 +25807,12 @@ var init_tenants = __esm({
     });
     tenants_table = sqliteTable("tenants", {
       id: integer("id").notNull().primaryKey(),
-      name: text2("name").notNull(),
-      description: text2("description"),
-      domain: text2("domain").unique(),
-      slug: text2("slut").unique().notNull(),
-      logo_square_url: text2("logo_square_url"),
-      logo_url: text2("logo_url")
+      name: text("name").notNull(),
+      description: text("description"),
+      domain: text("domain").unique(),
+      slug: text("slut").unique().notNull(),
+      logo_square_url: text("logo_square_url"),
+      logo_url: text("logo_url")
     });
     tenant_users_table = sqliteTable(
       "tenant_users",
@@ -25922,7 +25823,7 @@ var init_tenants = __esm({
         user_id: integer("user_id").references(() => users_table.id, {
           onDelete: "cascade"
         }).notNull(),
-        role: text2("role", { enum: ["admin", "member"] }).notNull()
+        role: text("role", { enum: ["admin", "member"] }).notNull()
       },
       (t2) => {
         return {
@@ -27214,14 +27115,14 @@ var require_react_development = __commonJS({
         function escapeUserProvidedKey(text3) {
           return text3.replace(userProvidedKeyEscapeRegex, "$&/");
         }
-        function getElementKey(element2, index13) {
+        function getElementKey(element2, index14) {
           if (typeof element2 === "object" && element2 !== null && element2.key != null) {
             {
               checkKeyStringCoercion(element2.key);
             }
             return escape3("" + element2.key);
           }
-          return index13.toString(36);
+          return index14.toString(36);
         }
         function mapIntoArray(children, array3, escapedPrefix, nameSoFar, callback) {
           var type = typeof children;
@@ -29975,10 +29876,10 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           }
           var escape3;
           var html = "";
-          var index13;
+          var index14;
           var lastIndex = 0;
-          for (index13 = match.index; index13 < str.length; index13++) {
-            switch (str.charCodeAt(index13)) {
+          for (index14 = match.index; index14 < str.length; index14++) {
+            switch (str.charCodeAt(index14)) {
               case 34:
                 escape3 = "&quot;";
                 break;
@@ -29997,13 +29898,13 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
               default:
                 continue;
             }
-            if (lastIndex !== index13) {
-              html += str.substring(lastIndex, index13);
+            if (lastIndex !== index14) {
+              html += str.substring(lastIndex, index14);
             }
-            lastIndex = index13 + 1;
+            lastIndex = index14 + 1;
             html += escape3;
           }
-          return lastIndex !== index13 ? html + str.substring(lastIndex, index13) : html;
+          return lastIndex !== index14 ? html + str.substring(lastIndex, index14) : html;
         }
         function escapeTextForBrowser(text3) {
           if (typeof text3 === "boolean" || typeof text3 === "number") {
@@ -32199,12 +32100,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
           return id.toString(32) + overflow;
         }
-        function pushTreeContext(baseContext, totalChildren, index13) {
+        function pushTreeContext(baseContext, totalChildren, index14) {
           var baseIdWithLeadingBit = baseContext.id;
           var baseOverflow = baseContext.overflow;
           var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
           var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-          var slot2 = index13 + 1;
+          var slot2 = index14 + 1;
           var length = getBitLength(totalChildren) + baseLength;
           if (length > 30) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
@@ -32704,12 +32605,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           abortSet.add(task);
           return task;
         }
-        function createPendingSegment(request, index13, boundary, formatContext, lastPushedText, textEmbedded) {
+        function createPendingSegment(request, index14, boundary, formatContext, lastPushedText, textEmbedded) {
           return {
             status: PENDING,
             id: -1,
             // lazily assigned later
-            index: index13,
+            index: index14,
             parentFlushed: false,
             chunks: [],
             children: [],
@@ -32968,8 +32869,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
             if (hasId) {
               var prevTreeContext = task.treeContext;
               var totalChildren = 1;
-              var index13 = 0;
-              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index13);
+              var index14 = 0;
+              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
               try {
                 renderNodeDestructive(request, task, value);
               } finally {
@@ -33024,8 +32925,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           if (hasId) {
             var prevTreeContext = task.treeContext;
             var totalChildren = 1;
-            var index13 = 0;
-            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index13);
+            var index14 = 0;
+            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
             try {
               renderNodeDestructive(request, task, children);
             } finally {
@@ -33384,19 +33285,19 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
             boundary.pendingTasks--;
             if (!boundary.forceClientRender) {
               boundary.forceClientRender = true;
-              var _error = reason === void 0 ? new Error("The render was aborted by the server without a reason.") : reason;
-              boundary.errorDigest = request.onError(_error);
+              var _error2 = reason === void 0 ? new Error("The render was aborted by the server without a reason.") : reason;
+              boundary.errorDigest = request.onError(_error2);
               {
                 var errorPrefix = "The server did not finish this Suspense boundary: ";
-                if (_error && typeof _error.message === "string") {
-                  _error = errorPrefix + _error.message;
+                if (_error2 && typeof _error2.message === "string") {
+                  _error2 = errorPrefix + _error2.message;
                 } else {
-                  _error = errorPrefix + String(_error);
+                  _error2 = errorPrefix + String(_error2);
                 }
                 var previousTaskInDev = currentTaskInDEV;
                 currentTaskInDEV = task;
                 try {
-                  captureBoundaryErrorDetailsDev(boundary, _error);
+                  captureBoundaryErrorDetailsDev(boundary, _error2);
                 } finally {
                   currentTaskInDEV = previousTaskInDev;
                 }
@@ -35371,10 +35272,10 @@ var require_react_dom_server_browser_development = __commonJS({
           }
           var escape3;
           var html = "";
-          var index13;
+          var index14;
           var lastIndex = 0;
-          for (index13 = match.index; index13 < str.length; index13++) {
-            switch (str.charCodeAt(index13)) {
+          for (index14 = match.index; index14 < str.length; index14++) {
+            switch (str.charCodeAt(index14)) {
               case 34:
                 escape3 = "&quot;";
                 break;
@@ -35393,13 +35294,13 @@ var require_react_dom_server_browser_development = __commonJS({
               default:
                 continue;
             }
-            if (lastIndex !== index13) {
-              html += str.substring(lastIndex, index13);
+            if (lastIndex !== index14) {
+              html += str.substring(lastIndex, index14);
             }
-            lastIndex = index13 + 1;
+            lastIndex = index14 + 1;
             html += escape3;
           }
-          return lastIndex !== index13 ? html + str.substring(lastIndex, index13) : html;
+          return lastIndex !== index14 ? html + str.substring(lastIndex, index14) : html;
         }
         function escapeTextForBrowser(text3) {
           if (typeof text3 === "boolean" || typeof text3 === "number") {
@@ -37535,12 +37436,12 @@ var require_react_dom_server_browser_development = __commonJS({
           var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
           return id.toString(32) + overflow;
         }
-        function pushTreeContext(baseContext, totalChildren, index13) {
+        function pushTreeContext(baseContext, totalChildren, index14) {
           var baseIdWithLeadingBit = baseContext.id;
           var baseOverflow = baseContext.overflow;
           var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
           var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-          var slot2 = index13 + 1;
+          var slot2 = index14 + 1;
           var length = getBitLength(totalChildren) + baseLength;
           if (length > 30) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
@@ -38040,12 +37941,12 @@ var require_react_dom_server_browser_development = __commonJS({
           abortSet.add(task);
           return task;
         }
-        function createPendingSegment(request, index13, boundary, formatContext, lastPushedText, textEmbedded) {
+        function createPendingSegment(request, index14, boundary, formatContext, lastPushedText, textEmbedded) {
           return {
             status: PENDING,
             id: -1,
             // lazily assigned later
-            index: index13,
+            index: index14,
             parentFlushed: false,
             chunks: [],
             children: [],
@@ -38304,8 +38205,8 @@ var require_react_dom_server_browser_development = __commonJS({
             if (hasId) {
               var prevTreeContext = task.treeContext;
               var totalChildren = 1;
-              var index13 = 0;
-              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index13);
+              var index14 = 0;
+              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
               try {
                 renderNodeDestructive(request, task, value);
               } finally {
@@ -38360,8 +38261,8 @@ var require_react_dom_server_browser_development = __commonJS({
           if (hasId) {
             var prevTreeContext = task.treeContext;
             var totalChildren = 1;
-            var index13 = 0;
-            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index13);
+            var index14 = 0;
+            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
             try {
               renderNodeDestructive(request, task, children);
             } finally {
@@ -38720,19 +38621,19 @@ var require_react_dom_server_browser_development = __commonJS({
             boundary.pendingTasks--;
             if (!boundary.forceClientRender) {
               boundary.forceClientRender = true;
-              var _error = reason === void 0 ? new Error("The render was aborted by the server without a reason.") : reason;
-              boundary.errorDigest = request.onError(_error);
+              var _error2 = reason === void 0 ? new Error("The render was aborted by the server without a reason.") : reason;
+              boundary.errorDigest = request.onError(_error2);
               {
                 var errorPrefix = "The server did not finish this Suspense boundary: ";
-                if (_error && typeof _error.message === "string") {
-                  _error = errorPrefix + _error.message;
+                if (_error2 && typeof _error2.message === "string") {
+                  _error2 = errorPrefix + _error2.message;
                 } else {
-                  _error = errorPrefix + String(_error);
+                  _error2 = errorPrefix + String(_error2);
                 }
                 var previousTaskInDev = currentTaskInDEV;
                 currentTaskInDEV = task;
                 try {
-                  captureBoundaryErrorDetailsDev(boundary, _error);
+                  captureBoundaryErrorDetailsDev(boundary, _error2);
                 } finally {
                   currentTaskInDEV = previousTaskInDev;
                 }
@@ -41981,10 +41882,10 @@ var init_Parser = __esm({
       /** @internal */
       ontextentity(cp) {
         var _a2, _b;
-        const index13 = this.tokenizer.getSectionStart();
-        this.endIndex = index13 - 1;
+        const index14 = this.tokenizer.getSectionStart();
+        this.endIndex = index14 - 1;
         (_b = (_a2 = this.cbs).ontext) === null || _b === void 0 ? void 0 : _b.call(_a2, fromCodePoint(cp));
-        this.startIndex = index13;
+        this.startIndex = index14;
       }
       isVoidElement(name3) {
         return !this.options.xmlMode && voidElements.has(name3);
@@ -42115,8 +42016,8 @@ var init_Parser = __esm({
         this.attribvalue = "";
       }
       getInstructionName(value) {
-        const index13 = value.search(reNameEnd);
-        let name3 = index13 < 0 ? value : value.substr(0, index13);
+        const index14 = value.search(reNameEnd);
+        let name3 = index14 < 0 ? value : value.substr(0, index14);
         if (this.lowerCaseTagNames) {
           name3 = name3.toLowerCase();
         }
@@ -42170,7 +42071,7 @@ var init_Parser = __esm({
         var _a2, _b;
         if (this.cbs.onclosetag) {
           this.endIndex = this.startIndex;
-          for (let index13 = this.stack.length; index13 > 0; this.cbs.onclosetag(this.stack[--index13], true))
+          for (let index14 = this.stack.length; index14 > 0; this.cbs.onclosetag(this.stack[--index14], true))
             ;
         }
         (_b = (_a2 = this.cbs).onend) === null || _b === void 0 ? void 0 : _b.call(_a2);
@@ -42352,9 +42253,9 @@ var init_escape = __esm({
       [62, "&gt;"]
     ]);
     getCodePoint = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    String.prototype.codePointAt != null ? (str, index13) => str.codePointAt(index13) : (
+    String.prototype.codePointAt != null ? (str, index14) => str.codePointAt(index14) : (
       // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-      (c3, index13) => (c3.charCodeAt(index13) & 64512) === 55296 ? (c3.charCodeAt(index13) - 55296) * 1024 + c3.charCodeAt(index13 + 1) - 56320 + 65536 : c3.charCodeAt(index13)
+      (c3, index14) => (c3.charCodeAt(index14) & 64512) === 55296 ? (c3.charCodeAt(index14) - 55296) * 1024 + c3.charCodeAt(index14 + 1) - 56320 + 65536 : c3.charCodeAt(index14)
     );
     escapeUTF8 = getEscaper(/[&<>'"]/g, xmlCodeMap);
     escapeAttribute = getEscaper(/["&\u00A0]/g, /* @__PURE__ */ new Map([
@@ -43172,11 +43073,11 @@ function putCellIntoLayout(cell, layout, baseRow, baseCol) {
     }
   }
 }
-function getOrInitOffset(offsets, index13) {
-  if (offsets[index13] === void 0) {
-    offsets[index13] = index13 === 0 ? 0 : 1 + getOrInitOffset(offsets, index13 - 1);
+function getOrInitOffset(offsets, index14) {
+  if (offsets[index14] === void 0) {
+    offsets[index14] = index14 === 0 ? 0 : 1 + getOrInitOffset(offsets, index14 - 1);
   }
-  return offsets[index13];
+  return offsets[index14];
 }
 function updateOffset(offsets, base2, span, value) {
   offsets[base2 + span] = Math.max(
@@ -44452,11 +44353,11 @@ var require_output = __commonJS({
       line.set_indent(this.__indent_count, this.__alignment_count);
       return line;
     };
-    OutputLine.prototype.item = function(index13) {
-      if (index13 < 0) {
-        return this.__items[this.__items.length + index13];
+    OutputLine.prototype.item = function(index14) {
+      if (index14 < 0) {
+        return this.__items[this.__items.length + index14];
       } else {
-        return this.__items[index13];
+        return this.__items[index14];
       }
     };
     OutputLine.prototype.has_match = function(pattern2) {
@@ -44713,11 +44614,11 @@ var require_output = __commonJS({
         this.current_line.push(" ");
       }
     };
-    Output.prototype.remove_indent = function(index13) {
+    Output.prototype.remove_indent = function(index14) {
       var output_length = this.__lines.length;
-      while (index13 < output_length) {
-        this.__lines[index13]._remove_indent();
-        index13++;
+      while (index14 < output_length) {
+        this.__lines[index14]._remove_indent();
+        index14++;
       }
       this.current_line._remove_wrap_indent();
     };
@@ -44738,17 +44639,17 @@ var require_output = __commonJS({
       return this.is_empty() || this.current_line.is_empty() && this.previous_line.is_empty();
     };
     Output.prototype.ensure_empty_line_above = function(starts_with, ends_with) {
-      var index13 = this.__lines.length - 2;
-      while (index13 >= 0) {
-        var potentialEmptyLine = this.__lines[index13];
+      var index14 = this.__lines.length - 2;
+      while (index14 >= 0) {
+        var potentialEmptyLine = this.__lines[index14];
         if (potentialEmptyLine.is_empty()) {
           break;
         } else if (potentialEmptyLine.item(0).indexOf(starts_with) !== 0 && potentialEmptyLine.item(-1) !== ends_with) {
-          this.__lines.splice(index13 + 1, 0, new OutputLine(this));
+          this.__lines.splice(index14 + 1, 0, new OutputLine(this));
           this.previous_line = this.__lines[this.__lines.length - 2];
           break;
         }
-        index13--;
+        index14--;
       }
     };
     module.exports.Output = Output;
@@ -45000,36 +44901,36 @@ var require_inputscanner = __commonJS({
       }
       return val;
     };
-    InputScanner.prototype.peek = function(index13) {
+    InputScanner.prototype.peek = function(index14) {
       var val = null;
-      index13 = index13 || 0;
-      index13 += this.__position;
-      if (index13 >= 0 && index13 < this.__input_length) {
-        val = this.__input.charAt(index13);
+      index14 = index14 || 0;
+      index14 += this.__position;
+      if (index14 >= 0 && index14 < this.__input_length) {
+        val = this.__input.charAt(index14);
       }
       return val;
     };
-    InputScanner.prototype.__match = function(pattern2, index13) {
-      pattern2.lastIndex = index13;
+    InputScanner.prototype.__match = function(pattern2, index14) {
+      pattern2.lastIndex = index14;
       var pattern_match = pattern2.exec(this.__input);
       if (pattern_match && !(regexp_has_sticky && pattern2.sticky)) {
-        if (pattern_match.index !== index13) {
+        if (pattern_match.index !== index14) {
           pattern_match = null;
         }
       }
       return pattern_match;
     };
-    InputScanner.prototype.test = function(pattern2, index13) {
-      index13 = index13 || 0;
-      index13 += this.__position;
-      if (index13 >= 0 && index13 < this.__input_length) {
-        return !!this.__match(pattern2, index13);
+    InputScanner.prototype.test = function(pattern2, index14) {
+      index14 = index14 || 0;
+      index14 += this.__position;
+      if (index14 >= 0 && index14 < this.__input_length) {
+        return !!this.__match(pattern2, index14);
       } else {
         return false;
       }
     };
-    InputScanner.prototype.testChar = function(pattern2, index13) {
-      var val = this.peek(index13);
+    InputScanner.prototype.testChar = function(pattern2, index14) {
+      var val = this.peek(index14);
       pattern2.lastIndex = 0;
       return val !== null && pattern2.test(val);
     };
@@ -45133,12 +45034,12 @@ var require_tokenstream = __commonJS({
       }
       return val;
     };
-    TokenStream.prototype.peek = function(index13) {
+    TokenStream.prototype.peek = function(index14) {
       var val = null;
-      index13 = index13 || 0;
-      index13 += this.__position;
-      if (index13 >= 0 && index13 < this.__tokens_length) {
-        val = this.__tokens[index13];
+      index14 = index14 || 0;
+      index14 += this.__position;
+      if (index14 >= 0 && index14 < this.__tokens_length) {
+        val = this.__tokens[index14];
       }
       return val;
     };
@@ -46515,12 +46416,12 @@ var require_beautifier = __commonJS({
       var empty_braces = !next_token.comments_before && next_token.text === "}";
       var empty_anonymous_function = empty_braces && this._flags.last_word === "function" && this._flags.last_token.type === TOKEN.END_EXPR;
       if (this._options.brace_preserve_inline) {
-        var index13 = 0;
+        var index14 = 0;
         var check_token = null;
         this._flags.inline_frame = true;
         do {
-          index13 += 1;
-          check_token = this._tokens.peek(index13 - 1);
+          index14 += 1;
+          check_token = this._tokens.peek(index14 - 1);
           if (check_token.newlines) {
             this._flags.inline_frame = false;
             break;
@@ -48758,12 +48659,12 @@ var init_dist4 = __esm({
       }
       return result;
     });
-    renderAsync = (component13, options3) => __async(void 0, null, function* () {
+    renderAsync = (component14, options3) => __async(void 0, null, function* () {
       var _a2;
       const reactDOMServer = (yield Promise.resolve().then(() => __toESM(require_server_browser(), 1))).default;
       const renderToStream = (_a2 = reactDOMServer.renderToReadableStream) != null ? _a2 : reactDOMServer.renderToStaticNodeStream;
       const doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-      const htmlOrReadableStream = yield renderToStream(component13);
+      const htmlOrReadableStream = yield renderToStream(component14);
       const html = typeof htmlOrReadableStream === "string" ? htmlOrReadableStream : yield readStream(htmlOrReadableStream);
       if (options3 == null ? void 0 : options3.plainText) {
         return convert(html, __spreadValues({
@@ -49167,10 +49068,10 @@ var init_dist5 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/index3.js
+// .svelte-kit/output/server/chunks/index4.js
 var initLucia, generateEmailVerificationToken;
-var init_index3 = __esm({
-  ".svelte-kit/output/server/chunks/index3.js"() {
+var init_index4 = __esm({
+  ".svelte-kit/output/server/chunks/index4.js"() {
     init_dist();
     init_dist3();
     init_tenants();
@@ -49225,7 +49126,8 @@ var init_hooks_server = __esm({
     init_web3();
     init_private();
     init_tenants();
-    init_index3();
+    init_index4();
+    init_drizzle_orm();
     schema = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
       __proto__: null,
       create_tenant_schema,
@@ -49275,6 +49177,23 @@ var init_hooks_server = __esm({
           }
           event.locals.user = user;
           event.locals.session = session;
+          if (event.params.tenant_slug && event.locals.user) {
+            const tenant = await event.locals.db.query.tenants_table.findFirst({
+              where: eq(tenants_table.slug, event.params.tenant_slug),
+              with: {
+                tenant_users: {
+                  where: eq(tenant_users_table.user_id, event.locals.user.id)
+                }
+              }
+            });
+            event.locals.tenant = tenant;
+            if (tenant) {
+              const tenant_user = event.locals.user && tenant && tenant.tenant_users.find(
+                (tenant_user_table) => tenant_user_table.user_id === event.locals.user?.id
+              );
+              event.locals.isTenantMember = tenant_user ? true : event.locals.user && tenant ? false : null;
+            }
+          }
         }
       }
       const response = await resolve2(event);
@@ -49298,6 +49217,113 @@ var init_hooks = __esm({
       }
       return "/public" + url2.pathname;
     };
+  }
+});
+
+// .svelte-kit/output/server/chunks/index.js
+function error(status, body2) {
+  if (isNaN(status) || status < 400 || status > 599) {
+    throw new Error(`HTTP error status codes must be between 400 and 599 \u2014 ${status} is invalid`);
+  }
+  throw new HttpError(status, body2);
+}
+function redirect(status, location2) {
+  if (isNaN(status) || status < 300 || status > 308) {
+    throw new Error("Invalid status code");
+  }
+  throw new Redirect(
+    // @ts-ignore
+    status,
+    location2.toString()
+  );
+}
+function json(data, init2) {
+  const body2 = JSON.stringify(data);
+  const headers2 = new Headers(init2?.headers);
+  if (!headers2.has("content-length")) {
+    headers2.set("content-length", encoder.encode(body2).byteLength.toString());
+  }
+  if (!headers2.has("content-type")) {
+    headers2.set("content-type", "application/json");
+  }
+  return new Response(body2, {
+    ...init2,
+    headers: headers2
+  });
+}
+function text2(body2, init2) {
+  const headers2 = new Headers(init2?.headers);
+  if (!headers2.has("content-length")) {
+    const encoded = encoder.encode(body2);
+    headers2.set("content-length", encoded.byteLength.toString());
+    return new Response(encoded, {
+      ...init2,
+      headers: headers2
+    });
+  }
+  return new Response(body2, {
+    ...init2,
+    headers: headers2
+  });
+}
+function fail(status, data) {
+  return new ActionFailure(status, data);
+}
+var HttpError, Redirect, SvelteKitError, ActionFailure, encoder;
+var init_chunks = __esm({
+  ".svelte-kit/output/server/chunks/index.js"() {
+    HttpError = class {
+      /**
+       * @param {number} status
+       * @param {{message: string} extends App.Error ? (App.Error | string | undefined) : App.Error} body
+       */
+      constructor(status, body2) {
+        this.status = status;
+        if (typeof body2 === "string") {
+          this.body = { message: body2 };
+        } else if (body2) {
+          this.body = body2;
+        } else {
+          this.body = { message: `Error: ${status}` };
+        }
+      }
+      toString() {
+        return JSON.stringify(this.body);
+      }
+    };
+    Redirect = class {
+      /**
+       * @param {300 | 301 | 302 | 303 | 304 | 305 | 306 | 307 | 308} status
+       * @param {string} location
+       */
+      constructor(status, location2) {
+        this.status = status;
+        this.location = location2;
+      }
+    };
+    SvelteKitError = class extends Error {
+      /**
+       * @param {number} status
+       * @param {string} text
+       * @param {string} message
+       */
+      constructor(status, text22, message) {
+        super(message);
+        this.status = status;
+        this.text = text22;
+      }
+    };
+    ActionFailure = class {
+      /**
+       * @param {number} status
+       * @param {T} data
+       */
+      constructor(status, data) {
+        this.status = status;
+        this.data = data;
+      }
+    };
+    encoder = new TextEncoder();
   }
 });
 
@@ -49490,7 +49516,7 @@ var init_exports = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/index.js
+// .svelte-kit/output/server/chunks/index2.js
 function readable(value, start) {
   return {
     subscribe: writable(value, start).subscribe
@@ -49606,9 +49632,9 @@ function get_store_value(store) {
   return value;
 }
 var subscriber_queue;
-var init_chunks = __esm({
-  ".svelte-kit/output/server/chunks/index.js"() {
-    init_index2();
+var init_index2 = __esm({
+  ".svelte-kit/output/server/chunks/index2.js"() {
+    init_index3();
     subscriber_queue = [];
   }
 });
@@ -49639,7 +49665,7 @@ function Layout($$payload, $$props) {
 }
 var init_layout_svelte = __esm({
   ".svelte-kit/output/server/entries/fallbacks/layout.svelte.js"() {
-    init_index2();
+    init_index3();
     init_misc();
   }
 });
@@ -49658,7 +49684,7 @@ var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     index = 0;
     component = async () => component_cache ??= (await Promise.resolve().then(() => (init_layout_svelte(), layout_svelte_exports))).default;
-    imports = ["_app/immutable/nodes/0.CMcPMHPn.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/misc.BiTUdHK9.js"];
+    imports = ["_app/immutable/nodes/0.Dtydl-mu.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/misc.heqD49q_.js"];
     stylesheets = [];
     fonts = [];
   }
@@ -49684,7 +49710,7 @@ async function applyAction(result) {
 var SNAPSHOT_KEY, SCROLL_KEY, getStores, page, navigating;
 var init_stores = __esm({
   ".svelte-kit/output/server/chunks/stores.js"() {
-    init_index2();
+    init_index3();
     init_exports();
     SNAPSHOT_KEY = "sveltekit:snapshot";
     SCROLL_KEY = "sveltekit:scroll";
@@ -49735,7 +49761,7 @@ function Error4($$payload, $$props) {
 }
 var init_error_svelte = __esm({
   ".svelte-kit/output/server/entries/fallbacks/error.svelte.js"() {
-    init_index2();
+    init_index3();
     init_stores();
   }
 });
@@ -49754,9 +49780,49 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => component_cache2 ??= (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    imports2 = ["_app/immutable/nodes/1.Cd6mVXVn.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/store.8_cb63oe.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/chunks/stores.nPbfya8O.js", "_app/immutable/chunks/entry.cYRX-S8F.js", "_app/immutable/chunks/index-client.CCsP1WCV.js"];
+    imports2 = ["_app/immutable/nodes/1.MiVWAOII.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
     stylesheets2 = [];
     fonts2 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/_error.svelte.js
+var error_svelte_exports2 = {};
+__export(error_svelte_exports2, {
+  default: () => _error
+});
+function _error($$payload, $$props) {
+  push();
+  var $$store_subs;
+  $$payload.out += `<main class="grid h-dvh place-items-center bg-background px-6 py-24 sm:py-32 lg:px-8"><div class="text-center"><p class="text-base font-semibold text-primary">${escape_html(store_get($$store_subs ??= {}, "$page", page).status)}</p> <h1 class="mt-4 text-3xl font-bold tracking-tight text-primary sm:text-5xl">${escape_html(store_get($$store_subs ??= {}, "$page", page).error?.message)}</h1> <p class="mt-6 text-base leading-7 text-gray-600">Sorry, we couldn\u2019t find the page you\u2019re looking for.</p> <div class="mt-10 flex items-center justify-center gap-x-6"><a href="/" class="hover:bg-primary-muted rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Go back home</a> <a href="/" class="text-sm font-semibold text-gray-900">Contact support <span aria-hidden="true">\u2192</span></a></div></div></main>`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+var init_error_svelte2 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/_error.svelte.js"() {
+    init_index3();
+    init_stores();
+  }
+});
+
+// .svelte-kit/output/server/nodes/2.js
+var __exports3 = {};
+__export(__exports3, {
+  component: () => component3,
+  fonts: () => fonts3,
+  imports: () => imports3,
+  index: () => index3,
+  stylesheets: () => stylesheets3
+});
+var index3, component_cache3, component3, imports3, stylesheets3, fonts3;
+var init__3 = __esm({
+  ".svelte-kit/output/server/nodes/2.js"() {
+    index3 = 2;
+    component3 = async () => component_cache3 ??= (await Promise.resolve().then(() => (init_error_svelte2(), error_svelte_exports2))).default;
+    imports3 = ["_app/immutable/nodes/2.Coi8vLhn.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
+    stylesheets3 = ["_app/immutable/assets/app.00JWBTY9.css"];
+    fonts3 = [];
   }
 });
 
@@ -49775,27 +49841,66 @@ function _layout($$payload, $$props) {
 }
 var init_layout_svelte2 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/_layout.svelte.js"() {
-    init_index2();
+    init_index3();
   }
 });
 
-// .svelte-kit/output/server/nodes/2.js
-var __exports3 = {};
-__export(__exports3, {
-  component: () => component3,
-  fonts: () => fonts3,
-  imports: () => imports3,
-  index: () => index3,
-  stylesheets: () => stylesheets3
+// .svelte-kit/output/server/nodes/3.js
+var __exports4 = {};
+__export(__exports4, {
+  component: () => component4,
+  fonts: () => fonts4,
+  imports: () => imports4,
+  index: () => index4,
+  stylesheets: () => stylesheets4
 });
-var index3, component_cache3, component3, imports3, stylesheets3, fonts3;
-var init__3 = __esm({
-  ".svelte-kit/output/server/nodes/2.js"() {
-    index3 = 2;
-    component3 = async () => component_cache3 ??= (await Promise.resolve().then(() => (init_layout_svelte2(), layout_svelte_exports2))).default;
-    imports3 = ["_app/immutable/nodes/2.DgS_0dZl.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/snippet.Cg3NYvmz.js"];
-    stylesheets3 = ["_app/immutable/assets/2.BRhNRZ1B.css"];
-    fonts3 = [];
+var index4, component_cache4, component4, imports4, stylesheets4, fonts4;
+var init__4 = __esm({
+  ".svelte-kit/output/server/nodes/3.js"() {
+    index4 = 3;
+    component4 = async () => component_cache4 ??= (await Promise.resolve().then(() => (init_layout_svelte2(), layout_svelte_exports2))).default;
+    imports4 = ["_app/immutable/nodes/3.B8RynEBa.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/snippet.CeBRzamk.js"];
+    stylesheets4 = ["_app/immutable/assets/app.00JWBTY9.css"];
+    fonts4 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/_layout.svelte.js
+var layout_svelte_exports3 = {};
+__export(layout_svelte_exports3, {
+  default: () => _layout2
+});
+function _layout2($$payload, $$props) {
+  push();
+  let { children } = $$props;
+  $$payload.out += `<main class="mx-auto flex h-dvh w-full max-w-7xl items-center justify-center px-4 py-10 md:px-6 lg:px-8"><!--[-->`;
+  children($$payload);
+  $$payload.out += `<!--]--></main>`;
+  pop();
+}
+var init_layout_svelte3 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/_layout.svelte.js"() {
+    init_index3();
+  }
+});
+
+// .svelte-kit/output/server/nodes/4.js
+var __exports5 = {};
+__export(__exports5, {
+  component: () => component5,
+  fonts: () => fonts5,
+  imports: () => imports5,
+  index: () => index5,
+  stylesheets: () => stylesheets5
+});
+var index5, component_cache5, component5, imports5, stylesheets5, fonts5;
+var init__5 = __esm({
+  ".svelte-kit/output/server/nodes/4.js"() {
+    index5 = 4;
+    component5 = async () => component_cache5 ??= (await Promise.resolve().then(() => (init_layout_svelte3(), layout_svelte_exports3))).default;
+    imports5 = ["_app/immutable/nodes/4.B-xs2Lii.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/snippet.CeBRzamk.js"];
+    stylesheets5 = [];
+    fonts5 = [];
   }
 });
 
@@ -50006,16 +50111,16 @@ function createSplitModifiers(config) {
     let bracketDepth = 0;
     let modifierStart = 0;
     let postfixModifierPosition;
-    for (let index13 = 0; index13 < className.length; index13++) {
-      let currentCharacter = className[index13];
+    for (let index14 = 0; index14 < className.length; index14++) {
+      let currentCharacter = className[index14];
       if (bracketDepth === 0) {
-        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index13, index13 + separatorLength) === separator)) {
-          modifiers.push(className.slice(modifierStart, index13));
-          modifierStart = index13 + separatorLength;
+        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index14, index14 + separatorLength) === separator)) {
+          modifiers.push(className.slice(modifierStart, index14));
+          modifierStart = index14 + separatorLength;
           continue;
         }
         if (currentCharacter === "/") {
-          postfixModifierPosition = index13;
+          postfixModifierPosition = index14;
           continue;
         }
       }
@@ -50122,12 +50227,12 @@ function mergeClassList(classList, configUtils) {
   }).reverse().map((parsed) => parsed.originalClassName).join(" ");
 }
 function twJoin() {
-  let index13 = 0;
+  let index14 = 0;
   let argument;
   let resolvedValue;
   let string3 = "";
-  while (index13 < arguments.length) {
-    if (argument = arguments[index13++]) {
+  while (index14 < arguments.length) {
+    if (argument = arguments[index14++]) {
       if (resolvedValue = toValue(argument)) {
         string3 && (string3 += " ");
         string3 += resolvedValue;
@@ -52527,7 +52632,7 @@ async function tick() {
 }
 var init_index_server = __esm({
   ".svelte-kit/output/server/chunks/index-server.js"() {
-    init_index2();
+    init_index3();
   }
 });
 
@@ -52574,8 +52679,8 @@ function Icon($$payload, $$props) {
   let strokeWidth = value_or_fallback($$props["strokeWidth"], () => 2);
   let absoluteStrokeWidth = value_or_fallback($$props["absoluteStrokeWidth"], () => false);
   let iconNode = $$props["iconNode"];
-  const mergeClasses = (...classes) => classes.filter((className, index13, array3) => {
-    return Boolean(className) && array3.indexOf(className) === index13;
+  const mergeClasses = (...classes) => classes.filter((className, index14, array3) => {
+    return Boolean(className) && array3.indexOf(className) === index14;
   }).join(" ");
   const each_array = ensure_array_like(iconNode);
   $$payload.out += `<svg${spread_attributes(
@@ -53018,10 +53123,10 @@ function Input($$payload, $$props) {
 var defaultAttributes, flyAndScale, hiddenAction, isFunctionWithParams, isBrowser, isFunction, safeOnMount, safeOnDestroy, urlAlphabet, nanoid, kbd, FIRST_KEYS, LAST_KEYS, FIRST_LAST_KEYS, SELECTION_KEYS, documentEscapeKeyStore, useEscapeKeydown, defaults2, buttonVariants;
 var init_input = __esm({
   ".svelte-kit/output/server/chunks/input.js"() {
-    init_index2();
+    init_index3();
     init_misc();
     init_dist6();
-    init_chunks();
+    init_index2();
     init_index_server();
     init_clsx();
     init_bundle_mjs();
@@ -53368,7 +53473,7 @@ function Card_description($$payload, $$props) {
 }
 var init_card_description = __esm({
   ".svelte-kit/output/server/chunks/card-description.js"() {
-    init_index2();
+    init_index3();
     init_input();
     init_misc();
   }
@@ -53379,7 +53484,7 @@ function last(array3) {
   return array3[array3.length - 1];
 }
 function wrapArray(array3, startIndex) {
-  return array3.map((_2, index13) => array3[(startIndex + index13) % array3.length]);
+  return array3.map((_2, index14) => array3[(startIndex + index14) % array3.length]);
 }
 function sleep2(ms) {
   return new Promise((resolve2) => setTimeout(resolve2, ms));
@@ -54489,8 +54594,8 @@ function Cross2($$payload, $$props) {
 var overridable, isDom, pt, isTouchDevice, isMac, isApple, isIos, LOCK_CLASSNAME, candidateSelectors, candidateSelector, NoElement, matches, getRootNode, isInert, isContentEditable, getCandidates, getCandidatesIteratively, hasTabIndex, getTabIndex, getSortOrderTabIndex, sortOrderedTabbables, isInput, isHiddenInput, isDetailsWithSummary, getCheckedRadio, isTabbableRadio, isRadio, isNonTabbableRadio, isNodeAttached, isZeroArea, isHidden, isDisabledFromFieldset, isNodeMatchingSelectorFocusable, isNodeMatchingSelectorTabbable, isValidShadowRootTabbable, sortByOrder, tabbable, focusable, isTabbable, focusableCandidateSelector, isFocusable, activeFocusTraps, isSelectableInput, isEscapeEvent, isTabEvent, isKeyForward, isKeyBackward, delay, findIndex, valueOrHandler, getActualTarget, internalTrapStack, createFocusTrap$1, visibleModals, useModal, usePortal, useInteractOutside, name2, defaults3, dialogIdParts, linear;
 var init_Cross2 = __esm({
   ".svelte-kit/output/server/chunks/Cross2.js"() {
+    init_index3();
     init_index2();
-    init_chunks();
     init_misc();
     init_input();
     init_index_server();
@@ -55485,9 +55590,9 @@ var init_Cross2 = __esm({
     useModal = (node, config) => {
       let unsubInteractOutside = noop2;
       function removeNodeFromVisibleModals() {
-        const index13 = visibleModals.indexOf(node);
-        if (index13 >= 0) {
-          visibleModals.splice(index13, 1);
+        const index14 = visibleModals.indexOf(node);
+        if (index14 >= 0) {
+          visibleModals.splice(index14, 1);
         }
       }
       function update(config2) {
@@ -55679,10 +55784,10 @@ var init_Cross2 = __esm({
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(app)/_tenant_slug_/_layout.svelte.js
-var layout_svelte_exports3 = {};
-__export(layout_svelte_exports3, {
-  default: () => _layout2
+// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_layout.svelte.js
+var layout_svelte_exports4 = {};
+__export(layout_svelte_exports4, {
+  default: () => _layout3
 });
 function Circle_user($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);
@@ -55705,28 +55810,6 @@ function Circle_user($$payload, $$props) {
   $$payload.out += `<!--[-->`;
   Icon($$payload, spread_props([
     { name: "circle-user" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Line_chart($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    ["path", { "d": "M3 3v18h18" }],
-    ["path", { "d": "m19 9-5 5-4-4-3 3" }]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "line-chart" },
     $$sanitized_props,
     {
       iconNode,
@@ -55988,6 +56071,36 @@ function Users($$payload, $$props) {
   $$payload.out += `<!--[-->`;
   Icon($$payload, spread_props([
     { name: "users" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function Settings($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+      }
+    ],
+    [
+      "circle",
+      { "cx": "12", "cy": "12", "r": "3" }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "settings" },
     $$sanitized_props,
     {
       iconNode,
@@ -59195,8 +59308,8 @@ function App_shell($$payload, $$props) {
   $$payload.out += `<!--]--> Products</a> <a href="##" class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"><!--[-->`;
   Users($$payload, { class: "h-4 w-4" });
   $$payload.out += `<!--]--> Customers</a> <a href="##" class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"><!--[-->`;
-  Line_chart($$payload, { class: "h-4 w-4" });
-  $$payload.out += `<!--]--> Analytics</a></nav></div> <div class="mt-auto p-4"><!--[-->`;
+  Settings($$payload, { class: "size-4" });
+  $$payload.out += `<!--]--> Settings</a></nav></div> <div class="mt-auto p-4"><!--[-->`;
   Card($$payload, {
     children: ($$payload2, $$slotProps) => {
       $$payload2.out += `<!--[-->`;
@@ -59291,8 +59404,8 @@ function App_shell($$payload, $$props) {
           $$payload3.out += `<!--]--> Products</a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"><!--[-->`;
           Users($$payload3, { class: "h-5 w-5" });
           $$payload3.out += `<!--]--> Customers</a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"><!--[-->`;
-          Line_chart($$payload3, { class: "h-5 w-5" });
-          $$payload3.out += `<!--]--> Analytics</a></nav> <div class="mt-auto"><!--[-->`;
+          Settings($$payload3, { class: "size-4" });
+          $$payload3.out += `<!--]--> Settings</a></nav> <div class="mt-auto"><!--[-->`;
           Card($$payload3, {
             children: ($$payload4, $$slotProps3) => {
               $$payload4.out += `<!--[-->`;
@@ -59428,7 +59541,7 @@ function App_shell($$payload, $$props) {
   $$payload.out += `<!--]--></main></div></div>`;
   pop();
 }
-function _layout2($$payload, $$props) {
+function _layout3($$payload, $$props) {
   push();
   let { children } = $$props;
   $$payload.out += `<!--[-->`;
@@ -59444,15 +59557,15 @@ function _layout2($$payload, $$props) {
   pop();
 }
 var badgeVariants, ignoredKeys, defaults$3, min, max, round, floor, createCoords, oppositeSideMap, oppositeAlignmentMap, computePosition$1, arrow$1, flip$1, offset$1, shift$1, size$1, noOffsets, topLayerSelectors, getElementRects, platform, offset, shift, flip, size, arrow, computePosition, defaultConfig$1, ARROW_TRANSFORM, defaultConfig, usePopper, SUB_OPEN_KEYS, SUB_CLOSE_KEYS, menuIdParts, defaults$2, defaults$1, defaults4, createSeparator, Root$1, Trigger$1, Root3, Trigger, sheetVariants, sheetTransitions;
-var init_layout_svelte3 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(app)/_tenant_slug_/_layout.svelte.js"() {
-    init_index2();
+var init_layout_svelte4 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_layout.svelte.js"() {
+    init_index3();
     init_input();
     init_misc();
     init_dist6();
     init_clsx();
     init_card_description();
-    init_chunks();
+    init_index2();
     init_Cross2();
     init_index_server();
     badgeVariants = ce({
@@ -60174,62 +60287,23 @@ var init_layout_svelte3 = __esm({
   }
 });
 
-// .svelte-kit/output/server/nodes/3.js
-var __exports4 = {};
-__export(__exports4, {
-  component: () => component4,
-  fonts: () => fonts4,
-  imports: () => imports4,
-  index: () => index4,
-  stylesheets: () => stylesheets4
+// .svelte-kit/output/server/nodes/5.js
+var __exports6 = {};
+__export(__exports6, {
+  component: () => component6,
+  fonts: () => fonts6,
+  imports: () => imports6,
+  index: () => index6,
+  stylesheets: () => stylesheets6
 });
-var index4, component_cache4, component4, imports4, stylesheets4, fonts4;
-var init__4 = __esm({
-  ".svelte-kit/output/server/nodes/3.js"() {
-    index4 = 3;
-    component4 = async () => component_cache4 ??= (await Promise.resolve().then(() => (init_layout_svelte3(), layout_svelte_exports3))).default;
-    imports4 = ["_app/immutable/nodes/3.BFuUxPsk.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/snippet.Cg3NYvmz.js", "_app/immutable/chunks/input.BClCcs7e.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/store.8_cb63oe.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/chunks/misc.BiTUdHK9.js", "_app/immutable/chunks/props.CmQlWkzM.js", "_app/immutable/chunks/index-client.CCsP1WCV.js", "_app/immutable/chunks/card-description.DKt6GwEo.js", "_app/immutable/chunks/Cross2.BwJBEsMS.js"];
-    stylesheets4 = [];
-    fonts4 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/_layout.svelte.js
-var layout_svelte_exports4 = {};
-__export(layout_svelte_exports4, {
-  default: () => _layout3
-});
-function _layout3($$payload, $$props) {
-  push();
-  let { children } = $$props;
-  $$payload.out += `<main class="mx-auto flex h-dvh w-full max-w-7xl items-center justify-center px-4 py-10 md:px-6 lg:px-8"><!--[-->`;
-  children($$payload);
-  $$payload.out += `<!--]--></main>`;
-  pop();
-}
-var init_layout_svelte4 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/_layout.svelte.js"() {
-    init_index2();
-  }
-});
-
-// .svelte-kit/output/server/nodes/4.js
-var __exports5 = {};
-__export(__exports5, {
-  component: () => component5,
-  fonts: () => fonts5,
-  imports: () => imports5,
-  index: () => index5,
-  stylesheets: () => stylesheets5
-});
-var index5, component_cache5, component5, imports5, stylesheets5, fonts5;
-var init__5 = __esm({
-  ".svelte-kit/output/server/nodes/4.js"() {
-    index5 = 4;
-    component5 = async () => component_cache5 ??= (await Promise.resolve().then(() => (init_layout_svelte4(), layout_svelte_exports4))).default;
-    imports5 = ["_app/immutable/nodes/4.Drf14DS_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/snippet.Cg3NYvmz.js"];
-    stylesheets5 = [];
-    fonts5 = [];
+var index6, component_cache6, component6, imports6, stylesheets6, fonts6;
+var init__6 = __esm({
+  ".svelte-kit/output/server/nodes/5.js"() {
+    index6 = 5;
+    component6 = async () => component_cache6 ??= (await Promise.resolve().then(() => (init_layout_svelte4(), layout_svelte_exports4))).default;
+    imports6 = ["_app/immutable/nodes/5.C4M_3Fgj.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/Cross2.BpNNkRUU.js"];
+    stylesheets6 = [];
+    fonts6 = [];
   }
 });
 
@@ -60248,57 +60322,57 @@ function unflatten(parsed, revivers) {
     parsed
   );
   const hydrated = Array(values.length);
-  function hydrate2(index13, standalone = false) {
-    if (index13 === UNDEFINED)
+  function hydrate2(index14, standalone = false) {
+    if (index14 === UNDEFINED)
       return void 0;
-    if (index13 === NAN)
+    if (index14 === NAN)
       return NaN;
-    if (index13 === POSITIVE_INFINITY)
+    if (index14 === POSITIVE_INFINITY)
       return Infinity;
-    if (index13 === NEGATIVE_INFINITY)
+    if (index14 === NEGATIVE_INFINITY)
       return -Infinity;
-    if (index13 === NEGATIVE_ZERO)
+    if (index14 === NEGATIVE_ZERO)
       return -0;
     if (standalone)
       throw new Error(`Invalid input`);
-    if (index13 in hydrated)
-      return hydrated[index13];
-    const value = values[index13];
+    if (index14 in hydrated)
+      return hydrated[index14];
+    const value = values[index14];
     if (!value || typeof value !== "object") {
-      hydrated[index13] = value;
+      hydrated[index14] = value;
     } else if (Array.isArray(value)) {
       if (typeof value[0] === "string") {
         const type = value[0];
         switch (type) {
           case "Date":
-            hydrated[index13] = new Date(value[1]);
+            hydrated[index14] = new Date(value[1]);
             break;
           case "Set":
             const set2 = /* @__PURE__ */ new Set();
-            hydrated[index13] = set2;
+            hydrated[index14] = set2;
             for (let i2 = 1; i2 < value.length; i2 += 1) {
               set2.add(hydrate2(value[i2]));
             }
             break;
           case "Map":
             const map2 = /* @__PURE__ */ new Map();
-            hydrated[index13] = map2;
+            hydrated[index14] = map2;
             for (let i2 = 1; i2 < value.length; i2 += 2) {
               map2.set(hydrate2(value[i2]), hydrate2(value[i2 + 1]));
             }
             break;
           case "RegExp":
-            hydrated[index13] = new RegExp(value[1], value[2]);
+            hydrated[index14] = new RegExp(value[1], value[2]);
             break;
           case "Object":
-            hydrated[index13] = Object(value[1]);
+            hydrated[index14] = Object(value[1]);
             break;
           case "BigInt":
-            hydrated[index13] = BigInt(value[1]);
+            hydrated[index14] = BigInt(value[1]);
             break;
           case "null":
             const obj = /* @__PURE__ */ Object.create(null);
-            hydrated[index13] = obj;
+            hydrated[index14] = obj;
             for (let i2 = 1; i2 < value.length; i2 += 2) {
               obj[value[i2]] = hydrate2(value[i2 + 1]);
             }
@@ -60308,7 +60382,7 @@ function unflatten(parsed, revivers) {
         }
       } else {
         const array3 = new Array(value.length);
-        hydrated[index13] = array3;
+        hydrated[index14] = array3;
         for (let i2 = 0; i2 < value.length; i2 += 1) {
           const n2 = value[i2];
           if (n2 === HOLE)
@@ -60318,13 +60392,13 @@ function unflatten(parsed, revivers) {
       }
     } else {
       const object2 = {};
-      hydrated[index13] = object2;
+      hydrated[index14] = object2;
       for (const key2 in value) {
         const n2 = value[key2];
         object2[key2] = hydrate2(n2);
       }
     }
-    return hydrated[index13];
+    return hydrated[index14];
   }
   return hydrate2(0);
 }
@@ -63295,7 +63369,7 @@ function _zodClient(schema2, options3) {
 var browser, collectionClone, isObject2, merge$1, defaultOptions$2, conversionFormatTypes, SuperFormError, SchemaError, noCustomValidityDataAttribute, isElementInViewport, scrollToAndCenter, immediateInputTypes, FetchStatus, activeTimers, scrollToFirstError, formIds, initialForms, defaultOnError, defaultFormOptions, LEGACY_MODE, STORYBOOK_MODE, legacyMode, unionError, arrayFrom, spliterate, ReadonlyArray, includes, append, appendUnique, groupBy, shallowClone, InternalArktypeError, throwInternalError, throwError, ParseError, throwParseError, entriesOf, fromEntries, isKeyOf, InnerDynamicBase, DynamicBase, NoopBase, CastableBase, splitByKeys, pick, omit2, isEmptyObject, stringAndSymbolicEntriesOf, defineProperties, unset, bound, cached, cachedThunk, isThunk, DynamicFunction, Callable, envHasCsp, hasDomain, domainOf, enumerableDomainDescriptions, nonEnumerableDomainDescriptions, domainDescriptions, builtinConstructors, objectKindOf, objectKindOrDomainOf, isArray, objectKindDescriptions, getExactBuiltinConstructorName, prototypeKeysOf, baseKeysByDomain, getBaseDomainKeys, constructorExtends, serializePrimitive, registry, namesByResolution, nameCounts, register, reference, registeredReference, isDotAccessible, compileSerializedValue, baseNameFor, CompiledFunction, compileLiteralPropAccess, serializeLiteralKey, indexPropAccess, Hkt, wellFormedNumberMatcher, isWellFormedNumber, numberLikeMatcher, isNumberLike, wellFormedIntegerMatcher, isWellFormedInteger, integerLikeMatcher, isIntegerLike, numericLiteralDescriptions, writeMalformedNumericLiteralMessage, isWellFormed, parseKind, isKindLike, tryParseNumber, tryParseInteger, parseNumeric, tryParseWellFormedBigint, printable, printableOpts, _serialize, capitalize, makeRootAndArrayPropertiesMutable, pathToPropString, arkKind, hasArkKind, isNode2, basisKinds, structuralKinds, refinementKinds, constraintKinds, rootKinds, nodeKinds, constraintKeys, structureKeys, precedenceByKind, isNodeKind, precedenceOfKind, schemaKindsRightOf, defaultValueSerializer, compileErrorContext, implementNode, globalConfig, mergeConfigs2, ArkError, ArkErrors, TraversalContext, BaseNode, Disjoint, describeReasons, describeReason, intersectionCache, intersectNodesRoot, pipeNodesRoot, intersectNodes, pipeFromMorph, pipeToMorph, BaseConstraint, RawPrimitiveConstraint, constraintKeyParser, intersectConstraints, flattenConstraints, unflattenConstraints, throwInvalidOperandError, writeInvalidOperandMessage, validateUninstantiatedGenericNode, predicateImplementation, PredicateNode, divisorImplementation, DivisorNode, greatestCommonDivisor, BaseRange, negatedComparators, boundKindPairsByLower, parseExclusiveKey, parseDateLimit, operandKindsByBoundKind, compileComparator, dateLimitToString, writeUnboundableMessage, afterImplementation, AfterNode, beforeImplementation, BeforeNode, exactLengthImplementation, ExactLengthNode, maxImplementation, MaxNode, maxLengthImplementation, MaxLengthNode, minImplementation, MinNode, minLengthImplementation, MinLengthNode, boundImplementationsByKind, boundClassesByKind, regexImplementation, RegexNode, BaseRoot, defineRightwardIntersections, __runInitializers$3, __esDecorate$3, AliasNode, normalizeAliasSchema, aliasImplementation, neverIfDisjoint, RawBasis, DomainNode, domainImplementation, metaKeys, IntersectionNode, intersectIntersections, intersectionImplementation, morphInputKinds, morphImplementation, MorphNode, protoImplementation, ProtoNode, __runInitializers$2, __esDecorate$2, unionChildKinds, unionImplementation, UnionNode, discriminantToJson, describeBranches, intersectBranches, reduceBranches, discriminantKinds, parseDiscriminantKey, pruneDiscriminant, unitImplementation, UnitNode, compileEqualityCheck, indexImplementation, IndexNode, writeEnumerableIndexBranches, writeInvalidPropertyKeyMessage, intersectProps, BaseProp, optionalImplementation, OptionalNode, RequiredNode, requiredImplementation, fixedSequenceKeySchemaDefinition, sequenceImplementation, SequenceNode, sequenceInnerToTuple, sequenceTupleToInner, postfixFollowingOptionalMessage, postfixWithoutVariadicMessage, _intersectSequences, arrayIndexMatcher, arrayIndexMatcherReference, __runInitializers$1, __esDecorate$1, StructureNode, omitFromInner, createStructuralWriter, structuralDescription, structuralExpression, structureImplementation, normalizeIndex, nodeImplementationsByKind, nodeClassesByKind, RootModule, baseKeys, schemaKindOf, discriminateRootKind, nodeCache, serializeListableChild, parseNode, NodeCompiler, __runInitializers, __esDecorate, defaultConfig2, nonInheritedKeys, extendConfig, resolveConfig, schemaBranchesOf, throwMismatchedNodeRootError, writeDuplicateAliasError, nodeCountsByPrefix, scopeCount, scopesById, RawRootScope, resolveSubalias, schemaScope, RootScope, root2, resolutionsOfModule, writeUnresolvableMessage, writeNonSubmoduleDotMessage, writeMissingSubmoduleAccessMessage, bindCompiledScope, compileScope, tsKeywords, internalKeywords, jsObjects, isValidDateInstance, tryParseDatePattern, defineRegex, number2, integer2, url$1, json2, date, parsing, isLuhnValid, creditCardMatcher, ipv4Segment, ipv4Address, ipv4Matcher, ipv4, ipv6Segment, ipv6Matcher, ipv6, ip, url, emailMatcher, email, uuidMatcher, uuid, semverMatcher, semver, creditCard, validation, ambientRootScope, keywordNodes, Generic, createMatchParser, Scanner, parseObjectLiteral, writeInvalidUndeclaredBehaviorMessage, nonLeadingSpreadError, parseEntry, invalidDefaultKeyKindMessage, parseKey, writeInvalidSpreadTypeMessage, writePrefixedPrivateReferenceMessage, minComparators, maxComparators, invertedComparators, writeUnmatchedGroupCloseMessage, writeUnclosedGroupMessage, writeOpenRangeMessage, writeUnpairableComparatorMessage, writeMultipleLeftBoundsMessage, parseGenericArgs, _parseGenericArgs, writeInvalidGenericArgsMessage, parseUnenclosed, parseGenericInstantiation, unenclosedToNode, maybeParseReference, maybeParseUnenclosedLiteral, writeMissingOperandMessage, writeMissingRightOperandMessage, writeExpressionExpectedMessage, parseTuple, parseTupleLiteral, appendElement, appendSpreadBranch, maybeParseTupleExpression, writeNonArraySpreadMessage, multipleVariadicMesage, requiredPostOptionalMessage, optionalPostVariadicMessage, spreadOptionalMessage, parseKeyOfTuple, parseBranchTuple, parseArrayTuple, isIndexOneExpression, parseMorphTuple, writeMalformedFunctionalExpressionMessage, parseNarrowTuple, parseAttributeTuple, indexOneParsers, prefixParsers, isIndexZeroExpression, writeInvalidConstructorMessage, parseObject, writeBadDefinitionTypeMessage, isDateLiteral, isValidDate, extractDateLiteralSource, writeInvalidDateMessage, tryParseDate, maybeParseDate, parseBound, oneCharComparators, comparatorStartChars, shiftComparator, getBoundKinds, singleEqualsMessage, openLeftBoundToRoot, parseRightBound, writeInvalidLimitMessage, parseDivisor, writeInvalidDivisorMessage, parseOperator, writeUnexpectedCharacterMessage, incompleteArrayTokenMessage, parseGenericParams, emptyGenericParameterMessage, _parseGenericParams, parseEnclosed, enclosingQuote, enclosingChar, enclosingTokens, untilLookaheadIsClosing, enclosingCharDescriptions, writeUnterminatedEnclosedMessage, parseOperand, fullStringParse, parseUntilFinalizer, next, DynamicState, typeParserAttachments, RawTypeParser, scope, RawScope, parseScopeKey, ambient, memoize$1, memoizeWeak, baseMemoize, memoize2, ignoreOverride, defaultOptions$1, getDefaultOptions, getRefs, parseCatchDef, integerDateParser, isJsonSchema7AllOfType, zodPatterns, escapeNonAlphaNumeric, addFormat, addPattern, primitiveMappings, asAnyOf, parseOptionalDef, parsePipelineDef, parseReadonlyDef, get$ref, getRelativePath, selectParser, addMeta, zodToJsonSchema, defaultOptions, zodToJSONSchema, zod, zodClient, SafeString, compares, escapeCode, jsval, format$1, safe$1, safewrap, safepriority, safeor, safeand, safenot, safenotor, safeFormat, stringLength, isMultipleOf, deepEqual, unique, deBase64, hasOwn, pointerPart, toPointer$1, errorMerge, propertyIn, dynamicResolve, extraUtils, scopeFunctions, format, safe, core, toPointer, functions, schemaTypes;
 var init_compile = __esm({
   ".svelte-kit/output/server/chunks/compile.js"() {
-    init_chunks();
+    init_index2();
     init_stores();
     init_stringify();
     init_index_server();
@@ -66314,13 +66388,13 @@ ${ctx.expected}`
       maxLength = this.variadic ? null : this.minLength + this.optionals.length;
       maxLengthNode = this.maxLength === null ? null : this.$.node("maxLength", this.maxLength);
       impliedSiblings = this.minLengthNode ? this.maxLengthNode ? [this.minLengthNode, this.maxLengthNode] : [this.minLengthNode] : this.maxLengthNode ? [this.maxLengthNode] : [];
-      childAtIndex(data, index13) {
-        if (index13 < this.prevariadic.length)
-          return this.prevariadic[index13];
+      childAtIndex(data, index14) {
+        if (index14 < this.prevariadic.length)
+          return this.prevariadic[index14];
         const firstPostfixIndex = data.length - this.postfix.length;
-        if (index13 >= firstPostfixIndex)
-          return this.postfix[index13 - firstPostfixIndex];
-        return this.variadic ?? throwInternalError(`Unexpected attempt to access index ${index13} on ${this}`);
+        if (index14 >= firstPostfixIndex)
+          return this.postfix[index14 - firstPostfixIndex];
+        return this.variadic ?? throwInternalError(`Unexpected attempt to access index ${index14} on ${this}`);
       }
       // minLength/maxLength should be checked by Intersection before either traversal
       traverseAllows = (data, ctx) => {
@@ -66524,8 +66598,8 @@ ${ctx.expected}`
         ];
         keyof() {
           let branches = this.$.units(this.literalKeys).branches;
-          this.index?.forEach(({ signature: index13 }) => {
-            branches = branches.concat(index13.branches);
+          this.index?.forEach(({ signature: index14 }) => {
+            branches = branches.concat(index14.branches);
           });
           return this.$.node("union", branches);
         }
@@ -68719,7 +68793,7 @@ ${this.body}    }
           return { $ref: getRelativePath(refs.currentPath, item.path) };
         case "none":
         case "seen": {
-          if (item.path.length < refs.currentPath.length && item.path.every((value, index13) => refs.currentPath[index13] === value)) {
+          if (item.path.length < refs.currentPath.length && item.path.every((value, index14) => refs.currentPath[index14] === value)) {
             console.warn(`Recursive reference detected at ${refs.currentPath.join("/")}! Defaulting to any`);
             return {};
           }
@@ -69360,35 +69434,1585 @@ function withFiles(obj) {
 var init_superValidate = __esm({
   ".svelte-kit/output/server/chunks/superValidate.js"() {
     init_compile();
-    init_stringify();
+    init_chunks();
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(app)/_page.server.ts.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.server.ts.js
 var page_server_ts_exports = {};
 __export(page_server_ts_exports, {
   actions: () => actions,
   load: () => load
 });
-var isAuthenticated, load, actions;
+var load, actions;
 var init_page_server_ts = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(app)/_page.server.ts.js"() {
-    init_tenants();
-    init_stringify();
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.server.ts.js"() {
     init_stores();
     init_compile();
+    init_chunks();
     init_superValidate();
+    init_tenants();
+    init_index4();
     init_drizzle_orm();
-    init_private();
+    load = async () => {
+      return {
+        form: await superValidate(zod(sign_in_email_schema))
+      };
+    };
+    actions = {
+      "sign-in-email": async (event) => {
+        const form = await superValidate(event, zod(sign_in_email_schema));
+        if (!form.valid) {
+          return fail(400, {
+            form
+          });
+        }
+        const user = await event.locals.db.query.users_table.findFirst({
+          where: eq(users_table.email, form.data.email)
+        });
+        if (!user) {
+          redirect(302, `/sign-up?email=${form.data.email}`);
+        }
+        const email_verification_token = await generateEmailVerificationToken(event, user);
+        if (!email_verification_token) {
+          return setError(form, "", "Could not generate email verification token");
+        }
+        {
+          redirect(302, `/verification/?email=${email_verification_token.email}`);
+        }
+      }
+    };
+  }
+});
+
+// .svelte-kit/output/server/chunks/auth-card.js
+function Auth_card($$payload, $$props) {
+  push();
+  let { children, title, description } = $$props;
+  $$payload.out += `<!--[-->`;
+  Card($$payload, {
+    class: "mx-auto w-full max-w-sm",
+    children: ($$payload2, $$slotProps) => {
+      $$payload2.out += `<!--[-->`;
+      Card_header($$payload2, {
+        children: ($$payload3, $$slotProps2) => {
+          $$payload3.out += `<!--[-->`;
+          Card_title($$payload3, {
+            class: "text-xl",
+            children: ($$payload4, $$slotProps3) => {
+              $$payload4.out += `${escape_html(title)}`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!--]--> <!--[-->`;
+          Card_description($$payload3, {
+            children: ($$payload4, $$slotProps3) => {
+              $$payload4.out += `${escape_html(description)}`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!--]-->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!--]--> <!--[-->`;
+      Card_content($$payload2, {
+        children: ($$payload3, $$slotProps2) => {
+          $$payload3.out += `<!--[-->`;
+          children($$payload3);
+          $$payload3.out += `<!--]-->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!--]-->`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+var init_auth_card = __esm({
+  ".svelte-kit/output/server/chunks/auth-card.js"() {
+    init_index3();
+    init_input();
+    init_card_description();
+    init_clsx();
+  }
+});
+
+// .svelte-kit/output/server/chunks/loader-circle.js
+function createLabel() {
+  const root4 = makeElement("label", {
+    action: (node) => {
+      const mouseDown = addMeltEventListener(node, "mousedown", (e2) => {
+        if (!e2.defaultPrevented && e2.detail > 1) {
+          e2.preventDefault();
+        }
+      });
+      return {
+        destroy: mouseDown
+      };
+    }
+  });
+  return {
+    elements: {
+      root: root4
+    }
+  };
+}
+function getLabelData() {
+  const NAME = "label";
+  const PARTS = ["root"];
+  const getAttrs2 = createBitAttrs(NAME, PARTS);
+  return {
+    NAME,
+    getAttrs: getAttrs2
+  };
+}
+function Label$1($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["asChild", "el"]);
+  push();
+  var $$store_subs;
+  let builder;
+  let asChild = value_or_fallback($$props["asChild"], () => false);
+  let el = value_or_fallback($$props["el"], () => void 0);
+  const { elements: { root: root4 } } = createLabel();
+  const { getAttrs: getAttrs2 } = getLabelData();
+  const attrs = getAttrs2("root");
+  builder = store_get($$store_subs ??= {}, "$root", root4);
+  Object.assign(builder, attrs);
+  $$payload.out += `<!--[-->`;
+  if (asChild) {
+    $$payload.out += `<!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get builder() {
+          return builder;
+        }
+      },
+      null
+    );
+    $$payload.out += `<!--]-->`;
+    $$payload.out += "<!--]-->";
+  } else {
+    $$payload.out += `<label${spread_attributes({ ...builder, ...$$restProps })}><!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get builder() {
+          return builder;
+        }
+      },
+      null
+    );
+    $$payload.out += `<!--]--></label>`;
+    $$payload.out += "<!--]!-->";
+  }
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { asChild, el });
+  pop();
+}
+function Label($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Label$1($$payload, spread_props([
+    {
+      class: cn("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className });
+  pop();
+}
+function setFormField(props) {
+  setContext(FORM_FIELD, props);
+  return props;
+}
+function getFormField() {
+  if (!hasContext(FORM_FIELD)) {
+    ctxError("Form.Field");
+  }
+  return getContext(FORM_FIELD);
+}
+function setFormControl(props) {
+  setContext(FORM_CONTROL, props);
+  return props;
+}
+function getFormControl() {
+  if (!hasContext(FORM_CONTROL)) {
+    ctxError("<Control />");
+  }
+  return getContext(FORM_CONTROL);
+}
+function ctxError(ctx) {
+  throw new Error(`Unable to find \`${ctx}\` context. Did you forget to wrap the component in a \`${ctx}\`?`);
+}
+function getAriaDescribedBy({ fieldErrorsId = void 0, descriptionId = void 0, errors }) {
+  let describedBy = "";
+  if (descriptionId) {
+    describedBy += descriptionId + " ";
+  }
+  if (errors.length && fieldErrorsId) {
+    describedBy += fieldErrorsId;
+  }
+  return describedBy ? describedBy.trim() : void 0;
+}
+function getAriaRequired(constraints2) {
+  if (!("required" in constraints2))
+    return void 0;
+  return constraints2.required ? "true" : void 0;
+}
+function getAriaInvalid(errors) {
+  return errors && errors.length ? "true" : void 0;
+}
+function getDataFsError(errors) {
+  return errors && errors.length ? "" : void 0;
+}
+function generateId4() {
+  return nanoid(5);
+}
+function extractErrorArray(errors) {
+  if (Array.isArray(errors))
+    return errors;
+  if (typeof errors === "object" && "_errors" in errors) {
+    if (errors._errors !== void 0)
+      return errors._errors;
+  }
+  return [];
+}
+function getValueAtPath(path, obj) {
+  const keys = path.split(/[[\].]/).filter(Boolean);
+  let value = obj;
+  for (const key2 of keys) {
+    if (typeof value !== "object" || value === null) {
+      return void 0;
+    }
+    value = value[key2];
+  }
+  return value;
+}
+function Field($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let formErrors, formConstraints, formTainted, formData;
+  let form = $$props["form"];
+  let name3 = $$props["name"];
+  const field = {
+    name: writable(name3),
+    errors: writable([]),
+    constraints: writable({}),
+    tainted: writable(false),
+    fieldErrorsId: writable(),
+    descriptionId: writable(),
+    form
+  };
+  const { tainted, errors } = field;
+  setFormField(field);
+  ({
+    errors: formErrors,
+    constraints: formConstraints,
+    tainted: formTainted,
+    form: formData
+  } = form);
+  field.name.set(name3);
+  field.errors.set(extractErrorArray(getValueAtPath(name3, store_get($$store_subs ??= {}, "$formErrors", formErrors))));
+  field.constraints.set(getValueAtPath(name3, store_get($$store_subs ??= {}, "$formConstraints", formConstraints)) ?? {});
+  field.tainted.set(store_get($$store_subs ??= {}, "$formTainted", formTainted) ? getValueAtPath(name3, store_get($$store_subs ??= {}, "$formTainted", formTainted)) === true : false);
+  $$payload.out += `<!--[-->`;
+  slot(
+    $$payload,
+    default_slot($$props),
+    {
+      get value() {
+        return store_get($$store_subs ??= {}, "$formData", formData)[name3];
+      },
+      get errors() {
+        return store_get($$store_subs ??= {}, "$errors", errors);
+      },
+      get tainted() {
+        return store_get($$store_subs ??= {}, "$tainted", tainted);
+      },
+      get constraints() {
+        return store_get($$store_subs ??= {}, "$formConstraints", formConstraints)[name3];
+      }
+    },
+    null
+  );
+  $$payload.out += `<!--]-->`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { form, name: name3 });
+  pop();
+}
+function Control$1($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let errorAttr, attrs, labelAttrs;
+  let id = value_or_fallback($$props["id"], generateId4);
+  const {
+    name: name3,
+    fieldErrorsId,
+    descriptionId,
+    errors,
+    constraints: constraints2
+  } = getFormField();
+  const controlContext = {
+    id: writable(id),
+    attrs: writable(),
+    labelAttrs: writable()
+  };
+  const { id: idStore } = controlContext;
+  setFormControl(controlContext);
+  controlContext.id.set(id);
+  errorAttr = getDataFsError(store_get($$store_subs ??= {}, "$errors", errors));
+  attrs = {
+    name: store_get($$store_subs ??= {}, "$name", name3),
+    id: store_get($$store_subs ??= {}, "$idStore", idStore),
+    "data-fs-error": errorAttr,
+    "aria-describedby": getAriaDescribedBy({
+      fieldErrorsId: store_get($$store_subs ??= {}, "$fieldErrorsId", fieldErrorsId),
+      descriptionId: store_get($$store_subs ??= {}, "$descriptionId", descriptionId),
+      errors: store_get($$store_subs ??= {}, "$errors", errors)
+    }),
+    "aria-invalid": getAriaInvalid(store_get($$store_subs ??= {}, "$errors", errors)),
+    "aria-required": getAriaRequired(store_get($$store_subs ??= {}, "$constraints", constraints2)),
+    "data-fs-control": ""
+  };
+  labelAttrs = {
+    for: store_get($$store_subs ??= {}, "$idStore", idStore),
+    "data-fs-label": "",
+    "data-fs-error": errorAttr
+  };
+  controlContext.attrs.set(attrs);
+  controlContext.labelAttrs.set(labelAttrs);
+  $$payload.out += `<!--[-->`;
+  slot(
+    $$payload,
+    default_slot($$props),
+    {
+      get attrs() {
+        return attrs;
+      }
+    },
+    null
+  );
+  $$payload.out += `<!--]-->`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { id });
+  pop();
+}
+function Field_errors($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["id", "asChild", "el"]);
+  push();
+  var $$store_subs;
+  let errorAttr, fieldErrorsAttrs, errorAttrs;
+  const tmp = getFormField(), fieldErrorsId = tmp.fieldErrorsId, errors = tmp.errors;
+  let id = value_or_fallback($$props["id"], generateId4);
+  let asChild = value_or_fallback($$props["asChild"], () => false);
+  let el = value_or_fallback($$props["el"], () => void 0);
+  errorAttr = getDataFsError(store_get($$store_subs ??= {}, "$errors", errors));
+  fieldErrorsId.set(id);
+  fieldErrorsAttrs = {
+    id: store_get($$store_subs ??= {}, "$fieldErrorsId", fieldErrorsId),
+    "data-fs-error": errorAttr,
+    "data-fs-field-errors": "",
+    "aria-live": "assertive",
+    ...$$restProps
+  };
+  errorAttrs = {
+    "data-fs-field-error": "",
+    "data-fs-error": errorAttr
+  };
+  $$payload.out += `<!--[-->`;
+  if (asChild) {
+    $$payload.out += `<!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get errors() {
+          return store_get($$store_subs ??= {}, "$errors", errors);
+        },
+        get fieldErrorsAttrs() {
+          return fieldErrorsAttrs;
+        },
+        get errorAttrs() {
+          return errorAttrs;
+        }
+      },
+      null
+    );
+    $$payload.out += `<!--]-->`;
+    $$payload.out += "<!--]-->";
+  } else {
+    $$payload.out += `<div${spread_attributes({ ...fieldErrorsAttrs })}><!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get errors() {
+          return store_get($$store_subs ??= {}, "$errors", errors);
+        },
+        get fieldErrorsAttrs() {
+          return fieldErrorsAttrs;
+        },
+        get errorAttrs() {
+          return errorAttrs;
+        }
+      },
+      () => {
+        const each_array = ensure_array_like(store_get($$store_subs ??= {}, "$errors", errors));
+        $$payload.out += `<!--[-->`;
+        for (let $$index = 0; $$index < each_array.length; $$index++) {
+          const error2 = each_array[$$index];
+          $$payload.out += "<!--[-->";
+          $$payload.out += `<div${spread_attributes({ ...errorAttrs })}>${escape_html(error2)}</div>`;
+          $$payload.out += "<!--]-->";
+        }
+        $$payload.out += "<!--]-->";
+      }
+    );
+    $$payload.out += `<!--]--></div>`;
+    $$payload.out += "<!--]!-->";
+  }
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { id, asChild, el });
+  pop();
+}
+function Form_label($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class"]);
+  push();
+  var $$store_subs;
+  let className = value_or_fallback($$props["class"], () => void 0);
+  const { labelAttrs } = getFormControl();
+  $$payload.out += `<!--[-->`;
+  Label($$payload, spread_props([
+    store_get($$store_subs ??= {}, "$labelAttrs", labelAttrs),
+    {
+      class: cn("data-[fs-error]:text-destructive", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), { labelAttrs }, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { class: className });
+  pop();
+}
+function Form_field_errors($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "errorClasses"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let errorClasses = value_or_fallback($$props["errorClasses"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Field_errors($$payload, spread_props([
+    {
+      class: cn("text-[0.8rem] font-medium text-destructive", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        const errors = $$slotProps.errors;
+        const fieldErrorsAttrs = $$slotProps.fieldErrorsAttrs;
+        const errorAttrs = $$slotProps.errorAttrs;
+        $$payload2.out += `<!--[-->`;
+        slot(
+          $$payload2,
+          default_slot($$props),
+          {
+            get errors() {
+              return errors;
+            },
+            get fieldErrorsAttrs() {
+              return fieldErrorsAttrs;
+            },
+            get errorAttrs() {
+              return errorAttrs;
+            }
+          },
+          () => {
+            const each_array = ensure_array_like(errors);
+            $$payload2.out += `<!--[-->`;
+            for (let $$index = 0; $$index < each_array.length; $$index++) {
+              const error2 = each_array[$$index];
+              $$payload2.out += "<!--[-->";
+              $$payload2.out += `<div${spread_attributes({ ...errorAttrs, class: cn(errorClasses) })}>${escape_html(error2)}</div>`;
+              $$payload2.out += "<!--]-->";
+            }
+            $$payload2.out += "<!--]-->";
+          }
+        );
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className, errorClasses });
+  pop();
+}
+function Form_field($$payload, $$props) {
+  push();
+  let form = $$props["form"];
+  let name3 = $$props["name"];
+  let className = value_or_fallback($$props["class"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Field($$payload, {
+    form,
+    name: name3,
+    children: ($$payload2, $$slotProps) => {
+      const constraints2 = $$slotProps.constraints;
+      const errors = $$slotProps.errors;
+      const tainted = $$slotProps.tainted;
+      const value = $$slotProps.value;
+      $$payload2.out += `<div${attr("class", cn("space-y-2", className), false)}><!--[-->`;
+      slot(
+        $$payload2,
+        default_slot($$props),
+        {
+          get constraints() {
+            return constraints2;
+          },
+          get errors() {
+            return errors;
+          },
+          get tainted() {
+            return tainted;
+          },
+          get value() {
+            return value;
+          }
+        },
+        null
+      );
+      $$payload2.out += `<!--]--></div>`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { form, name: name3, class: className });
+  pop();
+}
+function Loader_circle($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      { "d": "M21 12a9 9 0 1 1-6.219-8.56" }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "loader-circle" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+var FORM_FIELD, FORM_CONTROL, Control;
+var init_loader_circle = __esm({
+  ".svelte-kit/output/server/chunks/loader-circle.js"() {
+    init_index3();
+    init_input();
+    init_misc();
+    init_index2();
+    init_clsx();
+    FORM_FIELD = Symbol("FORM_FIELD_CTX");
+    FORM_CONTROL = Symbol("FORM_CONTROL_CTX");
+    Control = Control$1;
+  }
+});
+
+// .svelte-kit/output/server/chunks/form-errors.js
+function Alert($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "variant"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let variant = value_or_fallback($$props["variant"], () => "default");
+  $$payload.out += `<div${spread_attributes({
+    class: cn(alertVariants({ variant }), className),
+    ...$$restProps,
+    role: "alert"
+  })}><!--[-->`;
+  slot($$payload, default_slot($$props), {}, null);
+  $$payload.out += `<!--]--></div>`;
+  bind_props($$props, { class: className, variant });
+  pop();
+}
+function Alert_description($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  $$payload.out += `<div${spread_attributes({
+    class: cn("text-sm [&_p]:leading-relaxed", className),
+    ...$$restProps
+  })}><!--[-->`;
+  slot($$payload, default_slot($$props), {}, null);
+  $$payload.out += `<!--]--></div>`;
+  bind_props($$props, { class: className });
+  pop();
+}
+function Alert_title($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "level"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let level = value_or_fallback($$props["level"], () => "h5");
+  $$payload.out += `<!--[-->`;
+  if (level)
+    element(
+      $$payload,
+      level,
+      () => {
+        $$payload.out += `${spread_attributes({
+          class: cn("mb-1 font-medium leading-none tracking-tight", className),
+          ...$$restProps
+        })}`;
+      },
+      () => {
+        $$payload.out += `<!--[-->`;
+        slot($$payload, default_slot($$props), {}, null);
+        $$payload.out += `<!--]-->`;
+      }
+    );
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className, level });
+  pop();
+}
+function Circle_alert($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "circle",
+      { "cx": "12", "cy": "12", "r": "10" }
+    ],
+    [
+      "line",
+      {
+        "x1": "12",
+        "x2": "12",
+        "y1": "8",
+        "y2": "12"
+      }
+    ],
+    [
+      "line",
+      {
+        "x1": "12",
+        "x2": "12.01",
+        "y1": "16",
+        "y2": "16"
+      }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "circle-alert" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function Form_errors($$payload, $$props) {
+  let { errors } = $$props;
+  $$payload.out += `<!--[-->`;
+  if (errors) {
+    $$payload.out += `<!--[-->`;
+    Alert($$payload, {
+      variant: "destructive",
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        Circle_alert($$payload2, { class: "h-4 w-4" });
+        $$payload2.out += `<!--]--> <!--[-->`;
+        Alert_title($$payload2, {
+          children: ($$payload3, $$slotProps2) => {
+            $$payload3.out += `Error`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload2.out += `<!--]--> <!--[-->`;
+        Alert_description($$payload2, {
+          children: ($$payload3, $$slotProps2) => {
+            const each_array = ensure_array_like(errors);
+            $$payload3.out += `<ul><!--[-->`;
+            for (let $$index = 0; $$index < each_array.length; $$index++) {
+              const _error2 = each_array[$$index];
+              $$payload3.out += "<!--[-->";
+              $$payload3.out += `<li>${escape_html(_error2)}</li>`;
+              $$payload3.out += "<!--]-->";
+            }
+            $$payload3.out += "<!--]-->";
+            $$payload3.out += `</ul>`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload.out += `<!--]-->`;
+    $$payload.out += "<!--]-->";
+  } else {
+    $$payload.out += "<!--]!-->";
+  }
+}
+var alertVariants;
+var init_form_errors = __esm({
+  ".svelte-kit/output/server/chunks/form-errors.js"() {
+    init_index3();
+    init_dist6();
+    init_clsx();
+    init_input();
+    init_misc();
+    alertVariants = ce({
+      base: "relative w-full rounded-lg border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
+      variants: {
+        variant: {
+          default: "bg-background text-foreground",
+          destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive"
+        }
+      },
+      defaultVariants: {
+        variant: "default"
+      }
+    });
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.svelte.js
+var page_svelte_exports = {};
+__export(page_svelte_exports, {
+  default: () => _page
+});
+function _page($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { data } = $$props;
+  const form = superForm(data.form, {
+    validators: zodClient(sign_in_email_schema)
+  });
+  const {
+    form: formData,
+    enhance: enhance2,
+    errors,
+    delayed,
+    submitting
+  } = form;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    head($$payload2, ($$payload3) => {
+      $$payload3.title = "<title>";
+      $$payload3.title += `Sign In | ${escape_html(PUBLIC_APP_NAME)}</title>`;
+    });
+    $$payload2.out += `<!--[-->`;
+    Auth_card($$payload2, {
+      title: "Login",
+      description: "Enter your email below to login to your account",
+      children: ($$payload3, $$slotProps) => {
+        $$payload3.out += `<form method="POST" action="?/sign-in-email" class="grid gap-4"><!--[-->`;
+        Form_field($$payload3, {
+          form,
+          name: "email",
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `<!--[-->`;
+            Control($$payload4, {
+              children: ($$payload5, $$slotProps3) => {
+                const attrs = $$slotProps3.attrs;
+                $$payload5.out += `<!--[-->`;
+                Form_label($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    $$payload6.out += `Email`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]--> <!--[-->`;
+                Input($$payload5, spread_props([
+                  attrs,
+                  {
+                    get value() {
+                      return store_get($$store_subs ??= {}, "$formData", formData).email;
+                    },
+                    set value($$value) {
+                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).email = $$value);
+                      $$settled = false;
+                    },
+                    placeholder: "m@example.com"
+                  }
+                ]));
+                $$payload5.out += `<!--]-->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            if (store_get($$store_subs ??= {}, "$errors", errors).email?.length) {
+              $$payload4.out += `<!--[-->`;
+              Form_field_errors($$payload4, {});
+              $$payload4.out += `<!--]-->`;
+              $$payload4.out += "<!--]-->";
+            } else {
+              $$payload4.out += "<!--]!-->";
+            }
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Form_errors($$payload3, {
+          errors: store_get($$store_subs ??= {}, "$errors", errors)._errors
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Button($$payload3, {
+          type: "submit",
+          class: "w-full",
+          disabled: store_get($$store_subs ??= {}, "$submitting", submitting),
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `Login<!--[-->`;
+            if (store_get($$store_subs ??= {}, "$delayed", delayed)) {
+              $$payload4.out += `<!--[-->`;
+              Loader_circle($$payload4, { class: "ml-2 size-4 animate-spin" });
+              $$payload4.out += `<!--]-->`;
+              $$payload4.out += "<!--]-->";
+            } else {
+              $$payload4.out += "<!--]!-->";
+            }
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--></form> <div class="mt-4 text-center text-sm">Don't have an account? <a href="/sign-up" class="underline">Sign up</a></div>`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!--]-->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+var init_page_svelte = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.svelte.js"() {
+    init_index3();
+    init_public();
+    init_input();
+    init_auth_card();
+    init_stores();
+    init_compile();
+    init_chunks();
+    init_tenants();
+    init_loader_circle();
+    init_form_errors();
+  }
+});
+
+// .svelte-kit/output/server/nodes/6.js
+var __exports7 = {};
+__export(__exports7, {
+  component: () => component7,
+  fonts: () => fonts7,
+  imports: () => imports7,
+  index: () => index7,
+  server: () => page_server_ts_exports,
+  server_id: () => server_id,
+  stylesheets: () => stylesheets7
+});
+var index7, component_cache7, component7, server_id, imports7, stylesheets7, fonts7;
+var init__7 = __esm({
+  ".svelte-kit/output/server/nodes/6.js"() {
+    init_page_server_ts();
+    index7 = 6;
+    component7 = async () => component_cache7 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
+    server_id = "src/routes/(app)/app/(auth)/sign-in/+page.server.ts";
+    imports7 = ["_app/immutable/nodes/6.Dgp85cv7.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
+    stylesheets7 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
+    fonts7 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.svelte.js
+var page_svelte_exports2 = {};
+__export(page_svelte_exports2, {
+  default: () => _page2
+});
+function _page2($$payload) {
+}
+var init_page_svelte2 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.svelte.js"() {
+  }
+});
+
+// .svelte-kit/output/server/nodes/7.js
+var __exports8 = {};
+__export(__exports8, {
+  component: () => component8,
+  fonts: () => fonts8,
+  imports: () => imports8,
+  index: () => index8,
+  stylesheets: () => stylesheets8
+});
+var index8, component_cache8, component8, imports8, stylesheets8, fonts8;
+var init__8 = __esm({
+  ".svelte-kit/output/server/nodes/7.js"() {
+    index8 = 7;
+    component8 = async () => component_cache8 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
+    imports8 = ["_app/immutable/nodes/7.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
+    stylesheets8 = [];
+    fonts8 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js
+var page_server_ts_exports2 = {};
+__export(page_server_ts_exports2, {
+  actions: () => actions2,
+  load: () => load2
+});
+var load2, actions2;
+var init_page_server_ts2 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js"() {
+    init_stores();
+    init_compile();
+    init_chunks();
+    init_superValidate();
+    init_tenants();
+    init_index4();
+    init_drizzle_orm();
+    load2 = async (event) => {
+      return {
+        form: await superValidate(
+          { email: event.url.searchParams.get("email") ?? void 0 },
+          zod(sign_up_email_schema),
+          { errors: false }
+        )
+      };
+    };
+    actions2 = {
+      "sign-up-email": async (event) => {
+        const form = await superValidate(event, zod(sign_up_email_schema));
+        if (!form.valid) {
+          return fail(400, {
+            form
+          });
+        }
+        const user = await event.locals.db.query.users_table.findFirst({
+          where: eq(users_table.email, form.data.email)
+        });
+        if (user) {
+          return setError(form, "", "User already exist. Try to sign in instead.");
+        }
+        const [new_user] = await event.locals.db.insert(users_table).values({
+          ...form.data,
+          avatar_url: `https://api.dicebear.com/8.x/rings/svg?seed=${form.data.email}`
+        }).returning();
+        if (!new_user) {
+          error(400, "Could not create user");
+        }
+        const email_verification_token = await generateEmailVerificationToken(event, new_user);
+        if (!email_verification_token) {
+          error(400, "Could not generate email verification token");
+        }
+        {
+          redirect(302, `/verification/?email=${email_verification_token.email}`);
+        }
+      }
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.svelte.js
+var page_svelte_exports3 = {};
+__export(page_svelte_exports3, {
+  default: () => _page3
+});
+function _page3($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { data } = $$props;
+  const form = superForm(data.form, {
+    validators: zodClient(sign_up_email_schema)
+  });
+  const {
+    form: formData,
+    enhance: enhance2,
+    errors,
+    delayed,
+    submitting
+  } = form;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    head($$payload2, ($$payload3) => {
+      $$payload3.title = "<title>";
+      $$payload3.title += `Sign Up | ${escape_html(PUBLIC_APP_NAME)}</title>`;
+    });
+    $$payload2.out += `<!--[-->`;
+    Auth_card($$payload2, {
+      title: "Sign Up",
+      description: "Enter your information to create an account",
+      children: ($$payload3, $$slotProps) => {
+        $$payload3.out += `<form method="POST" action="?/sign-up-email" class="grid gap-4"><div class="grid grid-cols-2 gap-4"><!--[-->`;
+        Form_field($$payload3, {
+          form,
+          name: "first_name",
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `<!--[-->`;
+            Control($$payload4, {
+              children: ($$payload5, $$slotProps3) => {
+                const attrs = $$slotProps3.attrs;
+                $$payload5.out += `<!--[-->`;
+                Form_label($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    $$payload6.out += `First name`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]--> <!--[-->`;
+                Input($$payload5, spread_props([
+                  attrs,
+                  {
+                    get value() {
+                      return store_get($$store_subs ??= {}, "$formData", formData).first_name;
+                    },
+                    set value($$value) {
+                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).first_name = $$value);
+                      $$settled = false;
+                    },
+                    placeholder: "John"
+                  }
+                ]));
+                $$payload5.out += `<!--]-->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            if (store_get($$store_subs ??= {}, "$errors", errors).first_name?.length) {
+              $$payload4.out += `<!--[-->`;
+              Form_field_errors($$payload4, {});
+              $$payload4.out += `<!--]-->`;
+              $$payload4.out += "<!--]-->";
+            } else {
+              $$payload4.out += "<!--]!-->";
+            }
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Form_field($$payload3, {
+          form,
+          name: "last_name",
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `<!--[-->`;
+            Control($$payload4, {
+              children: ($$payload5, $$slotProps3) => {
+                const attrs = $$slotProps3.attrs;
+                $$payload5.out += `<!--[-->`;
+                Form_label($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    $$payload6.out += `Last name`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]--> <!--[-->`;
+                Input($$payload5, spread_props([
+                  attrs,
+                  {
+                    get value() {
+                      return store_get($$store_subs ??= {}, "$formData", formData).last_name;
+                    },
+                    set value($$value) {
+                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).last_name = $$value);
+                      $$settled = false;
+                    },
+                    placeholder: "Doe"
+                  }
+                ]));
+                $$payload5.out += `<!--]-->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            if (store_get($$store_subs ??= {}, "$errors", errors).last_name?.length) {
+              $$payload4.out += `<!--[-->`;
+              Form_field_errors($$payload4, {});
+              $$payload4.out += `<!--]-->`;
+              $$payload4.out += "<!--]-->";
+            } else {
+              $$payload4.out += "<!--]!-->";
+            }
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--></div> <!--[-->`;
+        Form_field($$payload3, {
+          form,
+          name: "email",
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `<!--[-->`;
+            Control($$payload4, {
+              children: ($$payload5, $$slotProps3) => {
+                const attrs = $$slotProps3.attrs;
+                $$payload5.out += `<!--[-->`;
+                Form_label($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    $$payload6.out += `Email`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]--> <!--[-->`;
+                Input($$payload5, spread_props([
+                  attrs,
+                  {
+                    get value() {
+                      return store_get($$store_subs ??= {}, "$formData", formData).email;
+                    },
+                    set value($$value) {
+                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).email = $$value);
+                      $$settled = false;
+                    },
+                    placeholder: "m@example.com"
+                  }
+                ]));
+                $$payload5.out += `<!--]-->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            if (store_get($$store_subs ??= {}, "$errors", errors).email?.length) {
+              $$payload4.out += `<!--[-->`;
+              Form_field_errors($$payload4, {});
+              $$payload4.out += `<!--]-->`;
+              $$payload4.out += "<!--]-->";
+            } else {
+              $$payload4.out += "<!--]!-->";
+            }
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Form_errors($$payload3, {
+          errors: store_get($$store_subs ??= {}, "$errors", errors)._errors
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Button($$payload3, {
+          type: "submit",
+          class: "w-full",
+          disabled: store_get($$store_subs ??= {}, "$submitting", submitting),
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `Create an account<!--[-->`;
+            if (store_get($$store_subs ??= {}, "$delayed", delayed)) {
+              $$payload4.out += `<!--[-->`;
+              Loader_circle($$payload4, { class: "ml-2 size-4 animate-spin" });
+              $$payload4.out += `<!--]-->`;
+              $$payload4.out += "<!--]-->";
+            } else {
+              $$payload4.out += "<!--]!-->";
+            }
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--></form> <div class="mt-4 text-center text-sm">Already have an account? <a href="/sign-in" class="underline">Sign in</a></div>`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!--]-->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+var init_page_svelte3 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.svelte.js"() {
+    init_index3();
+    init_public();
+    init_input();
+    init_tenants();
+    init_stores();
+    init_compile();
+    init_chunks();
+    init_auth_card();
+    init_loader_circle();
+    init_form_errors();
+  }
+});
+
+// .svelte-kit/output/server/nodes/8.js
+var __exports9 = {};
+__export(__exports9, {
+  component: () => component9,
+  fonts: () => fonts9,
+  imports: () => imports9,
+  index: () => index9,
+  server: () => page_server_ts_exports2,
+  server_id: () => server_id2,
+  stylesheets: () => stylesheets9
+});
+var index9, component_cache9, component9, server_id2, imports9, stylesheets9, fonts9;
+var init__9 = __esm({
+  ".svelte-kit/output/server/nodes/8.js"() {
+    init_page_server_ts2();
+    index9 = 8;
+    component9 = async () => component_cache9 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
+    server_id2 = "src/routes/(app)/app/(auth)/sign-up/+page.server.ts";
+    imports9 = ["_app/immutable/nodes/8.B__23EtT.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
+    stylesheets9 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
+    fonts9 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.server.ts.js
+var page_server_ts_exports3 = {};
+__export(page_server_ts_exports3, {
+  actions: () => actions3,
+  load: () => load3
+});
+var load3, actions3;
+var init_page_server_ts3 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.server.ts.js"() {
+    init_stores();
+    init_compile();
+    init_chunks();
+    init_superValidate();
+    init_tenants();
+    init_drizzle_orm();
+    load3 = async (event) => {
+      return {
+        form: await superValidate(
+          {
+            email: event.url.searchParams.get("email") ?? void 0,
+            code: event.url.searchParams.get("code") ?? void 0
+          },
+          zod(verification_schema),
+          { errors: false }
+        )
+      };
+    };
+    actions3 = {
+      verify: async (event) => {
+        const form = await superValidate(event, zod(verification_schema));
+        if (!form.valid) {
+          return fail(400, {
+            form
+          });
+        }
+        const email_verification_token = await event.locals.db.query.email_verification_tokens_table.findFirst({
+          where: and(
+            eq(email_verification_tokens_table.code, form.data.code),
+            eq(email_verification_tokens_table.email, form.data.email)
+          )
+        });
+        if (!email_verification_token || !email_verification_token.created_at) {
+          return setError(form, "", "Invalid OTP code");
+        }
+        if (new Date((/* @__PURE__ */ new Date()).getTime() + 5 * 6e4) < new Date(email_verification_token.created_at)) {
+          return setError(form, "", "OTP code expired");
+        }
+        await event.locals.db.delete(email_verification_tokens_table).where(eq(email_verification_tokens_table.id, email_verification_token.id));
+        const user = await event.locals.db.query.users_table.findFirst({
+          where: eq(users_table.id, email_verification_token.user_id)
+        });
+        if (!user) {
+          return setError(form, "", "Invalid user");
+        }
+        if (user && user.email !== email_verification_token.email) {
+          return setError(form, "", "User email mismatch");
+        }
+        await event.locals.db.update(users_table).set({ email_verified: true }).where(eq(users_table.id, user.id));
+        const session = await event.locals.lucia.createSession(user.id, {
+          user_agent: event.request.headers.get("user-agent")
+        });
+        const sessionCookie = event.locals.lucia.createSessionCookie(session.id);
+        event.cookies.set(sessionCookie.name, sessionCookie.value, {
+          path: ".",
+          ...sessionCookie.attributes
+        });
+        redirect(302, "/");
+      }
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.svelte.js
+var page_svelte_exports4 = {};
+__export(page_svelte_exports4, {
+  default: () => _page4
+});
+function _page4($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { data } = $$props;
+  const form = superForm(data.form, { validators: zodClient(verification_schema) });
+  const {
+    form: formData,
+    enhance: enhance2,
+    errors,
+    delayed,
+    submitting
+  } = form;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    head($$payload2, ($$payload3) => {
+      $$payload3.title = "<title>";
+      $$payload3.title += `2-Step Verification | ${escape_html(PUBLIC_APP_NAME)}</title>`;
+    });
+    $$payload2.out += `<!--[-->`;
+    Card($$payload2, {
+      class: "mx-auto w-full max-w-sm",
+      children: ($$payload3, $$slotProps) => {
+        $$payload3.out += `<!--[-->`;
+        Card_header($$payload3, {
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `<!--[-->`;
+            Card_title($$payload4, {
+              class: "text-xl",
+              children: ($$payload5, $$slotProps3) => {
+                $$payload5.out += `2-Step Verification`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            Card_description($$payload4, {
+              class: "space-y-1",
+              children: ($$payload5, $$slotProps3) => {
+                $$payload5.out += `<p>We sent a verification code to your email <strong>${escape_html(store_get($$store_subs ??= {}, "$formData", formData).email)}</strong>.</p> <p>Enter the code from the email in the field below.</p>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]-->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Card_content($$payload3, {
+          children: ($$payload4, $$slotProps2) => {
+            $$payload4.out += `<form method="POST" action="?/verify" class="grid gap-4"><input type="text"${attr("value", store_get($$store_subs ??= {}, "$formData", formData).email, false)} name="email" hidden> <!--[-->`;
+            Form_field($$payload4, {
+              form,
+              name: "code",
+              children: ($$payload5, $$slotProps3) => {
+                $$payload5.out += `<!--[-->`;
+                Control($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    const attrs = $$slotProps4.attrs;
+                    $$payload6.out += `<!--[-->`;
+                    Form_label($$payload6, {
+                      children: ($$payload7, $$slotProps5) => {
+                        $$payload7.out += `OTP Code`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!--]--> <!--[-->`;
+                    Input($$payload6, spread_props([
+                      attrs,
+                      {
+                        get value() {
+                          return store_get($$store_subs ??= {}, "$formData", formData).code;
+                        },
+                        set value($$value) {
+                          mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).code = $$value);
+                          $$settled = false;
+                        }
+                      }
+                    ]));
+                    $$payload6.out += `<!--]-->`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]--> <!--[-->`;
+                if (store_get($$store_subs ??= {}, "$errors", errors).code?.length) {
+                  $$payload5.out += `<!--[-->`;
+                  Form_field_errors($$payload5, {});
+                  $$payload5.out += `<!--]-->`;
+                  $$payload5.out += "<!--]-->";
+                } else {
+                  $$payload5.out += "<!--]!-->";
+                }
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            Form_errors($$payload4, {
+              errors: store_get($$store_subs ??= {}, "$errors", errors)._errors
+            });
+            $$payload4.out += `<!--]--> <!--[-->`;
+            Button($$payload4, {
+              type: "submit",
+              class: "w-full",
+              disabled: store_get($$store_subs ??= {}, "$submitting", submitting),
+              children: ($$payload5, $$slotProps3) => {
+                $$payload5.out += `Verify<!--[-->`;
+                if (store_get($$store_subs ??= {}, "$delayed", delayed)) {
+                  $$payload5.out += `<!--[-->`;
+                  Loader_circle($$payload5, { class: "ml-2 size-4 animate-spin" });
+                  $$payload5.out += `<!--]-->`;
+                  $$payload5.out += "<!--]-->";
+                } else {
+                  $$payload5.out += "<!--]!-->";
+                }
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--></form> <div class="mt-4 text-center text-sm">Didn't receive an email? <a href="/sign-in" class="underline">Resend</a></div>`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!--]-->`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+var init_page_svelte4 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.svelte.js"() {
+    init_index3();
+    init_public();
+    init_input();
+    init_card_description();
+    init_clsx();
+    init_stores();
+    init_compile();
+    init_chunks();
+    init_tenants();
+    init_loader_circle();
+    init_form_errors();
+  }
+});
+
+// .svelte-kit/output/server/nodes/9.js
+var __exports10 = {};
+__export(__exports10, {
+  component: () => component10,
+  fonts: () => fonts10,
+  imports: () => imports10,
+  index: () => index10,
+  server: () => page_server_ts_exports3,
+  server_id: () => server_id3,
+  stylesheets: () => stylesheets10
+});
+var index10, component_cache10, component10, server_id3, imports10, stylesheets10, fonts10;
+var init__10 = __esm({
+  ".svelte-kit/output/server/nodes/9.js"() {
+    init_page_server_ts3();
+    index10 = 9;
+    component10 = async () => component_cache10 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
+    server_id3 = "src/routes/(app)/app/(auth)/verification/+page.server.ts";
+    imports10 = ["_app/immutable/nodes/9.C6vi9UAI.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
+    stylesheets10 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
+    fonts10 = [];
+  }
+});
+
+// .svelte-kit/output/server/chunks/index5.js
+var isAuthenticated, isTenantUser;
+var init_index5 = __esm({
+  ".svelte-kit/output/server/chunks/index5.js"() {
+    init_chunks();
     isAuthenticated = (event) => {
       if (!event.locals.user) {
         redirect(302, "/sign-in");
       }
       return { user: event.locals.user };
     };
-    load = async (event) => {
+    isTenantUser = (event) => {
       const { user } = isAuthenticated(event);
-      console.log(event.platform);
+      if (!event.locals.tenant) {
+        error(404, "Tenant not found");
+      }
+      if (!event.locals.isTenantMember) {
+        error(403, "Forbidden");
+      }
+      return { tenant: event.locals.tenant, user };
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.server.ts.js
+var page_server_ts_exports4 = {};
+__export(page_server_ts_exports4, {
+  actions: () => actions4,
+  load: () => load4
+});
+var load4, actions4;
+var init_page_server_ts4 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.server.ts.js"() {
+    init_tenants();
+    init_chunks();
+    init_stores();
+    init_compile();
+    init_superValidate();
+    init_drizzle_orm();
+    init_index5();
+    init_private();
+    load4 = async (event) => {
+      const { user } = isAuthenticated(event);
       return {
         tenants: await event.locals.db.select({
           name: tenants_table.name,
@@ -69399,7 +71023,7 @@ var init_page_server_ts = __esm({
         form: await superValidate(zod(create_tenant_schema), { id: "create-tenant-form" })
       };
     };
-    actions = {
+    actions4 = {
       "create-tenant": async (event) => {
         const { user } = isAuthenticated(event);
         const form = await superValidate(event, zod(create_tenant_schema));
@@ -69424,24 +71048,22 @@ var init_page_server_ts = __esm({
           await tx.insert(tenant_users_table).values({ tenant_id: tenant.id, user_id: user.id, role: "admin" });
         });
         const response = await fetch(
-          `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/workers/domains`,
+          `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains`,
           {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${CF_API_KEY}`
+              Authorization: `Bearer ${CLOUDFLARE_API_KEY}`
             },
             body: JSON.stringify({
               environment: "production",
-              hostname: `${form.data.slug}.sk-platform.sernhede.com`,
-              service: CF_WORKER_SERVICE_NAME,
-              zone_id: CF_ZONE_ID
+              hostname: `${form.data.slug}.${CLOUDFLARE_BASE_HOSTNAME}`,
+              service: CLOUDFLARE_WORKER_NAME,
+              zone_id: CLOUDFLARE_ZONE_ID
             })
           }
         );
-        console.log(response);
-        const result = await response.json();
-        console.log(result);
+        await response.json();
         return { form };
       }
     };
@@ -69885,531 +71507,10 @@ var init_auto_animate = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/loader-circle.js
-function createLabel() {
-  const root4 = makeElement("label", {
-    action: (node) => {
-      const mouseDown = addMeltEventListener(node, "mousedown", (e2) => {
-        if (!e2.defaultPrevented && e2.detail > 1) {
-          e2.preventDefault();
-        }
-      });
-      return {
-        destroy: mouseDown
-      };
-    }
-  });
-  return {
-    elements: {
-      root: root4
-    }
-  };
-}
-function getLabelData() {
-  const NAME = "label";
-  const PARTS = ["root"];
-  const getAttrs2 = createBitAttrs(NAME, PARTS);
-  return {
-    NAME,
-    getAttrs: getAttrs2
-  };
-}
-function Label$1($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["asChild", "el"]);
-  push();
-  var $$store_subs;
-  let builder;
-  let asChild = value_or_fallback($$props["asChild"], () => false);
-  let el = value_or_fallback($$props["el"], () => void 0);
-  const { elements: { root: root4 } } = createLabel();
-  const { getAttrs: getAttrs2 } = getLabelData();
-  const attrs = getAttrs2("root");
-  builder = store_get($$store_subs ??= {}, "$root", root4);
-  Object.assign(builder, attrs);
-  $$payload.out += `<!--[-->`;
-  if (asChild) {
-    $$payload.out += `<!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get builder() {
-          return builder;
-        }
-      },
-      null
-    );
-    $$payload.out += `<!--]-->`;
-    $$payload.out += "<!--]-->";
-  } else {
-    $$payload.out += `<label${spread_attributes({ ...builder, ...$$restProps })}><!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get builder() {
-          return builder;
-        }
-      },
-      null
-    );
-    $$payload.out += `<!--]--></label>`;
-    $$payload.out += "<!--]!-->";
-  }
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { asChild, el });
-  pop();
-}
-function setFormField(props) {
-  setContext(FORM_FIELD, props);
-  return props;
-}
-function getFormField() {
-  if (!hasContext(FORM_FIELD)) {
-    ctxError("Form.Field");
-  }
-  return getContext(FORM_FIELD);
-}
-function setFormControl(props) {
-  setContext(FORM_CONTROL, props);
-  return props;
-}
-function getFormControl() {
-  if (!hasContext(FORM_CONTROL)) {
-    ctxError("<Control />");
-  }
-  return getContext(FORM_CONTROL);
-}
-function ctxError(ctx) {
-  throw new Error(`Unable to find \`${ctx}\` context. Did you forget to wrap the component in a \`${ctx}\`?`);
-}
-function getAriaDescribedBy({ fieldErrorsId = void 0, descriptionId = void 0, errors }) {
-  let describedBy = "";
-  if (descriptionId) {
-    describedBy += descriptionId + " ";
-  }
-  if (errors.length && fieldErrorsId) {
-    describedBy += fieldErrorsId;
-  }
-  return describedBy ? describedBy.trim() : void 0;
-}
-function getAriaRequired(constraints2) {
-  if (!("required" in constraints2))
-    return void 0;
-  return constraints2.required ? "true" : void 0;
-}
-function getAriaInvalid(errors) {
-  return errors && errors.length ? "true" : void 0;
-}
-function getDataFsError(errors) {
-  return errors && errors.length ? "" : void 0;
-}
-function generateId4() {
-  return nanoid(5);
-}
-function extractErrorArray(errors) {
-  if (Array.isArray(errors))
-    return errors;
-  if (typeof errors === "object" && "_errors" in errors) {
-    if (errors._errors !== void 0)
-      return errors._errors;
-  }
-  return [];
-}
-function getValueAtPath(path, obj) {
-  const keys = path.split(/[[\].]/).filter(Boolean);
-  let value = obj;
-  for (const key2 of keys) {
-    if (typeof value !== "object" || value === null) {
-      return void 0;
-    }
-    value = value[key2];
-  }
-  return value;
-}
-function Field($$payload, $$props) {
-  push();
-  var $$store_subs;
-  let formErrors, formConstraints, formTainted, formData;
-  let form = $$props["form"];
-  let name3 = $$props["name"];
-  const field = {
-    name: writable(name3),
-    errors: writable([]),
-    constraints: writable({}),
-    tainted: writable(false),
-    fieldErrorsId: writable(),
-    descriptionId: writable(),
-    form
-  };
-  const { tainted, errors } = field;
-  setFormField(field);
-  ({
-    errors: formErrors,
-    constraints: formConstraints,
-    tainted: formTainted,
-    form: formData
-  } = form);
-  field.name.set(name3);
-  field.errors.set(extractErrorArray(getValueAtPath(name3, store_get($$store_subs ??= {}, "$formErrors", formErrors))));
-  field.constraints.set(getValueAtPath(name3, store_get($$store_subs ??= {}, "$formConstraints", formConstraints)) ?? {});
-  field.tainted.set(store_get($$store_subs ??= {}, "$formTainted", formTainted) ? getValueAtPath(name3, store_get($$store_subs ??= {}, "$formTainted", formTainted)) === true : false);
-  $$payload.out += `<!--[-->`;
-  slot(
-    $$payload,
-    default_slot($$props),
-    {
-      get value() {
-        return store_get($$store_subs ??= {}, "$formData", formData)[name3];
-      },
-      get errors() {
-        return store_get($$store_subs ??= {}, "$errors", errors);
-      },
-      get tainted() {
-        return store_get($$store_subs ??= {}, "$tainted", tainted);
-      },
-      get constraints() {
-        return store_get($$store_subs ??= {}, "$formConstraints", formConstraints)[name3];
-      }
-    },
-    null
-  );
-  $$payload.out += `<!--]-->`;
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { form, name: name3 });
-  pop();
-}
-function Control$1($$payload, $$props) {
-  push();
-  var $$store_subs;
-  let errorAttr, attrs, labelAttrs;
-  let id = value_or_fallback($$props["id"], generateId4);
-  const {
-    name: name3,
-    fieldErrorsId,
-    descriptionId,
-    errors,
-    constraints: constraints2
-  } = getFormField();
-  const controlContext = {
-    id: writable(id),
-    attrs: writable(),
-    labelAttrs: writable()
-  };
-  const { id: idStore } = controlContext;
-  setFormControl(controlContext);
-  controlContext.id.set(id);
-  errorAttr = getDataFsError(store_get($$store_subs ??= {}, "$errors", errors));
-  attrs = {
-    name: store_get($$store_subs ??= {}, "$name", name3),
-    id: store_get($$store_subs ??= {}, "$idStore", idStore),
-    "data-fs-error": errorAttr,
-    "aria-describedby": getAriaDescribedBy({
-      fieldErrorsId: store_get($$store_subs ??= {}, "$fieldErrorsId", fieldErrorsId),
-      descriptionId: store_get($$store_subs ??= {}, "$descriptionId", descriptionId),
-      errors: store_get($$store_subs ??= {}, "$errors", errors)
-    }),
-    "aria-invalid": getAriaInvalid(store_get($$store_subs ??= {}, "$errors", errors)),
-    "aria-required": getAriaRequired(store_get($$store_subs ??= {}, "$constraints", constraints2)),
-    "data-fs-control": ""
-  };
-  labelAttrs = {
-    for: store_get($$store_subs ??= {}, "$idStore", idStore),
-    "data-fs-label": "",
-    "data-fs-error": errorAttr
-  };
-  controlContext.attrs.set(attrs);
-  controlContext.labelAttrs.set(labelAttrs);
-  $$payload.out += `<!--[-->`;
-  slot(
-    $$payload,
-    default_slot($$props),
-    {
-      get attrs() {
-        return attrs;
-      }
-    },
-    null
-  );
-  $$payload.out += `<!--]-->`;
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { id });
-  pop();
-}
-function Field_errors($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["id", "asChild", "el"]);
-  push();
-  var $$store_subs;
-  let errorAttr, fieldErrorsAttrs, errorAttrs;
-  const tmp = getFormField(), fieldErrorsId = tmp.fieldErrorsId, errors = tmp.errors;
-  let id = value_or_fallback($$props["id"], generateId4);
-  let asChild = value_or_fallback($$props["asChild"], () => false);
-  let el = value_or_fallback($$props["el"], () => void 0);
-  errorAttr = getDataFsError(store_get($$store_subs ??= {}, "$errors", errors));
-  fieldErrorsId.set(id);
-  fieldErrorsAttrs = {
-    id: store_get($$store_subs ??= {}, "$fieldErrorsId", fieldErrorsId),
-    "data-fs-error": errorAttr,
-    "data-fs-field-errors": "",
-    "aria-live": "assertive",
-    ...$$restProps
-  };
-  errorAttrs = {
-    "data-fs-field-error": "",
-    "data-fs-error": errorAttr
-  };
-  $$payload.out += `<!--[-->`;
-  if (asChild) {
-    $$payload.out += `<!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get errors() {
-          return store_get($$store_subs ??= {}, "$errors", errors);
-        },
-        get fieldErrorsAttrs() {
-          return fieldErrorsAttrs;
-        },
-        get errorAttrs() {
-          return errorAttrs;
-        }
-      },
-      null
-    );
-    $$payload.out += `<!--]-->`;
-    $$payload.out += "<!--]-->";
-  } else {
-    $$payload.out += `<div${spread_attributes({ ...fieldErrorsAttrs })}><!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get errors() {
-          return store_get($$store_subs ??= {}, "$errors", errors);
-        },
-        get fieldErrorsAttrs() {
-          return fieldErrorsAttrs;
-        },
-        get errorAttrs() {
-          return errorAttrs;
-        }
-      },
-      () => {
-        const each_array = ensure_array_like(store_get($$store_subs ??= {}, "$errors", errors));
-        $$payload.out += `<!--[-->`;
-        for (let $$index = 0; $$index < each_array.length; $$index++) {
-          const error2 = each_array[$$index];
-          $$payload.out += "<!--[-->";
-          $$payload.out += `<div${spread_attributes({ ...errorAttrs })}>${escape_html(error2)}</div>`;
-          $$payload.out += "<!--]-->";
-        }
-        $$payload.out += "<!--]-->";
-      }
-    );
-    $$payload.out += `<!--]--></div>`;
-    $$payload.out += "<!--]!-->";
-  }
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { id, asChild, el });
-  pop();
-}
-function Label($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Label$1($$payload, spread_props([
-    {
-      class: cn("text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className });
-  pop();
-}
-function Form_label($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class"]);
-  push();
-  var $$store_subs;
-  let className = value_or_fallback($$props["class"], () => void 0);
-  const { labelAttrs } = getFormControl();
-  $$payload.out += `<!--[-->`;
-  Label($$payload, spread_props([
-    store_get($$store_subs ??= {}, "$labelAttrs", labelAttrs),
-    {
-      class: cn("data-[fs-error]:text-destructive", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), { labelAttrs }, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { class: className });
-  pop();
-}
-function Form_field_errors($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "errorClasses"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let errorClasses = value_or_fallback($$props["errorClasses"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Field_errors($$payload, spread_props([
-    {
-      class: cn("text-[0.8rem] font-medium text-destructive", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        const errors = $$slotProps.errors;
-        const fieldErrorsAttrs = $$slotProps.fieldErrorsAttrs;
-        const errorAttrs = $$slotProps.errorAttrs;
-        $$payload2.out += `<!--[-->`;
-        slot(
-          $$payload2,
-          default_slot($$props),
-          {
-            get errors() {
-              return errors;
-            },
-            get fieldErrorsAttrs() {
-              return fieldErrorsAttrs;
-            },
-            get errorAttrs() {
-              return errorAttrs;
-            }
-          },
-          () => {
-            const each_array = ensure_array_like(errors);
-            $$payload2.out += `<!--[-->`;
-            for (let $$index = 0; $$index < each_array.length; $$index++) {
-              const error2 = each_array[$$index];
-              $$payload2.out += "<!--[-->";
-              $$payload2.out += `<div${spread_attributes({ ...errorAttrs, class: cn(errorClasses) })}>${escape_html(error2)}</div>`;
-              $$payload2.out += "<!--]-->";
-            }
-            $$payload2.out += "<!--]-->";
-          }
-        );
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, errorClasses });
-  pop();
-}
-function Form_field($$payload, $$props) {
-  push();
-  let form = $$props["form"];
-  let name3 = $$props["name"];
-  let className = value_or_fallback($$props["class"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Field($$payload, {
-    form,
-    name: name3,
-    children: ($$payload2, $$slotProps) => {
-      const constraints2 = $$slotProps.constraints;
-      const errors = $$slotProps.errors;
-      const tainted = $$slotProps.tainted;
-      const value = $$slotProps.value;
-      $$payload2.out += `<div${attr("class", cn("space-y-2", className), false)}><!--[-->`;
-      slot(
-        $$payload2,
-        default_slot($$props),
-        {
-          get constraints() {
-            return constraints2;
-          },
-          get errors() {
-            return errors;
-          },
-          get tainted() {
-            return tainted;
-          },
-          get value() {
-            return value;
-          }
-        },
-        null
-      );
-      $$payload2.out += `<!--]--></div>`;
-    },
-    $$slots: { default: true }
-  });
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { form, name: name3, class: className });
-  pop();
-}
-function Loader_circle($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "path",
-      { "d": "M21 12a9 9 0 1 1-6.219-8.56" }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "loader-circle" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-var FORM_FIELD, FORM_CONTROL, Control;
-var init_loader_circle = __esm({
-  ".svelte-kit/output/server/chunks/loader-circle.js"() {
-    init_index2();
-    init_input();
-    init_misc();
-    init_chunks();
-    init_clsx();
-    FORM_FIELD = Symbol("FORM_FIELD_CTX");
-    FORM_CONTROL = Symbol("FORM_CONTROL_CTX");
-    Control = Control$1;
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(app)/_page.svelte.js
-var page_svelte_exports = {};
-__export(page_svelte_exports, {
-  default: () => _page
+// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.svelte.js
+var page_svelte_exports5 = {};
+__export(page_svelte_exports5, {
+  default: () => _page5
 });
 function getAvatarData() {
   const NAME = "avatar";
@@ -70966,7 +72067,7 @@ function Avatar_fallback($$payload, $$props) {
   bind_props($$props, { class: className });
   pop();
 }
-function _page($$payload, $$props) {
+function _page5($$payload, $$props) {
   push();
   var $$store_subs;
   let { data } = $$props;
@@ -71103,7 +72204,7 @@ function _page($$payload, $$props) {
                         $$payload7.out += `<!--]--> <!--[-->`;
                         Dialog_description($$payload7, {
                           children: ($$payload8, $$slotProps6) => {
-                            $$payload8.out += `Get started with a new tenant.`;
+                            $$payload8.out += `Get started with a new organisation.`;
                           },
                           $$slots: { default: true }
                         });
@@ -71257,9 +72358,9 @@ function _page($$payload, $$props) {
   pop();
 }
 var defaults5, createAvatar, Root4, Trigger2;
-var init_page_svelte = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(app)/_page.svelte.js"() {
-    init_index2();
+var init_page_svelte5 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.svelte.js"() {
+    init_index3();
     init_public();
     init_stores();
     init_input();
@@ -71269,9 +72370,9 @@ var init_page_svelte = __esm({
     init_auto_animate();
     init_tenants();
     init_compile();
-    init_stringify();
-    init_loader_circle();
     init_chunks();
+    init_loader_circle();
+    init_index2();
     defaults5 = {
       src: "",
       delayMs: 0,
@@ -71341,1049 +72442,6 @@ var init_page_svelte = __esm({
   }
 });
 
-// .svelte-kit/output/server/nodes/5.js
-var __exports6 = {};
-__export(__exports6, {
-  component: () => component6,
-  fonts: () => fonts6,
-  imports: () => imports6,
-  index: () => index6,
-  server: () => page_server_ts_exports,
-  server_id: () => server_id,
-  stylesheets: () => stylesheets6
-});
-var index6, component_cache6, component6, server_id, imports6, stylesheets6, fonts6;
-var init__6 = __esm({
-  ".svelte-kit/output/server/nodes/5.js"() {
-    init_page_server_ts();
-    index6 = 5;
-    component6 = async () => component_cache6 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
-    server_id = "src/routes/(app)/app/(app)/+page.server.ts";
-    imports6 = ["_app/immutable/nodes/5.BxN_psG6.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/proxy.CWUcgEVT.js", "_app/immutable/chunks/props.CmQlWkzM.js", "_app/immutable/chunks/input.BClCcs7e.js", "_app/immutable/chunks/store.8_cb63oe.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/chunks/misc.BiTUdHK9.js", "_app/immutable/chunks/index-client.CCsP1WCV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/stores.nPbfya8O.js", "_app/immutable/chunks/entry.cYRX-S8F.js", "_app/immutable/chunks/Cross2.BwJBEsMS.js", "_app/immutable/chunks/loader-circle.CYNrrA7n.js"];
-    stylesheets6 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts6 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(app)/_tenant_slug_/_page.svelte.js
-var page_svelte_exports2 = {};
-__export(page_svelte_exports2, {
-  default: () => _page2
-});
-function _page2($$payload) {
-}
-var init_page_svelte2 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(app)/_tenant_slug_/_page.svelte.js"() {
-  }
-});
-
-// .svelte-kit/output/server/nodes/6.js
-var __exports7 = {};
-__export(__exports7, {
-  component: () => component7,
-  fonts: () => fonts7,
-  imports: () => imports7,
-  index: () => index7,
-  stylesheets: () => stylesheets7
-});
-var index7, component_cache7, component7, imports7, stylesheets7, fonts7;
-var init__7 = __esm({
-  ".svelte-kit/output/server/nodes/6.js"() {
-    index7 = 6;
-    component7 = async () => component_cache7 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
-    imports7 = ["_app/immutable/nodes/6.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
-    stylesheets7 = [];
-    fonts7 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.server.ts.js
-var page_server_ts_exports2 = {};
-__export(page_server_ts_exports2, {
-  actions: () => actions2,
-  load: () => load2
-});
-var load2, actions2;
-var init_page_server_ts2 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.server.ts.js"() {
-    init_stores();
-    init_compile();
-    init_stringify();
-    init_superValidate();
-    init_tenants();
-    init_index3();
-    init_drizzle_orm();
-    load2 = async () => {
-      return {
-        form: await superValidate(zod(sign_in_email_schema))
-      };
-    };
-    actions2 = {
-      "sign-in-email": async (event) => {
-        const form = await superValidate(event, zod(sign_in_email_schema));
-        if (!form.valid) {
-          return fail(400, {
-            form
-          });
-        }
-        const user = await event.locals.db.query.users_table.findFirst({
-          where: eq(users_table.email, form.data.email)
-        });
-        if (!user) {
-          redirect(302, `/sign-up?email=${form.data.email}`);
-        }
-        const email_verification_token = await generateEmailVerificationToken(event, user);
-        if (!email_verification_token) {
-          return setError(form, "", "Could not generate email verification token");
-        }
-        {
-          redirect(302, `/verification/?email=${email_verification_token.email}`);
-        }
-      }
-    };
-  }
-});
-
-// .svelte-kit/output/server/chunks/auth-card.js
-function Auth_card($$payload, $$props) {
-  push();
-  let { children, title, description } = $$props;
-  $$payload.out += `<!--[-->`;
-  Card($$payload, {
-    class: "mx-auto w-full max-w-sm",
-    children: ($$payload2, $$slotProps) => {
-      $$payload2.out += `<!--[-->`;
-      Card_header($$payload2, {
-        children: ($$payload3, $$slotProps2) => {
-          $$payload3.out += `<!--[-->`;
-          Card_title($$payload3, {
-            class: "text-xl",
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `${escape_html(title)}`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]--> <!--[-->`;
-          Card_description($$payload3, {
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `${escape_html(description)}`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]-->`;
-        },
-        $$slots: { default: true }
-      });
-      $$payload2.out += `<!--]--> <!--[-->`;
-      Card_content($$payload2, {
-        children: ($$payload3, $$slotProps2) => {
-          $$payload3.out += `<!--[-->`;
-          children($$payload3);
-          $$payload3.out += `<!--]-->`;
-        },
-        $$slots: { default: true }
-      });
-      $$payload2.out += `<!--]-->`;
-    },
-    $$slots: { default: true }
-  });
-  $$payload.out += `<!--]-->`;
-  pop();
-}
-var init_auth_card = __esm({
-  ".svelte-kit/output/server/chunks/auth-card.js"() {
-    init_index2();
-    init_input();
-    init_card_description();
-    init_clsx();
-  }
-});
-
-// .svelte-kit/output/server/chunks/form-errors.js
-function Alert($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "variant"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let variant = value_or_fallback($$props["variant"], () => "default");
-  $$payload.out += `<div${spread_attributes({
-    class: cn(alertVariants({ variant }), className),
-    ...$$restProps,
-    role: "alert"
-  })}><!--[-->`;
-  slot($$payload, default_slot($$props), {}, null);
-  $$payload.out += `<!--]--></div>`;
-  bind_props($$props, { class: className, variant });
-  pop();
-}
-function Alert_description($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  $$payload.out += `<div${spread_attributes({
-    class: cn("text-sm [&_p]:leading-relaxed", className),
-    ...$$restProps
-  })}><!--[-->`;
-  slot($$payload, default_slot($$props), {}, null);
-  $$payload.out += `<!--]--></div>`;
-  bind_props($$props, { class: className });
-  pop();
-}
-function Alert_title($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "level"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let level = value_or_fallback($$props["level"], () => "h5");
-  $$payload.out += `<!--[-->`;
-  if (level)
-    element(
-      $$payload,
-      level,
-      () => {
-        $$payload.out += `${spread_attributes({
-          class: cn("mb-1 font-medium leading-none tracking-tight", className),
-          ...$$restProps
-        })}`;
-      },
-      () => {
-        $$payload.out += `<!--[-->`;
-        slot($$payload, default_slot($$props), {}, null);
-        $$payload.out += `<!--]-->`;
-      }
-    );
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, level });
-  pop();
-}
-function Circle_alert($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "circle",
-      { "cx": "12", "cy": "12", "r": "10" }
-    ],
-    [
-      "line",
-      {
-        "x1": "12",
-        "x2": "12",
-        "y1": "8",
-        "y2": "12"
-      }
-    ],
-    [
-      "line",
-      {
-        "x1": "12",
-        "x2": "12.01",
-        "y1": "16",
-        "y2": "16"
-      }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "circle-alert" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Form_errors($$payload, $$props) {
-  let { errors } = $$props;
-  $$payload.out += `<!--[-->`;
-  if (errors) {
-    $$payload.out += `<!--[-->`;
-    Alert($$payload, {
-      variant: "destructive",
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        Circle_alert($$payload2, { class: "h-4 w-4" });
-        $$payload2.out += `<!--]--> <!--[-->`;
-        Alert_title($$payload2, {
-          children: ($$payload3, $$slotProps2) => {
-            $$payload3.out += `Error`;
-          },
-          $$slots: { default: true }
-        });
-        $$payload2.out += `<!--]--> <!--[-->`;
-        Alert_description($$payload2, {
-          children: ($$payload3, $$slotProps2) => {
-            const each_array = ensure_array_like(errors);
-            $$payload3.out += `<ul><!--[-->`;
-            for (let $$index = 0; $$index < each_array.length; $$index++) {
-              const _error = each_array[$$index];
-              $$payload3.out += "<!--[-->";
-              $$payload3.out += `<li>${escape_html(_error)}</li>`;
-              $$payload3.out += "<!--]-->";
-            }
-            $$payload3.out += "<!--]-->";
-            $$payload3.out += `</ul>`;
-          },
-          $$slots: { default: true }
-        });
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    });
-    $$payload.out += `<!--]-->`;
-    $$payload.out += "<!--]-->";
-  } else {
-    $$payload.out += "<!--]!-->";
-  }
-}
-var alertVariants;
-var init_form_errors = __esm({
-  ".svelte-kit/output/server/chunks/form-errors.js"() {
-    init_index2();
-    init_dist6();
-    init_clsx();
-    init_input();
-    init_misc();
-    alertVariants = ce({
-      base: "relative w-full rounded-lg border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
-      variants: {
-        variant: {
-          default: "bg-background text-foreground",
-          destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive"
-        }
-      },
-      defaultVariants: {
-        variant: "default"
-      }
-    });
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.svelte.js
-var page_svelte_exports3 = {};
-__export(page_svelte_exports3, {
-  default: () => _page3
-});
-function _page3($$payload, $$props) {
-  push();
-  var $$store_subs;
-  let { data } = $$props;
-  const form = superForm(data.form, {
-    validators: zodClient(sign_in_email_schema)
-  });
-  const {
-    form: formData,
-    enhance: enhance2,
-    errors,
-    delayed,
-    submitting
-  } = form;
-  let $$settled = true;
-  let $$inner_payload;
-  function $$render_inner($$payload2) {
-    head($$payload2, ($$payload3) => {
-      $$payload3.title = "<title>";
-      $$payload3.title += `Sign In | ${escape_html(PUBLIC_APP_NAME)}</title>`;
-    });
-    $$payload2.out += `<!--[-->`;
-    Auth_card($$payload2, {
-      title: "Login",
-      description: "Enter your email below to login to your account",
-      children: ($$payload3, $$slotProps) => {
-        $$payload3.out += `<form method="POST" action="?/sign-in-email" class="grid gap-4"><!--[-->`;
-        Form_field($$payload3, {
-          form,
-          name: "email",
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `<!--[-->`;
-            Control($$payload4, {
-              children: ($$payload5, $$slotProps3) => {
-                const attrs = $$slotProps3.attrs;
-                $$payload5.out += `<!--[-->`;
-                Form_label($$payload5, {
-                  children: ($$payload6, $$slotProps4) => {
-                    $$payload6.out += `Email`;
-                  },
-                  $$slots: { default: true }
-                });
-                $$payload5.out += `<!--]--> <!--[-->`;
-                Input($$payload5, spread_props([
-                  attrs,
-                  {
-                    get value() {
-                      return store_get($$store_subs ??= {}, "$formData", formData).email;
-                    },
-                    set value($$value) {
-                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).email = $$value);
-                      $$settled = false;
-                    },
-                    placeholder: "m@example.com"
-                  }
-                ]));
-                $$payload5.out += `<!--]-->`;
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            if (store_get($$store_subs ??= {}, "$errors", errors).email?.length) {
-              $$payload4.out += `<!--[-->`;
-              Form_field_errors($$payload4, {});
-              $$payload4.out += `<!--]-->`;
-              $$payload4.out += "<!--]-->";
-            } else {
-              $$payload4.out += "<!--]!-->";
-            }
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--> <!--[-->`;
-        Form_errors($$payload3, {
-          errors: store_get($$store_subs ??= {}, "$errors", errors)._errors
-        });
-        $$payload3.out += `<!--]--> <!--[-->`;
-        Button($$payload3, {
-          type: "submit",
-          class: "w-full",
-          disabled: store_get($$store_subs ??= {}, "$submitting", submitting),
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `Login<!--[-->`;
-            if (store_get($$store_subs ??= {}, "$delayed", delayed)) {
-              $$payload4.out += `<!--[-->`;
-              Loader_circle($$payload4, { class: "ml-2 size-4 animate-spin" });
-              $$payload4.out += `<!--]-->`;
-              $$payload4.out += "<!--]-->";
-            } else {
-              $$payload4.out += "<!--]!-->";
-            }
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--></form> <div class="mt-4 text-center text-sm">Don't have an account? <a href="/sign-up" class="underline">Sign up</a></div>`;
-      },
-      $$slots: { default: true }
-    });
-    $$payload2.out += `<!--]-->`;
-  }
-  do {
-    $$settled = true;
-    $$inner_payload = copy_payload($$payload);
-    $$render_inner($$inner_payload);
-  } while (!$$settled);
-  assign_payload($$payload, $$inner_payload);
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  pop();
-}
-var init_page_svelte3 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.svelte.js"() {
-    init_index2();
-    init_public();
-    init_input();
-    init_auth_card();
-    init_stores();
-    init_compile();
-    init_stringify();
-    init_tenants();
-    init_loader_circle();
-    init_form_errors();
-  }
-});
-
-// .svelte-kit/output/server/nodes/7.js
-var __exports8 = {};
-__export(__exports8, {
-  component: () => component8,
-  fonts: () => fonts8,
-  imports: () => imports8,
-  index: () => index8,
-  server: () => page_server_ts_exports2,
-  server_id: () => server_id2,
-  stylesheets: () => stylesheets8
-});
-var index8, component_cache8, component8, server_id2, imports8, stylesheets8, fonts8;
-var init__8 = __esm({
-  ".svelte-kit/output/server/nodes/7.js"() {
-    init_page_server_ts2();
-    index8 = 7;
-    component8 = async () => component_cache8 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
-    server_id2 = "src/routes/(app)/app/(auth)/sign-in/+page.server.ts";
-    imports8 = ["_app/immutable/nodes/7.9-yG0bnh.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/props.CmQlWkzM.js", "_app/immutable/chunks/input.BClCcs7e.js", "_app/immutable/chunks/store.8_cb63oe.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/chunks/misc.BiTUdHK9.js", "_app/immutable/chunks/index-client.CCsP1WCV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/auth-card.BLbc97ap.js", "_app/immutable/chunks/snippet.Cg3NYvmz.js", "_app/immutable/chunks/card-description.DKt6GwEo.js", "_app/immutable/chunks/entry.cYRX-S8F.js", "_app/immutable/chunks/loader-circle.CYNrrA7n.js", "_app/immutable/chunks/stores.nPbfya8O.js", "_app/immutable/chunks/form-errors.CFPo42oI.js"];
-    stylesheets8 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts8 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.svelte.js
-var page_svelte_exports4 = {};
-__export(page_svelte_exports4, {
-  default: () => _page4
-});
-function _page4($$payload) {
-}
-var init_page_svelte4 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.svelte.js"() {
-  }
-});
-
-// .svelte-kit/output/server/nodes/8.js
-var __exports9 = {};
-__export(__exports9, {
-  component: () => component9,
-  fonts: () => fonts9,
-  imports: () => imports9,
-  index: () => index9,
-  stylesheets: () => stylesheets9
-});
-var index9, component_cache9, component9, imports9, stylesheets9, fonts9;
-var init__9 = __esm({
-  ".svelte-kit/output/server/nodes/8.js"() {
-    index9 = 8;
-    component9 = async () => component_cache9 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
-    imports9 = ["_app/immutable/nodes/8.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
-    stylesheets9 = [];
-    fonts9 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js
-var page_server_ts_exports3 = {};
-__export(page_server_ts_exports3, {
-  actions: () => actions3,
-  load: () => load3
-});
-var load3, actions3;
-var init_page_server_ts3 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js"() {
-    init_stores();
-    init_compile();
-    init_stringify();
-    init_superValidate();
-    init_tenants();
-    init_index3();
-    init_drizzle_orm();
-    load3 = async (event) => {
-      return {
-        form: await superValidate(
-          { email: event.url.searchParams.get("email") ?? void 0 },
-          zod(sign_up_email_schema),
-          { errors: false }
-        )
-      };
-    };
-    actions3 = {
-      "sign-up-email": async (event) => {
-        const form = await superValidate(event, zod(sign_up_email_schema));
-        if (!form.valid) {
-          return fail(400, {
-            form
-          });
-        }
-        const user = await event.locals.db.query.users_table.findFirst({
-          where: eq(users_table.email, form.data.email)
-        });
-        if (user) {
-          return setError(form, "", "User already exist. Try to sign in instead.");
-        }
-        const [new_user] = await event.locals.db.insert(users_table).values({
-          ...form.data,
-          avatar_url: `https://api.dicebear.com/8.x/rings/svg?seed=${form.data.email}`
-        }).returning();
-        if (!new_user) {
-          error(400, "Could not create user");
-        }
-        const email_verification_token = await generateEmailVerificationToken(event, new_user);
-        if (!email_verification_token) {
-          error(400, "Could not generate email verification token");
-        }
-        {
-          redirect(302, `/verification/?email=${email_verification_token.email}`);
-        }
-      }
-    };
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.svelte.js
-var page_svelte_exports5 = {};
-__export(page_svelte_exports5, {
-  default: () => _page5
-});
-function _page5($$payload, $$props) {
-  push();
-  var $$store_subs;
-  let { data } = $$props;
-  const form = superForm(data.form, {
-    validators: zodClient(sign_up_email_schema)
-  });
-  const {
-    form: formData,
-    enhance: enhance2,
-    errors,
-    delayed,
-    submitting
-  } = form;
-  let $$settled = true;
-  let $$inner_payload;
-  function $$render_inner($$payload2) {
-    head($$payload2, ($$payload3) => {
-      $$payload3.title = "<title>";
-      $$payload3.title += `Sign Up | ${escape_html(PUBLIC_APP_NAME)}</title>`;
-    });
-    $$payload2.out += `<!--[-->`;
-    Auth_card($$payload2, {
-      title: "Sign Up",
-      description: "Enter your information to create an account",
-      children: ($$payload3, $$slotProps) => {
-        $$payload3.out += `<form method="POST" action="?/sign-up-email" class="grid gap-4"><div class="grid grid-cols-2 gap-4"><!--[-->`;
-        Form_field($$payload3, {
-          form,
-          name: "first_name",
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `<!--[-->`;
-            Control($$payload4, {
-              children: ($$payload5, $$slotProps3) => {
-                const attrs = $$slotProps3.attrs;
-                $$payload5.out += `<!--[-->`;
-                Form_label($$payload5, {
-                  children: ($$payload6, $$slotProps4) => {
-                    $$payload6.out += `First name`;
-                  },
-                  $$slots: { default: true }
-                });
-                $$payload5.out += `<!--]--> <!--[-->`;
-                Input($$payload5, spread_props([
-                  attrs,
-                  {
-                    get value() {
-                      return store_get($$store_subs ??= {}, "$formData", formData).first_name;
-                    },
-                    set value($$value) {
-                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).first_name = $$value);
-                      $$settled = false;
-                    },
-                    placeholder: "John"
-                  }
-                ]));
-                $$payload5.out += `<!--]-->`;
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            if (store_get($$store_subs ??= {}, "$errors", errors).first_name?.length) {
-              $$payload4.out += `<!--[-->`;
-              Form_field_errors($$payload4, {});
-              $$payload4.out += `<!--]-->`;
-              $$payload4.out += "<!--]-->";
-            } else {
-              $$payload4.out += "<!--]!-->";
-            }
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--> <!--[-->`;
-        Form_field($$payload3, {
-          form,
-          name: "last_name",
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `<!--[-->`;
-            Control($$payload4, {
-              children: ($$payload5, $$slotProps3) => {
-                const attrs = $$slotProps3.attrs;
-                $$payload5.out += `<!--[-->`;
-                Form_label($$payload5, {
-                  children: ($$payload6, $$slotProps4) => {
-                    $$payload6.out += `Last name`;
-                  },
-                  $$slots: { default: true }
-                });
-                $$payload5.out += `<!--]--> <!--[-->`;
-                Input($$payload5, spread_props([
-                  attrs,
-                  {
-                    get value() {
-                      return store_get($$store_subs ??= {}, "$formData", formData).last_name;
-                    },
-                    set value($$value) {
-                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).last_name = $$value);
-                      $$settled = false;
-                    },
-                    placeholder: "Doe"
-                  }
-                ]));
-                $$payload5.out += `<!--]-->`;
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            if (store_get($$store_subs ??= {}, "$errors", errors).last_name?.length) {
-              $$payload4.out += `<!--[-->`;
-              Form_field_errors($$payload4, {});
-              $$payload4.out += `<!--]-->`;
-              $$payload4.out += "<!--]-->";
-            } else {
-              $$payload4.out += "<!--]!-->";
-            }
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--></div> <!--[-->`;
-        Form_field($$payload3, {
-          form,
-          name: "email",
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `<!--[-->`;
-            Control($$payload4, {
-              children: ($$payload5, $$slotProps3) => {
-                const attrs = $$slotProps3.attrs;
-                $$payload5.out += `<!--[-->`;
-                Form_label($$payload5, {
-                  children: ($$payload6, $$slotProps4) => {
-                    $$payload6.out += `Email`;
-                  },
-                  $$slots: { default: true }
-                });
-                $$payload5.out += `<!--]--> <!--[-->`;
-                Input($$payload5, spread_props([
-                  attrs,
-                  {
-                    get value() {
-                      return store_get($$store_subs ??= {}, "$formData", formData).email;
-                    },
-                    set value($$value) {
-                      mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).email = $$value);
-                      $$settled = false;
-                    },
-                    placeholder: "m@example.com"
-                  }
-                ]));
-                $$payload5.out += `<!--]-->`;
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            if (store_get($$store_subs ??= {}, "$errors", errors).email?.length) {
-              $$payload4.out += `<!--[-->`;
-              Form_field_errors($$payload4, {});
-              $$payload4.out += `<!--]-->`;
-              $$payload4.out += "<!--]-->";
-            } else {
-              $$payload4.out += "<!--]!-->";
-            }
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--> <!--[-->`;
-        Form_errors($$payload3, {
-          errors: store_get($$store_subs ??= {}, "$errors", errors)._errors
-        });
-        $$payload3.out += `<!--]--> <!--[-->`;
-        Button($$payload3, {
-          type: "submit",
-          class: "w-full",
-          disabled: store_get($$store_subs ??= {}, "$submitting", submitting),
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `Create an account<!--[-->`;
-            if (store_get($$store_subs ??= {}, "$delayed", delayed)) {
-              $$payload4.out += `<!--[-->`;
-              Loader_circle($$payload4, { class: "ml-2 size-4 animate-spin" });
-              $$payload4.out += `<!--]-->`;
-              $$payload4.out += "<!--]-->";
-            } else {
-              $$payload4.out += "<!--]!-->";
-            }
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--></form> <div class="mt-4 text-center text-sm">Already have an account? <a href="/sign-in" class="underline">Sign in</a></div>`;
-      },
-      $$slots: { default: true }
-    });
-    $$payload2.out += `<!--]-->`;
-  }
-  do {
-    $$settled = true;
-    $$inner_payload = copy_payload($$payload);
-    $$render_inner($$inner_payload);
-  } while (!$$settled);
-  assign_payload($$payload, $$inner_payload);
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  pop();
-}
-var init_page_svelte5 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.svelte.js"() {
-    init_index2();
-    init_public();
-    init_input();
-    init_tenants();
-    init_stores();
-    init_compile();
-    init_stringify();
-    init_auth_card();
-    init_loader_circle();
-    init_form_errors();
-  }
-});
-
-// .svelte-kit/output/server/nodes/9.js
-var __exports10 = {};
-__export(__exports10, {
-  component: () => component10,
-  fonts: () => fonts10,
-  imports: () => imports10,
-  index: () => index10,
-  server: () => page_server_ts_exports3,
-  server_id: () => server_id3,
-  stylesheets: () => stylesheets10
-});
-var index10, component_cache10, component10, server_id3, imports10, stylesheets10, fonts10;
-var init__10 = __esm({
-  ".svelte-kit/output/server/nodes/9.js"() {
-    init_page_server_ts3();
-    index10 = 9;
-    component10 = async () => component_cache10 ??= (await Promise.resolve().then(() => (init_page_svelte5(), page_svelte_exports5))).default;
-    server_id3 = "src/routes/(app)/app/(auth)/sign-up/+page.server.ts";
-    imports10 = ["_app/immutable/nodes/9.Dqx6xLJT.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/props.CmQlWkzM.js", "_app/immutable/chunks/input.BClCcs7e.js", "_app/immutable/chunks/store.8_cb63oe.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/chunks/misc.BiTUdHK9.js", "_app/immutable/chunks/index-client.CCsP1WCV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/loader-circle.CYNrrA7n.js", "_app/immutable/chunks/stores.nPbfya8O.js", "_app/immutable/chunks/entry.cYRX-S8F.js", "_app/immutable/chunks/auth-card.BLbc97ap.js", "_app/immutable/chunks/snippet.Cg3NYvmz.js", "_app/immutable/chunks/card-description.DKt6GwEo.js", "_app/immutable/chunks/form-errors.CFPo42oI.js"];
-    stylesheets10 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts10 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.server.ts.js
-var page_server_ts_exports4 = {};
-__export(page_server_ts_exports4, {
-  actions: () => actions4,
-  load: () => load4
-});
-var load4, actions4;
-var init_page_server_ts4 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.server.ts.js"() {
-    init_stores();
-    init_compile();
-    init_stringify();
-    init_superValidate();
-    init_tenants();
-    init_drizzle_orm();
-    load4 = async (event) => {
-      return {
-        form: await superValidate(
-          {
-            email: event.url.searchParams.get("email") ?? void 0,
-            code: event.url.searchParams.get("code") ?? void 0
-          },
-          zod(verification_schema),
-          { errors: false }
-        )
-      };
-    };
-    actions4 = {
-      verify: async (event) => {
-        const form = await superValidate(event, zod(verification_schema));
-        if (!form.valid) {
-          return fail(400, {
-            form
-          });
-        }
-        const email_verification_token = await event.locals.db.query.email_verification_tokens_table.findFirst({
-          where: and(
-            eq(email_verification_tokens_table.code, form.data.code),
-            eq(email_verification_tokens_table.email, form.data.email)
-          )
-        });
-        if (!email_verification_token || !email_verification_token.created_at) {
-          return setError(form, "", "Invalid OTP code");
-        }
-        if (new Date((/* @__PURE__ */ new Date()).getTime() + 5 * 6e4) < new Date(email_verification_token.created_at)) {
-          return setError(form, "", "OTP code expired");
-        }
-        await event.locals.db.delete(email_verification_tokens_table).where(eq(email_verification_tokens_table.id, email_verification_token.id));
-        const user = await event.locals.db.query.users_table.findFirst({
-          where: eq(users_table.id, email_verification_token.user_id)
-        });
-        if (!user) {
-          return setError(form, "", "Invalid user");
-        }
-        if (user && user.email !== email_verification_token.email) {
-          return setError(form, "", "User email mismatch");
-        }
-        await event.locals.db.update(users_table).set({ email_verified: true }).where(eq(users_table.id, user.id));
-        const session = await event.locals.lucia.createSession(user.id, {
-          user_agent: event.request.headers.get("user-agent")
-        });
-        const sessionCookie = event.locals.lucia.createSessionCookie(session.id);
-        event.cookies.set(sessionCookie.name, sessionCookie.value, {
-          path: ".",
-          ...sessionCookie.attributes
-        });
-        redirect(302, "/");
-      }
-    };
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.svelte.js
-var page_svelte_exports6 = {};
-__export(page_svelte_exports6, {
-  default: () => _page6
-});
-function _page6($$payload, $$props) {
-  push();
-  var $$store_subs;
-  let { data } = $$props;
-  const form = superForm(data.form, { validators: zodClient(verification_schema) });
-  const {
-    form: formData,
-    enhance: enhance2,
-    errors,
-    delayed,
-    submitting
-  } = form;
-  let $$settled = true;
-  let $$inner_payload;
-  function $$render_inner($$payload2) {
-    head($$payload2, ($$payload3) => {
-      $$payload3.title = "<title>";
-      $$payload3.title += `2-Step Verification | ${escape_html(PUBLIC_APP_NAME)}</title>`;
-    });
-    $$payload2.out += `<!--[-->`;
-    Card($$payload2, {
-      class: "mx-auto w-full max-w-sm",
-      children: ($$payload3, $$slotProps) => {
-        $$payload3.out += `<!--[-->`;
-        Card_header($$payload3, {
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `<!--[-->`;
-            Card_title($$payload4, {
-              class: "text-xl",
-              children: ($$payload5, $$slotProps3) => {
-                $$payload5.out += `2-Step Verification`;
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            Card_description($$payload4, {
-              class: "space-y-1",
-              children: ($$payload5, $$slotProps3) => {
-                $$payload5.out += `<p>We sent a verification code to your email <strong>${escape_html(store_get($$store_subs ??= {}, "$formData", formData).email)}</strong>.</p> <p>Enter the code from the email in the field below.</p>`;
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]-->`;
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]--> <!--[-->`;
-        Card_content($$payload3, {
-          children: ($$payload4, $$slotProps2) => {
-            $$payload4.out += `<form method="POST" action="?/verify" class="grid gap-4"><input type="text"${attr("value", store_get($$store_subs ??= {}, "$formData", formData).email, false)} name="email" hidden> <!--[-->`;
-            Form_field($$payload4, {
-              form,
-              name: "code",
-              children: ($$payload5, $$slotProps3) => {
-                $$payload5.out += `<!--[-->`;
-                Control($$payload5, {
-                  children: ($$payload6, $$slotProps4) => {
-                    const attrs = $$slotProps4.attrs;
-                    $$payload6.out += `<!--[-->`;
-                    Form_label($$payload6, {
-                      children: ($$payload7, $$slotProps5) => {
-                        $$payload7.out += `OTP Code`;
-                      },
-                      $$slots: { default: true }
-                    });
-                    $$payload6.out += `<!--]--> <!--[-->`;
-                    Input($$payload6, spread_props([
-                      attrs,
-                      {
-                        get value() {
-                          return store_get($$store_subs ??= {}, "$formData", formData).code;
-                        },
-                        set value($$value) {
-                          mutate_store($$store_subs ??= {}, "$formData", formData, store_get($$store_subs ??= {}, "$formData", formData).code = $$value);
-                          $$settled = false;
-                        }
-                      }
-                    ]));
-                    $$payload6.out += `<!--]-->`;
-                  },
-                  $$slots: { default: true }
-                });
-                $$payload5.out += `<!--]--> <!--[-->`;
-                if (store_get($$store_subs ??= {}, "$errors", errors).code?.length) {
-                  $$payload5.out += `<!--[-->`;
-                  Form_field_errors($$payload5, {});
-                  $$payload5.out += `<!--]-->`;
-                  $$payload5.out += "<!--]-->";
-                } else {
-                  $$payload5.out += "<!--]!-->";
-                }
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            Form_errors($$payload4, {
-              errors: store_get($$store_subs ??= {}, "$errors", errors)._errors
-            });
-            $$payload4.out += `<!--]--> <!--[-->`;
-            Button($$payload4, {
-              type: "submit",
-              class: "w-full",
-              disabled: store_get($$store_subs ??= {}, "$submitting", submitting),
-              children: ($$payload5, $$slotProps3) => {
-                $$payload5.out += `Verify<!--[-->`;
-                if (store_get($$store_subs ??= {}, "$delayed", delayed)) {
-                  $$payload5.out += `<!--[-->`;
-                  Loader_circle($$payload5, { class: "ml-2 size-4 animate-spin" });
-                  $$payload5.out += `<!--]-->`;
-                  $$payload5.out += "<!--]-->";
-                } else {
-                  $$payload5.out += "<!--]!-->";
-                }
-              },
-              $$slots: { default: true }
-            });
-            $$payload4.out += `<!--]--></form> <div class="mt-4 text-center text-sm">Didn't receive an email? <a href="/sign-in" class="underline">Resend</a></div>`;
-          },
-          $$slots: { default: true }
-        });
-        $$payload3.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    });
-    $$payload2.out += `<!--]-->`;
-  }
-  do {
-    $$settled = true;
-    $$inner_payload = copy_payload($$payload);
-    $$render_inner($$inner_payload);
-  } while (!$$settled);
-  assign_payload($$payload, $$inner_payload);
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  pop();
-}
-var init_page_svelte6 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.svelte.js"() {
-    init_index2();
-    init_public();
-    init_input();
-    init_card_description();
-    init_clsx();
-    init_stores();
-    init_compile();
-    init_stringify();
-    init_tenants();
-    init_loader_circle();
-    init_form_errors();
-  }
-});
-
 // .svelte-kit/output/server/nodes/10.js
 var __exports11 = {};
 __export(__exports11, {
@@ -72400,11 +72458,62 @@ var init__11 = __esm({
   ".svelte-kit/output/server/nodes/10.js"() {
     init_page_server_ts4();
     index11 = 10;
-    component11 = async () => component_cache11 ??= (await Promise.resolve().then(() => (init_page_svelte6(), page_svelte_exports6))).default;
-    server_id4 = "src/routes/(app)/app/(auth)/verification/+page.server.ts";
-    imports11 = ["_app/immutable/nodes/10.ABXbx5u_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/props.CmQlWkzM.js", "_app/immutable/chunks/input.BClCcs7e.js", "_app/immutable/chunks/store.8_cb63oe.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/chunks/misc.BiTUdHK9.js", "_app/immutable/chunks/index-client.CCsP1WCV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/card-description.DKt6GwEo.js", "_app/immutable/chunks/entry.cYRX-S8F.js", "_app/immutable/chunks/loader-circle.CYNrrA7n.js", "_app/immutable/chunks/stores.nPbfya8O.js", "_app/immutable/chunks/form-errors.CFPo42oI.js"];
+    component11 = async () => component_cache11 ??= (await Promise.resolve().then(() => (init_page_svelte5(), page_svelte_exports5))).default;
+    server_id4 = "src/routes/(app)/app/(tenant)/+page.server.ts";
+    imports11 = ["_app/immutable/nodes/10.5uozEuyn.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/Cross2.BpNNkRUU.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js"];
     stylesheets11 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
     fonts11 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.server.ts.js
+var page_server_ts_exports5 = {};
+__export(page_server_ts_exports5, {
+  load: () => load5
+});
+var load5;
+var init_page_server_ts5 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.server.ts.js"() {
+    init_index5();
+    load5 = (event) => {
+      isTenantUser(event);
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.svelte.js
+var page_svelte_exports6 = {};
+__export(page_svelte_exports6, {
+  default: () => _page6
+});
+function _page6($$payload) {
+}
+var init_page_svelte6 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.svelte.js"() {
+  }
+});
+
+// .svelte-kit/output/server/nodes/11.js
+var __exports12 = {};
+__export(__exports12, {
+  component: () => component12,
+  fonts: () => fonts12,
+  imports: () => imports12,
+  index: () => index12,
+  server: () => page_server_ts_exports5,
+  server_id: () => server_id5,
+  stylesheets: () => stylesheets12
+});
+var index12, component_cache12, component12, server_id5, imports12, stylesheets12, fonts12;
+var init__12 = __esm({
+  ".svelte-kit/output/server/nodes/11.js"() {
+    init_page_server_ts5();
+    index12 = 11;
+    component12 = async () => component_cache12 ??= (await Promise.resolve().then(() => (init_page_svelte6(), page_svelte_exports6))).default;
+    server_id5 = "src/routes/(app)/app/(tenant)/[tenant_slug]/+page.server.ts";
+    imports12 = ["_app/immutable/nodes/11.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
+    stylesheets12 = [];
+    fonts12 = [];
   }
 });
 
@@ -72421,23 +72530,23 @@ var init_page_svelte7 = __esm({
   }
 });
 
-// .svelte-kit/output/server/nodes/11.js
-var __exports12 = {};
-__export(__exports12, {
-  component: () => component12,
-  fonts: () => fonts12,
-  imports: () => imports12,
-  index: () => index12,
-  stylesheets: () => stylesheets12
+// .svelte-kit/output/server/nodes/12.js
+var __exports13 = {};
+__export(__exports13, {
+  component: () => component13,
+  fonts: () => fonts13,
+  imports: () => imports13,
+  index: () => index13,
+  stylesheets: () => stylesheets13
 });
-var index12, component_cache12, component12, imports12, stylesheets12, fonts12;
-var init__12 = __esm({
-  ".svelte-kit/output/server/nodes/11.js"() {
-    index12 = 11;
-    component12 = async () => component_cache12 ??= (await Promise.resolve().then(() => (init_page_svelte7(), page_svelte_exports7))).default;
-    imports12 = ["_app/immutable/nodes/11.DAUMFdbf.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/runtime.BFj74geu.js"];
-    stylesheets12 = [];
-    fonts12 = [];
+var index13, component_cache13, component13, imports13, stylesheets13, fonts13;
+var init__13 = __esm({
+  ".svelte-kit/output/server/nodes/12.js"() {
+    index13 = 12;
+    component13 = async () => component_cache13 ??= (await Promise.resolve().then(() => (init_page_svelte7(), page_svelte_exports7))).default;
+    imports13 = ["_app/immutable/nodes/12.CdzdaqKc.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/runtime.Jf46wuGD.js"];
+    stylesheets13 = [];
+    fonts13 = [];
   }
 });
 
@@ -72802,7 +72911,7 @@ var require_dist = __commonJS({
 init_stringify();
 
 // .svelte-kit/output/server/chunks/internal.js
-init_index2();
+init_index3();
 var base = "";
 var assets = base;
 var initial = { base, assets };
@@ -73256,12 +73365,12 @@ function remove_reaction(signal, dependency) {
   let reactions_length = 0;
   if (reactions !== null) {
     reactions_length = reactions.length - 1;
-    const index13 = reactions.indexOf(signal);
-    if (index13 !== -1) {
+    const index14 = reactions.indexOf(signal);
+    if (index14 !== -1) {
       if (reactions_length === 0) {
         dependency.reactions = null;
       } else {
-        reactions[index13] = reactions[reactions_length];
+        reactions[index14] = reactions[reactions_length];
         reactions.pop();
       }
     }
@@ -73583,7 +73692,7 @@ function push2(props, runes = false, fn) {
     };
   }
 }
-function pop2(component13) {
+function pop2(component14) {
   const context_stack_item = current_component_context;
   if (context_stack_item !== null) {
     const effects = context_stack_item.e;
@@ -73952,11 +74061,11 @@ function handle_event_propagation(handler_element, event) {
 }
 var all_registered_events = /* @__PURE__ */ new Set();
 var root_event_handles = /* @__PURE__ */ new Set();
-function mount(component13, options22) {
+function mount(component14, options22) {
   const anchor = options22.anchor ?? options22.target.appendChild(empty());
-  return flush_sync(() => _mount(component13, { ...options22, anchor }), false);
+  return flush_sync(() => _mount(component14, { ...options22, anchor }), false);
 }
-function hydrate(component13, options22) {
+function hydrate(component14, options22) {
   const target2 = options22.target;
   const previous_hydrate_nodes = hydrate_nodes;
   try {
@@ -73971,7 +74080,7 @@ function hydrate(component13, options22) {
         throw HYDRATION_ERROR;
       }
       const anchor = hydrate_anchor(node);
-      const instance = _mount(component13, { ...options22, anchor });
+      const instance = _mount(component14, { ...options22, anchor });
       set_hydrating(false);
       return instance;
     }, false);
@@ -73982,7 +74091,7 @@ function hydrate(component13, options22) {
       }
       init_operations2();
       clear_text_content(target2);
-      return mount(component13, options22);
+      return mount(component14, options22);
     }
     throw error2;
   } finally {
@@ -74018,7 +74127,7 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
   };
   event_handle(array_from(all_registered_events));
   root_event_handles.add(event_handle);
-  let component13 = void 0;
+  let component14 = void 0;
   const unmount2 = effect_root(() => {
     branch(() => {
       if (context) {
@@ -74032,7 +74141,7 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
       if (events) {
         props.$$events = events;
       }
-      component13 = Component(anchor, props) || {};
+      component14 = Component(anchor, props) || {};
       if (context) {
         pop2();
       }
@@ -74042,23 +74151,23 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
         target2.removeEventListener(event_name, bound_event_listener);
       }
       root_event_handles.delete(event_handle);
-      mounted_components.delete(component13);
+      mounted_components.delete(component14);
     };
   });
-  mounted_components.set(component13, unmount2);
-  return component13;
+  mounted_components.set(component14, unmount2);
+  return component14;
 }
 var mounted_components = /* @__PURE__ */ new WeakMap();
-function unmount(component13) {
-  const fn = mounted_components.get(component13);
+function unmount(component14) {
+  const fn = mounted_components.get(component14);
   fn?.();
 }
-function asClassComponent$1(component13) {
+function asClassComponent$1(component14) {
   return class extends Svelte4Component {
     /** @param {any} options */
     constructor(options22) {
       super({
-        component: component13,
+        component: component14,
         ...options22
       });
     }
@@ -74133,10 +74242,10 @@ var Svelte4Component = class {
     this.#instance.$destroy();
   }
 };
-function asClassComponent(component13) {
-  const component_constructor = asClassComponent$1(component13);
+function asClassComponent(component14) {
+  const component_constructor = asClassComponent$1(component14);
   const _render = (props, { context } = {}) => {
-    const result = render(component13, { props, context });
+    const result = render(component14, { props, context });
     return {
       css: { code: "", map: null },
       head: result.head,
@@ -74313,7 +74422,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1blvdsm"
+  version_hash: "lneg29"
 };
 async function get_hooks() {
   return {
@@ -74323,8 +74432,9 @@ async function get_hooks() {
 }
 
 // .svelte-kit/output/server/index.js
-init_exports();
 init_chunks();
+init_exports();
+init_index2();
 var SVELTE_KIT_ASSETS = "/_svelte_kit_assets";
 var ENDPOINT_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"];
 var PAGE_METHODS = ["GET", "POST", "HEAD"];
@@ -74396,7 +74506,7 @@ function get_message(error2) {
   return error2 instanceof SvelteKitError ? error2.text : "Internal Error";
 }
 function method_not_allowed(mod, method) {
-  return text(`${method} method not allowed`, {
+  return text2(`${method} method not allowed`, {
     status: 405,
     headers: {
       // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405
@@ -74413,7 +74523,7 @@ function allowed_methods(mod) {
 }
 function static_error_page(options22, status, message) {
   let page2 = options22.templates.error({ status, message });
-  return text(page2, {
+  return text2(page2, {
     headers: { "content-type": "text/html; charset=utf-8" },
     status
   });
@@ -75733,8 +75843,8 @@ async function render_response({
   }
   const { client } = manifest2._;
   const modulepreloads = new Set(client.imports);
-  const stylesheets13 = new Set(client.stylesheets);
-  const fonts13 = new Set(client.fonts);
+  const stylesheets14 = new Set(client.stylesheets);
+  const fonts14 = new Set(client.fonts);
   const link_header_preloads = /* @__PURE__ */ new Set();
   const inline_styles = /* @__PURE__ */ new Map();
   let rendered;
@@ -75790,9 +75900,9 @@ async function render_response({
       for (const url2 of node.imports)
         modulepreloads.add(url2);
       for (const url2 of node.stylesheets)
-        stylesheets13.add(url2);
+        stylesheets14.add(url2);
       for (const url2 of node.fonts)
-        fonts13.add(url2);
+        fonts14.add(url2);
       if (node.inline_styles) {
         Object.entries(await node.inline_styles()).forEach(([k, v2]) => inline_styles.set(k, v2));
       }
@@ -75820,7 +75930,7 @@ async function render_response({
     head2 += `
 	<style${attributes.join("")}>${content}</style>`;
   }
-  for (const dep of stylesheets13) {
+  for (const dep of stylesheets14) {
     const path = prefixed(dep);
     const attributes = ['rel="stylesheet"'];
     if (inline_styles.has(dep)) {
@@ -75834,7 +75944,7 @@ async function render_response({
     head2 += `
 		<link href="${path}" ${attributes.join(" ")}>`;
   }
-  for (const dep of fonts13) {
+  for (const dep of fonts14) {
     const path = prefixed(dep);
     if (resolve_opts.preload({ type: "font", path })) {
       const ext = dep.slice(dep.lastIndexOf(".") + 1);
@@ -76021,7 +76131,7 @@ ${indent}}`);
   if (!chunks) {
     headers2.set("etag", `"${hash(transformed)}"`);
   }
-  return !chunks ? text(transformed, {
+  return !chunks ? text2(transformed, {
     status,
     headers: headers2
   }) : new Response(
@@ -76321,7 +76431,7 @@ async function render_data(event, route, options22, manifest2, state, invalidate
   }
 }
 function json_response(json22, status = 200) {
-  return text(typeof json22 === "string" ? json22 : JSON.stringify(json22), {
+  return text2(typeof json22 === "string" ? json22 : JSON.stringify(json22), {
     status,
     headers: {
       "content-type": "application/json",
@@ -76417,7 +76527,7 @@ function load_page_nodes(page2, manifest2) {
 var MAX_DEPTH = 10;
 async function render_page(event, page2, options22, manifest2, state, resolve_opts) {
   if (state.depth > MAX_DEPTH) {
-    return text(`Not found: ${event.url.pathname}`, {
+    return text2(`Not found: ${event.url.pathname}`, {
       status: 404
       // TODO in some cases this should be 500. not sure how to differentiate
     });
@@ -76561,7 +76671,7 @@ async function render_page(event, page2, options22, manifest2, state, resolve_op
                 location: err.location
               });
               state.prerendering.dependencies.set(data_pathname, {
-                response: text(body2),
+                response: text2(body2),
                 body: body2
               });
             }
@@ -76571,11 +76681,11 @@ async function render_page(event, page2, options22, manifest2, state, resolve_op
           const error2 = await handle_error_and_jsonify(event, options22, err);
           while (i2--) {
             if (page2.errors[i2]) {
-              const index13 = (
+              const index14 = (
                 /** @type {number} */
                 page2.errors[i2]
               );
-              const node2 = await manifest2._.nodes[index13]();
+              const node2 = await manifest2._.nodes[index14]();
               let j2 = i2;
               while (!branch2[j2])
                 j2 -= 1;
@@ -76615,7 +76725,7 @@ async function render_page(event, page2, options22, manifest2, state, resolve_op
         }
       }
       state.prerendering.dependencies.set(data_pathname, {
-        response: text(data),
+        response: text2(data),
         body: data
       });
     }
@@ -76698,20 +76808,20 @@ function parse$1(str, options22) {
   var obj = {};
   var opt = options22 || {};
   var dec = opt.decode || decode2;
-  var index13 = 0;
-  while (index13 < str.length) {
-    var eqIdx = str.indexOf("=", index13);
+  var index14 = 0;
+  while (index14 < str.length) {
+    var eqIdx = str.indexOf("=", index14);
     if (eqIdx === -1) {
       break;
     }
-    var endIdx = str.indexOf(";", index13);
+    var endIdx = str.indexOf(";", index14);
     if (endIdx === -1) {
       endIdx = str.length;
     } else if (endIdx < eqIdx) {
-      index13 = str.lastIndexOf(";", eqIdx - 1) + 1;
+      index14 = str.lastIndexOf(";", eqIdx - 1) + 1;
       continue;
     }
-    var key2 = str.slice(index13, eqIdx).trim();
+    var key2 = str.slice(index14, eqIdx).trim();
     if (void 0 === obj[key2]) {
       var val = str.slice(eqIdx + 1, endIdx).trim();
       if (val.charCodeAt(0) === 34) {
@@ -76719,7 +76829,7 @@ function parse$1(str, options22) {
       }
       obj[key2] = tryDecode(val, dec);
     }
-    index13 = endIdx + 1;
+    index14 = endIdx + 1;
   }
   return obj;
 }
@@ -77268,14 +77378,14 @@ async function respond(request, options22, manifest2, state) {
       if (request.headers.get("accept") === "application/json") {
         return json(csrf_error.body, { status: csrf_error.status });
       }
-      return text(csrf_error.body.message, { status: csrf_error.status });
+      return text2(csrf_error.body.message, { status: csrf_error.status });
     }
   }
   let rerouted_path;
   try {
     rerouted_path = options22.hooks.reroute({ url: new URL(url2) }) ?? url2.pathname;
   } catch (e2) {
-    return text("Internal Server Error", {
+    return text2("Internal Server Error", {
       status: 500
     });
   }
@@ -77283,13 +77393,13 @@ async function respond(request, options22, manifest2, state) {
   try {
     decoded = decode_pathname(rerouted_path);
   } catch {
-    return text("Malformed URI", { status: 400 });
+    return text2("Malformed URI", { status: 400 });
   }
   let route = null;
   let params = {};
   if (base && !state.prerendering?.fallback) {
     if (!decoded.startsWith(base)) {
-      return text("Not found", { status: 404 });
+      return text2("Not found", { status: 404 });
     }
     decoded = decoded.slice(base.length) || "/";
   }
@@ -77297,7 +77407,7 @@ async function respond(request, options22, manifest2, state) {
     return get_public_env(request);
   }
   if (decoded.startsWith(`/${options22.app_dir}`)) {
-    return text("Not found", { status: 404 });
+    return text2("Not found", { status: 404 });
   }
   const is_data_request = has_data_suffix(decoded);
   let invalidated_data_nodes;
@@ -77594,7 +77704,7 @@ async function respond(request, options22, manifest2, state) {
         });
       }
       if (state.error) {
-        return text("Internal Server Error", {
+        return text2("Internal Server Error", {
           status: 500
         });
       }
@@ -77610,7 +77720,7 @@ async function respond(request, options22, manifest2, state) {
         });
       }
       if (state.prerendering) {
-        return text("not found", { status: 404 });
+        return text2("not found", { status: 404 });
       }
       return await fetch(request);
     } catch (e2) {
@@ -77718,7 +77828,7 @@ var manifest = (() => {
     assets: /* @__PURE__ */ new Set(["favicon.png"]),
     mimeTypes: { ".png": "image/png" },
     _: {
-      client: { "start": "_app/immutable/entry/start.DFrU9nND.js", "app": "_app/immutable/entry/app.BZUuP-Pb.js", "imports": ["_app/immutable/entry/start.DFrU9nND.js", "_app/immutable/chunks/entry.cYRX-S8F.js", "_app/immutable/chunks/index-client.CCsP1WCV.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/index.BNDK427F.js", "_app/immutable/entry/app.BZUuP-Pb.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/proxy.CWUcgEVT.js", "_app/immutable/chunks/runtime.BFj74geu.js", "_app/immutable/chunks/render.Cq-Raw7C.js", "_app/immutable/chunks/template.CXdqgsh_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/props.CmQlWkzM.js", "_app/immutable/chunks/index-client.CCsP1WCV.js"], "stylesheets": [], "fonts": [], "uses_env_dynamic_public": false },
+      client: { "start": "_app/immutable/entry/start.92c9885l.js", "app": "_app/immutable/entry/app.DDPyr3Mi.js", "imports": ["_app/immutable/entry/start.92c9885l.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/entry/app.DDPyr3Mi.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"], "stylesheets": [], "fonts": [], "uses_env_dynamic_public": false },
       nodes: [
         __memo(() => Promise.resolve().then(() => (init__(), __exports))),
         __memo(() => Promise.resolve().then(() => (init__2(), __exports2))),
@@ -77731,56 +77841,57 @@ var manifest = (() => {
         __memo(() => Promise.resolve().then(() => (init__9(), __exports9))),
         __memo(() => Promise.resolve().then(() => (init__10(), __exports10))),
         __memo(() => Promise.resolve().then(() => (init__11(), __exports11))),
-        __memo(() => Promise.resolve().then(() => (init__12(), __exports12)))
+        __memo(() => Promise.resolve().then(() => (init__12(), __exports12))),
+        __memo(() => Promise.resolve().then(() => (init__13(), __exports13)))
       ],
       routes: [
         {
-          id: "/(app)/app/(app)",
+          id: "/(app)/app/(tenant)",
           pattern: /^\/app\/?$/,
           params: [],
-          page: { layouts: [0, 2], errors: [1, ,], leaf: 5 },
+          page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 10 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/sign-in",
           pattern: /^\/app\/sign-in\/?$/,
           params: [],
-          page: { layouts: [0, 2, 4], errors: [1, , ,], leaf: 7 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 6 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/sign-out",
           pattern: /^\/app\/sign-out\/?$/,
           params: [],
-          page: { layouts: [0, 2, 4], errors: [1, , ,], leaf: 8 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 7 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/sign-up",
           pattern: /^\/app\/sign-up\/?$/,
           params: [],
-          page: { layouts: [0, 2, 4], errors: [1, , ,], leaf: 9 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 8 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/verification",
           pattern: /^\/app\/verification\/?$/,
           params: [],
-          page: { layouts: [0, 2, 4], errors: [1, , ,], leaf: 10 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 9 },
           endpoint: null
         },
         {
-          id: "/(app)/app/(app)/[tenant_slug]",
+          id: "/(app)/app/(tenant)/[tenant_slug]",
           pattern: /^\/app\/([^/]+?)\/?$/,
           params: [{ "name": "tenant_slug", "optional": false, "rest": false, "chained": false }],
-          page: { layouts: [0, 2, 3], errors: [1, , ,], leaf: 6 },
+          page: { layouts: [0, , 3, 5], errors: [1, 2, , ,], leaf: 11 },
           endpoint: null
         },
         {
           id: "/(public)/public",
           pattern: /^\/public\/?$/,
           params: [],
-          page: { layouts: [0], errors: [1], leaf: 11 },
+          page: { layouts: [0], errors: [1], leaf: 12 },
           endpoint: null
         }
       ],

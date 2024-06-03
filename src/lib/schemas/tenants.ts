@@ -12,7 +12,8 @@ export const tenants_table = sqliteTable('tenants', {
 	domain: text('domain').unique(),
 	slug: text('slut').unique().notNull(),
 	logo_square_url: text('logo_square_url'),
-	logo_url: text('logo_url')
+	logo_url: text('logo_url'),
+	owner_id: integer('owner_id').references(() => users_table.id)
 });
 
 export const tenant_users_table = sqliteTable(

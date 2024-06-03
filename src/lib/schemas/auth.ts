@@ -4,7 +4,7 @@ import { createInsertSchema } from 'drizzle-zod';
 import { sql, relations } from 'drizzle-orm';
 import { generateRandomString, alphabet } from 'oslo/crypto';
 
-// import { tenant_users_table } from ".";
+import { tenant_users_table } from '.';
 
 export const users_table = sqliteTable('users', {
 	id: integer('id').notNull().primaryKey(),
@@ -15,9 +15,9 @@ export const users_table = sqliteTable('users', {
 	avatar_url: text('avatar_url')
 });
 
-// export const users_relations = relations(users_table, ({ many }) => ({
-//   tenants: many(tenant_users_table),
-// }));
+export const users_relations = relations(users_table, ({ many }) => ({
+	tenants: many(tenant_users_table)
+}));
 
 export const sessions_table = sqliteTable('sessions', {
 	id: text('id').notNull().primaryKey(),

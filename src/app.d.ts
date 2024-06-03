@@ -9,6 +9,8 @@ declare global {
 			lucia: import('lucia').Lucia;
 			user: import('lucia').User | null;
 			session: import('lucia').Session | null;
+			tenant?: typeof tenants_table.$inferSelect;
+			isTenantMember?: boolean | null;
 		}
 		// interface PageData {}
 		// interface PageState {}

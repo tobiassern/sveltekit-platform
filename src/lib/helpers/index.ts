@@ -9,18 +9,18 @@ export const isAuthenticated = (event: ServerLoadEvent | RequestEvent) => {
 	return { user: event.locals.user };
 };
 
-// export const isTenantUser = (event: ServerLoadEvent | RequestEvent) => {
-// 	const { user } = isAuthenticated(event);
+export const isTenantUser = (event: ServerLoadEvent | RequestEvent) => {
+	const { user } = isAuthenticated(event);
 
-// 	if (!event.locals.tenant) {
-// 		error(404, 'Tenant not found');
-// 	}
+	if (!event.locals.tenant) {
+		error(404, 'Tenant not found');
+	}
 
-// 	if (!event.locals.isTenantMember) {
-// 		error(403, 'Forbidden');
-// 	}
-// 	return { tenant: event.locals.tenant, user };
-// };
+	if (!event.locals.isTenantMember) {
+		error(403, 'Forbidden');
+	}
+	return { tenant: event.locals.tenant, user };
+};
 
 // export const isTenantAdmin = (event: ServerLoadEvent | RequestEvent) => {
 // 	const { tenant, user } = isTenantUser(event);

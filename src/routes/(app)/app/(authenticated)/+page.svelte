@@ -59,7 +59,7 @@
 								{#if tenant.logo_square_url}
 									<Avatar.Image src={tenant.logo_square_url} alt={tenant.name} />
 								{/if}
-								<Avatar.Fallback class="uppercase">{tenant.slug.split('')[0]}</Avatar.Fallback>
+								<Avatar.Fallback class="uppercase">{tenant.name.split('')[0]}</Avatar.Fallback>
 							</Avatar.Root>
 							<a href="/{tenant.slug}">
 								<span class="absolute inset-0"></span>

@@ -215,9 +215,9 @@ function stringify(value, reducers) {
     stringified[index22] = str;
     return index22;
   }
-  const index14 = flatten2(value);
-  if (index14 < 0)
-    return `${index14}`;
+  const index15 = flatten2(value);
+  if (index15 < 0)
+    return `${index15}`;
   return `[${stringified.join(",")}]`;
 }
 function stringify_primitive(thing) {
@@ -337,15 +337,15 @@ function push(fn) {
   current_component = { p: current_component, c: null, d: null };
 }
 function pop() {
-  var component14 = (
+  var component15 = (
     /** @type {import('#server').Component} */
     current_component
   );
-  var ondestroy = component14.d;
+  var ondestroy = component15.d;
   if (ondestroy) {
     on_destroy.push(...ondestroy);
   }
-  current_component = component14.p;
+  current_component = component15.p;
 }
 function get_parent_context(component_context) {
   let parent = component_context.p;
@@ -387,7 +387,7 @@ function element(payload, tag, attributes_fn, children_fn) {
     payload.out += `</${tag}>`;
   }
 }
-function render(component14, options3) {
+function render(component15, options3) {
   const payload = create_payload();
   const prev_on_destroy = on_destroy;
   on_destroy = [];
@@ -396,7 +396,7 @@ function render(component14, options3) {
     push();
     current_component.c = options3.context;
   }
-  component14(payload, options3.props, {}, {});
+  component15(payload, options3.props, {}, {});
   if (options3.context) {
     pop();
   }
@@ -2629,8 +2629,8 @@ function haveSameKeys(left2, right2) {
   if (leftKeys.length !== rightKeys.length) {
     return false;
   }
-  for (const [index14, key2] of leftKeys.entries()) {
-    if (key2 !== rightKeys[index14]) {
+  for (const [index15, key2] of leftKeys.entries()) {
+    if (key2 !== rightKeys[index15]) {
       return false;
     }
   }
@@ -3692,8 +3692,8 @@ var init_dialect = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index14, joinMeta] of joins.entries()) {
-            if (index14 === 0) {
+          for (const [index15, joinMeta] of joins.entries()) {
+            if (index15 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -3710,7 +3710,7 @@ var init_dialect = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join ${table2} on ${joinMeta.on}`
               );
             }
-            if (index14 < joins.length - 1) {
+            if (index15 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -3720,18 +3720,18 @@ var init_dialect = __esm({
         const havingSql = having ? sql` having ${having}` : void 0;
         const orderByList = [];
         if (orderBy) {
-          for (const [index14, orderByValue] of orderBy.entries()) {
+          for (const [index15, orderByValue] of orderBy.entries()) {
             orderByList.push(orderByValue);
-            if (index14 < orderBy.length - 1) {
+            if (index15 < orderBy.length - 1) {
               orderByList.push(sql`, `);
             }
           }
         }
         const groupByList = [];
         if (groupBy2) {
-          for (const [index14, groupByValue] of groupBy2.entries()) {
+          for (const [index15, groupByValue] of groupBy2.entries()) {
             groupByList.push(groupByValue);
-            if (index14 < groupBy2.length - 1) {
+            if (index15 < groupBy2.length - 1) {
               groupByList.push(sql`, `);
             }
           }
@@ -7375,14 +7375,14 @@ var init_stmt = __esm({
         return this;
       }
       /** Binds a parameter by a 1-based index. */
-      bindIndex(index14, value) {
-        if (index14 !== (index14 | 0) || index14 <= 0) {
+      bindIndex(index15, value) {
+        if (index15 !== (index15 | 0) || index15 <= 0) {
           throw new RangeError("Index of a positional argument must be positive integer");
         }
-        while (this._args.length < index14) {
+        while (this._args.length < index15) {
           this._args.push(null);
         }
-        this._args[index14 - 1] = valueToProto(value);
+        this._args[index15 - 1] = valueToProto(value);
         return this;
       }
       /** Binds a parameter by name. */
@@ -12728,8 +12728,8 @@ var init_dialect2 = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index14, joinMeta] of joins.entries()) {
-            if (index14 === 0) {
+          for (const [index15, joinMeta] of joins.entries()) {
+            if (index15 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -12755,7 +12755,7 @@ var init_dialect2 = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join${lateralSql} ${table2} on ${joinMeta.on}`
               );
             }
-            if (index14 < joins.length - 1) {
+            if (index15 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -16701,8 +16701,8 @@ var init_dialect3 = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index14, joinMeta] of joins.entries()) {
-            if (index14 === 0) {
+          for (const [index15, joinMeta] of joins.entries()) {
+            if (index15 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -16728,7 +16728,7 @@ var init_dialect3 = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join${lateralSql} ${table2} on ${joinMeta.on}`
               );
             }
-            if (index14 < joins.length - 1) {
+            if (index15 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -19676,9 +19676,9 @@ function mergeValues(a2, b) {
       return { valid: false };
     }
     const newArray = [];
-    for (let index14 = 0; index14 < a2.length; index14++) {
-      const itemA = a2[index14];
-      const itemB = b[index14];
+    for (let index15 = 0; index15 < a2.length; index15++) {
+      const itemA = a2[index15];
+      const itemB = b[index15];
       const sharedValue = mergeValues(itemA, itemB);
       if (!sharedValue.valid) {
         return { valid: false };
@@ -21947,10 +21947,10 @@ var init_lib = __esm({
       //   }) as any;
       //   return merged;
       // }
-      catchall(index14) {
+      catchall(index15) {
         return new _ZodObject({
           ...this._def,
-          catchall: index14
+          catchall: index15
         });
       }
       pick(mask) {
@@ -22438,10 +22438,10 @@ var init_lib = __esm({
         }
         const keyType = this._def.keyType;
         const valueType = this._def.valueType;
-        const pairs = [...ctx.data.entries()].map(([key2, value], index14) => {
+        const pairs = [...ctx.data.entries()].map(([key2, value], index15) => {
           return {
-            key: keyType._parse(new ParseInputLazyPath(ctx, key2, ctx.path, [index14, "key"])),
-            value: valueType._parse(new ParseInputLazyPath(ctx, value, ctx.path, [index14, "value"]))
+            key: keyType._parse(new ParseInputLazyPath(ctx, key2, ctx.path, [index15, "key"])),
+            value: valueType._parse(new ParseInputLazyPath(ctx, value, ctx.path, [index15, "value"]))
           };
         });
         if (ctx.common.async) {
@@ -25812,7 +25812,8 @@ var init_tenants = __esm({
       domain: text("domain").unique(),
       slug: text("slut").unique().notNull(),
       logo_square_url: text("logo_square_url"),
-      logo_url: text("logo_url")
+      logo_url: text("logo_url"),
+      owner_id: integer("owner_id").references(() => users_table.id)
     });
     tenant_users_table = sqliteTable(
       "tenant_users",
@@ -27115,14 +27116,14 @@ var require_react_development = __commonJS({
         function escapeUserProvidedKey(text3) {
           return text3.replace(userProvidedKeyEscapeRegex, "$&/");
         }
-        function getElementKey(element2, index14) {
+        function getElementKey(element2, index15) {
           if (typeof element2 === "object" && element2 !== null && element2.key != null) {
             {
               checkKeyStringCoercion(element2.key);
             }
             return escape3("" + element2.key);
           }
-          return index14.toString(36);
+          return index15.toString(36);
         }
         function mapIntoArray(children, array3, escapedPrefix, nameSoFar, callback) {
           var type = typeof children;
@@ -29876,10 +29877,10 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           }
           var escape3;
           var html = "";
-          var index14;
+          var index15;
           var lastIndex = 0;
-          for (index14 = match.index; index14 < str.length; index14++) {
-            switch (str.charCodeAt(index14)) {
+          for (index15 = match.index; index15 < str.length; index15++) {
+            switch (str.charCodeAt(index15)) {
               case 34:
                 escape3 = "&quot;";
                 break;
@@ -29898,13 +29899,13 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
               default:
                 continue;
             }
-            if (lastIndex !== index14) {
-              html += str.substring(lastIndex, index14);
+            if (lastIndex !== index15) {
+              html += str.substring(lastIndex, index15);
             }
-            lastIndex = index14 + 1;
+            lastIndex = index15 + 1;
             html += escape3;
           }
-          return lastIndex !== index14 ? html + str.substring(lastIndex, index14) : html;
+          return lastIndex !== index15 ? html + str.substring(lastIndex, index15) : html;
         }
         function escapeTextForBrowser(text3) {
           if (typeof text3 === "boolean" || typeof text3 === "number") {
@@ -32100,12 +32101,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
           return id.toString(32) + overflow;
         }
-        function pushTreeContext(baseContext, totalChildren, index14) {
+        function pushTreeContext(baseContext, totalChildren, index15) {
           var baseIdWithLeadingBit = baseContext.id;
           var baseOverflow = baseContext.overflow;
           var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
           var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-          var slot2 = index14 + 1;
+          var slot2 = index15 + 1;
           var length = getBitLength(totalChildren) + baseLength;
           if (length > 30) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
@@ -32605,12 +32606,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           abortSet.add(task);
           return task;
         }
-        function createPendingSegment(request, index14, boundary, formatContext, lastPushedText, textEmbedded) {
+        function createPendingSegment(request, index15, boundary, formatContext, lastPushedText, textEmbedded) {
           return {
             status: PENDING,
             id: -1,
             // lazily assigned later
-            index: index14,
+            index: index15,
             parentFlushed: false,
             chunks: [],
             children: [],
@@ -32869,8 +32870,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
             if (hasId) {
               var prevTreeContext = task.treeContext;
               var totalChildren = 1;
-              var index14 = 0;
-              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
+              var index15 = 0;
+              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
               try {
                 renderNodeDestructive(request, task, value);
               } finally {
@@ -32925,8 +32926,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           if (hasId) {
             var prevTreeContext = task.treeContext;
             var totalChildren = 1;
-            var index14 = 0;
-            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
+            var index15 = 0;
+            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
             try {
               renderNodeDestructive(request, task, children);
             } finally {
@@ -35272,10 +35273,10 @@ var require_react_dom_server_browser_development = __commonJS({
           }
           var escape3;
           var html = "";
-          var index14;
+          var index15;
           var lastIndex = 0;
-          for (index14 = match.index; index14 < str.length; index14++) {
-            switch (str.charCodeAt(index14)) {
+          for (index15 = match.index; index15 < str.length; index15++) {
+            switch (str.charCodeAt(index15)) {
               case 34:
                 escape3 = "&quot;";
                 break;
@@ -35294,13 +35295,13 @@ var require_react_dom_server_browser_development = __commonJS({
               default:
                 continue;
             }
-            if (lastIndex !== index14) {
-              html += str.substring(lastIndex, index14);
+            if (lastIndex !== index15) {
+              html += str.substring(lastIndex, index15);
             }
-            lastIndex = index14 + 1;
+            lastIndex = index15 + 1;
             html += escape3;
           }
-          return lastIndex !== index14 ? html + str.substring(lastIndex, index14) : html;
+          return lastIndex !== index15 ? html + str.substring(lastIndex, index15) : html;
         }
         function escapeTextForBrowser(text3) {
           if (typeof text3 === "boolean" || typeof text3 === "number") {
@@ -37436,12 +37437,12 @@ var require_react_dom_server_browser_development = __commonJS({
           var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
           return id.toString(32) + overflow;
         }
-        function pushTreeContext(baseContext, totalChildren, index14) {
+        function pushTreeContext(baseContext, totalChildren, index15) {
           var baseIdWithLeadingBit = baseContext.id;
           var baseOverflow = baseContext.overflow;
           var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
           var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-          var slot2 = index14 + 1;
+          var slot2 = index15 + 1;
           var length = getBitLength(totalChildren) + baseLength;
           if (length > 30) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
@@ -37941,12 +37942,12 @@ var require_react_dom_server_browser_development = __commonJS({
           abortSet.add(task);
           return task;
         }
-        function createPendingSegment(request, index14, boundary, formatContext, lastPushedText, textEmbedded) {
+        function createPendingSegment(request, index15, boundary, formatContext, lastPushedText, textEmbedded) {
           return {
             status: PENDING,
             id: -1,
             // lazily assigned later
-            index: index14,
+            index: index15,
             parentFlushed: false,
             chunks: [],
             children: [],
@@ -38205,8 +38206,8 @@ var require_react_dom_server_browser_development = __commonJS({
             if (hasId) {
               var prevTreeContext = task.treeContext;
               var totalChildren = 1;
-              var index14 = 0;
-              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
+              var index15 = 0;
+              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
               try {
                 renderNodeDestructive(request, task, value);
               } finally {
@@ -38261,8 +38262,8 @@ var require_react_dom_server_browser_development = __commonJS({
           if (hasId) {
             var prevTreeContext = task.treeContext;
             var totalChildren = 1;
-            var index14 = 0;
-            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index14);
+            var index15 = 0;
+            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
             try {
               renderNodeDestructive(request, task, children);
             } finally {
@@ -41882,10 +41883,10 @@ var init_Parser = __esm({
       /** @internal */
       ontextentity(cp) {
         var _a2, _b;
-        const index14 = this.tokenizer.getSectionStart();
-        this.endIndex = index14 - 1;
+        const index15 = this.tokenizer.getSectionStart();
+        this.endIndex = index15 - 1;
         (_b = (_a2 = this.cbs).ontext) === null || _b === void 0 ? void 0 : _b.call(_a2, fromCodePoint(cp));
-        this.startIndex = index14;
+        this.startIndex = index15;
       }
       isVoidElement(name3) {
         return !this.options.xmlMode && voidElements.has(name3);
@@ -42016,8 +42017,8 @@ var init_Parser = __esm({
         this.attribvalue = "";
       }
       getInstructionName(value) {
-        const index14 = value.search(reNameEnd);
-        let name3 = index14 < 0 ? value : value.substr(0, index14);
+        const index15 = value.search(reNameEnd);
+        let name3 = index15 < 0 ? value : value.substr(0, index15);
         if (this.lowerCaseTagNames) {
           name3 = name3.toLowerCase();
         }
@@ -42071,7 +42072,7 @@ var init_Parser = __esm({
         var _a2, _b;
         if (this.cbs.onclosetag) {
           this.endIndex = this.startIndex;
-          for (let index14 = this.stack.length; index14 > 0; this.cbs.onclosetag(this.stack[--index14], true))
+          for (let index15 = this.stack.length; index15 > 0; this.cbs.onclosetag(this.stack[--index15], true))
             ;
         }
         (_b = (_a2 = this.cbs).onend) === null || _b === void 0 ? void 0 : _b.call(_a2);
@@ -42253,9 +42254,9 @@ var init_escape = __esm({
       [62, "&gt;"]
     ]);
     getCodePoint = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    String.prototype.codePointAt != null ? (str, index14) => str.codePointAt(index14) : (
+    String.prototype.codePointAt != null ? (str, index15) => str.codePointAt(index15) : (
       // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-      (c3, index14) => (c3.charCodeAt(index14) & 64512) === 55296 ? (c3.charCodeAt(index14) - 55296) * 1024 + c3.charCodeAt(index14 + 1) - 56320 + 65536 : c3.charCodeAt(index14)
+      (c3, index15) => (c3.charCodeAt(index15) & 64512) === 55296 ? (c3.charCodeAt(index15) - 55296) * 1024 + c3.charCodeAt(index15 + 1) - 56320 + 65536 : c3.charCodeAt(index15)
     );
     escapeUTF8 = getEscaper(/[&<>'"]/g, xmlCodeMap);
     escapeAttribute = getEscaper(/["&\u00A0]/g, /* @__PURE__ */ new Map([
@@ -43073,11 +43074,11 @@ function putCellIntoLayout(cell, layout, baseRow, baseCol) {
     }
   }
 }
-function getOrInitOffset(offsets, index14) {
-  if (offsets[index14] === void 0) {
-    offsets[index14] = index14 === 0 ? 0 : 1 + getOrInitOffset(offsets, index14 - 1);
+function getOrInitOffset(offsets, index15) {
+  if (offsets[index15] === void 0) {
+    offsets[index15] = index15 === 0 ? 0 : 1 + getOrInitOffset(offsets, index15 - 1);
   }
-  return offsets[index14];
+  return offsets[index15];
 }
 function updateOffset(offsets, base2, span, value) {
   offsets[base2 + span] = Math.max(
@@ -44353,11 +44354,11 @@ var require_output = __commonJS({
       line.set_indent(this.__indent_count, this.__alignment_count);
       return line;
     };
-    OutputLine.prototype.item = function(index14) {
-      if (index14 < 0) {
-        return this.__items[this.__items.length + index14];
+    OutputLine.prototype.item = function(index15) {
+      if (index15 < 0) {
+        return this.__items[this.__items.length + index15];
       } else {
-        return this.__items[index14];
+        return this.__items[index15];
       }
     };
     OutputLine.prototype.has_match = function(pattern2) {
@@ -44614,11 +44615,11 @@ var require_output = __commonJS({
         this.current_line.push(" ");
       }
     };
-    Output.prototype.remove_indent = function(index14) {
+    Output.prototype.remove_indent = function(index15) {
       var output_length = this.__lines.length;
-      while (index14 < output_length) {
-        this.__lines[index14]._remove_indent();
-        index14++;
+      while (index15 < output_length) {
+        this.__lines[index15]._remove_indent();
+        index15++;
       }
       this.current_line._remove_wrap_indent();
     };
@@ -44639,17 +44640,17 @@ var require_output = __commonJS({
       return this.is_empty() || this.current_line.is_empty() && this.previous_line.is_empty();
     };
     Output.prototype.ensure_empty_line_above = function(starts_with, ends_with) {
-      var index14 = this.__lines.length - 2;
-      while (index14 >= 0) {
-        var potentialEmptyLine = this.__lines[index14];
+      var index15 = this.__lines.length - 2;
+      while (index15 >= 0) {
+        var potentialEmptyLine = this.__lines[index15];
         if (potentialEmptyLine.is_empty()) {
           break;
         } else if (potentialEmptyLine.item(0).indexOf(starts_with) !== 0 && potentialEmptyLine.item(-1) !== ends_with) {
-          this.__lines.splice(index14 + 1, 0, new OutputLine(this));
+          this.__lines.splice(index15 + 1, 0, new OutputLine(this));
           this.previous_line = this.__lines[this.__lines.length - 2];
           break;
         }
-        index14--;
+        index15--;
       }
     };
     module.exports.Output = Output;
@@ -44901,36 +44902,36 @@ var require_inputscanner = __commonJS({
       }
       return val;
     };
-    InputScanner.prototype.peek = function(index14) {
+    InputScanner.prototype.peek = function(index15) {
       var val = null;
-      index14 = index14 || 0;
-      index14 += this.__position;
-      if (index14 >= 0 && index14 < this.__input_length) {
-        val = this.__input.charAt(index14);
+      index15 = index15 || 0;
+      index15 += this.__position;
+      if (index15 >= 0 && index15 < this.__input_length) {
+        val = this.__input.charAt(index15);
       }
       return val;
     };
-    InputScanner.prototype.__match = function(pattern2, index14) {
-      pattern2.lastIndex = index14;
+    InputScanner.prototype.__match = function(pattern2, index15) {
+      pattern2.lastIndex = index15;
       var pattern_match = pattern2.exec(this.__input);
       if (pattern_match && !(regexp_has_sticky && pattern2.sticky)) {
-        if (pattern_match.index !== index14) {
+        if (pattern_match.index !== index15) {
           pattern_match = null;
         }
       }
       return pattern_match;
     };
-    InputScanner.prototype.test = function(pattern2, index14) {
-      index14 = index14 || 0;
-      index14 += this.__position;
-      if (index14 >= 0 && index14 < this.__input_length) {
-        return !!this.__match(pattern2, index14);
+    InputScanner.prototype.test = function(pattern2, index15) {
+      index15 = index15 || 0;
+      index15 += this.__position;
+      if (index15 >= 0 && index15 < this.__input_length) {
+        return !!this.__match(pattern2, index15);
       } else {
         return false;
       }
     };
-    InputScanner.prototype.testChar = function(pattern2, index14) {
-      var val = this.peek(index14);
+    InputScanner.prototype.testChar = function(pattern2, index15) {
+      var val = this.peek(index15);
       pattern2.lastIndex = 0;
       return val !== null && pattern2.test(val);
     };
@@ -45034,12 +45035,12 @@ var require_tokenstream = __commonJS({
       }
       return val;
     };
-    TokenStream.prototype.peek = function(index14) {
+    TokenStream.prototype.peek = function(index15) {
       var val = null;
-      index14 = index14 || 0;
-      index14 += this.__position;
-      if (index14 >= 0 && index14 < this.__tokens_length) {
-        val = this.__tokens[index14];
+      index15 = index15 || 0;
+      index15 += this.__position;
+      if (index15 >= 0 && index15 < this.__tokens_length) {
+        val = this.__tokens[index15];
       }
       return val;
     };
@@ -46416,12 +46417,12 @@ var require_beautifier = __commonJS({
       var empty_braces = !next_token.comments_before && next_token.text === "}";
       var empty_anonymous_function = empty_braces && this._flags.last_word === "function" && this._flags.last_token.type === TOKEN.END_EXPR;
       if (this._options.brace_preserve_inline) {
-        var index14 = 0;
+        var index15 = 0;
         var check_token = null;
         this._flags.inline_frame = true;
         do {
-          index14 += 1;
-          check_token = this._tokens.peek(index14 - 1);
+          index15 += 1;
+          check_token = this._tokens.peek(index15 - 1);
           if (check_token.newlines) {
             this._flags.inline_frame = false;
             break;
@@ -48659,12 +48660,12 @@ var init_dist4 = __esm({
       }
       return result;
     });
-    renderAsync = (component14, options3) => __async(void 0, null, function* () {
+    renderAsync = (component15, options3) => __async(void 0, null, function* () {
       var _a2;
       const reactDOMServer = (yield Promise.resolve().then(() => __toESM(require_server_browser(), 1))).default;
       const renderToStream = (_a2 = reactDOMServer.renderToReadableStream) != null ? _a2 : reactDOMServer.renderToStaticNodeStream;
       const doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-      const htmlOrReadableStream = yield renderToStream(component14);
+      const htmlOrReadableStream = yield renderToStream(component15);
       const html = typeof htmlOrReadableStream === "string" ? htmlOrReadableStream : yield readStream(htmlOrReadableStream);
       if (options3 == null ? void 0 : options3.plainText) {
         return convert(html, __spreadValues({
@@ -49780,7 +49781,7 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => component_cache2 ??= (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    imports2 = ["_app/immutable/nodes/1.MiVWAOII.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
+    imports2 = ["_app/immutable/nodes/1.BZFb-wtR.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
     stylesheets2 = [];
     fonts2 = [];
   }
@@ -49820,7 +49821,7 @@ var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     index3 = 2;
     component3 = async () => component_cache3 ??= (await Promise.resolve().then(() => (init_error_svelte2(), error_svelte_exports2))).default;
-    imports3 = ["_app/immutable/nodes/2.Coi8vLhn.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
+    imports3 = ["_app/immutable/nodes/2.BsR1nvz3.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
     stylesheets3 = ["_app/immutable/assets/app.00JWBTY9.css"];
     fonts3 = [];
   }
@@ -50111,16 +50112,16 @@ function createSplitModifiers(config) {
     let bracketDepth = 0;
     let modifierStart = 0;
     let postfixModifierPosition;
-    for (let index14 = 0; index14 < className.length; index14++) {
-      let currentCharacter = className[index14];
+    for (let index15 = 0; index15 < className.length; index15++) {
+      let currentCharacter = className[index15];
       if (bracketDepth === 0) {
-        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index14, index14 + separatorLength) === separator)) {
-          modifiers.push(className.slice(modifierStart, index14));
-          modifierStart = index14 + separatorLength;
+        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index15, index15 + separatorLength) === separator)) {
+          modifiers.push(className.slice(modifierStart, index15));
+          modifierStart = index15 + separatorLength;
           continue;
         }
         if (currentCharacter === "/") {
-          postfixModifierPosition = index14;
+          postfixModifierPosition = index15;
           continue;
         }
       }
@@ -50227,12 +50228,12 @@ function mergeClassList(classList, configUtils) {
   }).reverse().map((parsed) => parsed.originalClassName).join(" ");
 }
 function twJoin() {
-  let index14 = 0;
+  let index15 = 0;
   let argument;
   let resolvedValue;
   let string3 = "";
-  while (index14 < arguments.length) {
-    if (argument = arguments[index14++]) {
+  while (index15 < arguments.length) {
+    if (argument = arguments[index15++]) {
       if (resolvedValue = toValue(argument)) {
         string3 && (string3 += " ");
         string3 += resolvedValue;
@@ -52679,8 +52680,8 @@ function Icon($$payload, $$props) {
   let strokeWidth = value_or_fallback($$props["strokeWidth"], () => 2);
   let absoluteStrokeWidth = value_or_fallback($$props["absoluteStrokeWidth"], () => false);
   let iconNode = $$props["iconNode"];
-  const mergeClasses = (...classes) => classes.filter((className, index14, array3) => {
-    return Boolean(className) && array3.indexOf(className) === index14;
+  const mergeClasses = (...classes) => classes.filter((className, index15, array3) => {
+    return Boolean(className) && array3.indexOf(className) === index15;
   }).join(" ");
   const each_array = ensure_array_like(iconNode);
   $$payload.out += `<svg${spread_attributes(
@@ -53484,7 +53485,7 @@ function last(array3) {
   return array3[array3.length - 1];
 }
 function wrapArray(array3, startIndex) {
-  return array3.map((_2, index14) => array3[(startIndex + index14) % array3.length]);
+  return array3.map((_2, index15) => array3[(startIndex + index15) % array3.length]);
 }
 function sleep2(ms) {
   return new Promise((resolve2) => setTimeout(resolve2, ms));
@@ -55590,9 +55591,9 @@ var init_Cross2 = __esm({
     useModal = (node, config) => {
       let unsubInteractOutside = noop2;
       function removeNodeFromVisibleModals() {
-        const index14 = visibleModals.indexOf(node);
-        if (index14 >= 0) {
-          visibleModals.splice(index14, 1);
+        const index15 = visibleModals.indexOf(node);
+        if (index15 >= 0) {
+          visibleModals.splice(index15, 1);
         }
       }
       function update(config2) {
@@ -55784,7 +55785,7 @@ var init_Cross2 = __esm({
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_layout.svelte.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_layout.svelte.js
 var layout_svelte_exports4 = {};
 __export(layout_svelte_exports4, {
   default: () => _layout3
@@ -59558,7 +59559,7 @@ function _layout3($$payload, $$props) {
 }
 var badgeVariants, ignoredKeys, defaults$3, min, max, round, floor, createCoords, oppositeSideMap, oppositeAlignmentMap, computePosition$1, arrow$1, flip$1, offset$1, shift$1, size$1, noOffsets, topLayerSelectors, getElementRects, platform, offset, shift, flip, size, arrow, computePosition, defaultConfig$1, ARROW_TRANSFORM, defaultConfig, usePopper, SUB_OPEN_KEYS, SUB_CLOSE_KEYS, menuIdParts, defaults$2, defaults$1, defaults4, createSeparator, Root$1, Trigger$1, Root3, Trigger, sheetVariants, sheetTransitions;
 var init_layout_svelte4 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_layout.svelte.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_layout.svelte.js"() {
     init_index3();
     init_input();
     init_misc();
@@ -60322,57 +60323,57 @@ function unflatten(parsed, revivers) {
     parsed
   );
   const hydrated = Array(values.length);
-  function hydrate2(index14, standalone = false) {
-    if (index14 === UNDEFINED)
+  function hydrate2(index15, standalone = false) {
+    if (index15 === UNDEFINED)
       return void 0;
-    if (index14 === NAN)
+    if (index15 === NAN)
       return NaN;
-    if (index14 === POSITIVE_INFINITY)
+    if (index15 === POSITIVE_INFINITY)
       return Infinity;
-    if (index14 === NEGATIVE_INFINITY)
+    if (index15 === NEGATIVE_INFINITY)
       return -Infinity;
-    if (index14 === NEGATIVE_ZERO)
+    if (index15 === NEGATIVE_ZERO)
       return -0;
     if (standalone)
       throw new Error(`Invalid input`);
-    if (index14 in hydrated)
-      return hydrated[index14];
-    const value = values[index14];
+    if (index15 in hydrated)
+      return hydrated[index15];
+    const value = values[index15];
     if (!value || typeof value !== "object") {
-      hydrated[index14] = value;
+      hydrated[index15] = value;
     } else if (Array.isArray(value)) {
       if (typeof value[0] === "string") {
         const type = value[0];
         switch (type) {
           case "Date":
-            hydrated[index14] = new Date(value[1]);
+            hydrated[index15] = new Date(value[1]);
             break;
           case "Set":
             const set2 = /* @__PURE__ */ new Set();
-            hydrated[index14] = set2;
+            hydrated[index15] = set2;
             for (let i2 = 1; i2 < value.length; i2 += 1) {
               set2.add(hydrate2(value[i2]));
             }
             break;
           case "Map":
             const map2 = /* @__PURE__ */ new Map();
-            hydrated[index14] = map2;
+            hydrated[index15] = map2;
             for (let i2 = 1; i2 < value.length; i2 += 2) {
               map2.set(hydrate2(value[i2]), hydrate2(value[i2 + 1]));
             }
             break;
           case "RegExp":
-            hydrated[index14] = new RegExp(value[1], value[2]);
+            hydrated[index15] = new RegExp(value[1], value[2]);
             break;
           case "Object":
-            hydrated[index14] = Object(value[1]);
+            hydrated[index15] = Object(value[1]);
             break;
           case "BigInt":
-            hydrated[index14] = BigInt(value[1]);
+            hydrated[index15] = BigInt(value[1]);
             break;
           case "null":
             const obj = /* @__PURE__ */ Object.create(null);
-            hydrated[index14] = obj;
+            hydrated[index15] = obj;
             for (let i2 = 1; i2 < value.length; i2 += 2) {
               obj[value[i2]] = hydrate2(value[i2 + 1]);
             }
@@ -60382,7 +60383,7 @@ function unflatten(parsed, revivers) {
         }
       } else {
         const array3 = new Array(value.length);
-        hydrated[index14] = array3;
+        hydrated[index15] = array3;
         for (let i2 = 0; i2 < value.length; i2 += 1) {
           const n2 = value[i2];
           if (n2 === HOLE)
@@ -60392,13 +60393,13 @@ function unflatten(parsed, revivers) {
       }
     } else {
       const object2 = {};
-      hydrated[index14] = object2;
+      hydrated[index15] = object2;
       for (const key2 in value) {
         const n2 = value[key2];
         object2[key2] = hydrate2(n2);
       }
     }
-    return hydrated[index14];
+    return hydrated[index15];
   }
   return hydrate2(0);
 }
@@ -66388,13 +66389,13 @@ ${ctx.expected}`
       maxLength = this.variadic ? null : this.minLength + this.optionals.length;
       maxLengthNode = this.maxLength === null ? null : this.$.node("maxLength", this.maxLength);
       impliedSiblings = this.minLengthNode ? this.maxLengthNode ? [this.minLengthNode, this.maxLengthNode] : [this.minLengthNode] : this.maxLengthNode ? [this.maxLengthNode] : [];
-      childAtIndex(data, index14) {
-        if (index14 < this.prevariadic.length)
-          return this.prevariadic[index14];
+      childAtIndex(data, index15) {
+        if (index15 < this.prevariadic.length)
+          return this.prevariadic[index15];
         const firstPostfixIndex = data.length - this.postfix.length;
-        if (index14 >= firstPostfixIndex)
-          return this.postfix[index14 - firstPostfixIndex];
-        return this.variadic ?? throwInternalError(`Unexpected attempt to access index ${index14} on ${this}`);
+        if (index15 >= firstPostfixIndex)
+          return this.postfix[index15 - firstPostfixIndex];
+        return this.variadic ?? throwInternalError(`Unexpected attempt to access index ${index15} on ${this}`);
       }
       // minLength/maxLength should be checked by Intersection before either traversal
       traverseAllows = (data, ctx) => {
@@ -66598,8 +66599,8 @@ ${ctx.expected}`
         ];
         keyof() {
           let branches = this.$.units(this.literalKeys).branches;
-          this.index?.forEach(({ signature: index14 }) => {
-            branches = branches.concat(index14.branches);
+          this.index?.forEach(({ signature: index15 }) => {
+            branches = branches.concat(index15.branches);
           });
           return this.$.node("union", branches);
         }
@@ -68793,7 +68794,7 @@ ${this.body}    }
           return { $ref: getRelativePath(refs.currentPath, item.path) };
         case "none":
         case "seen": {
-          if (item.path.length < refs.currentPath.length && item.path.every((value, index14) => refs.currentPath[index14] === value)) {
+          if (item.path.length < refs.currentPath.length && item.path.every((value, index15) => refs.currentPath[index15] === value)) {
             console.warn(`Recursive reference detected at ${refs.currentPath.join("/")}! Defaulting to any`);
             return {};
           }
@@ -70375,7 +70376,7 @@ var init__7 = __esm({
     index7 = 6;
     component7 = async () => component_cache7 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
     server_id = "src/routes/(app)/app/(auth)/sign-in/+page.server.ts";
-    imports7 = ["_app/immutable/nodes/6.Dgp85cv7.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
+    imports7 = ["_app/immutable/nodes/6.pC4bnxzx.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
     stylesheets7 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
     fonts7 = [];
   }
@@ -70711,7 +70712,7 @@ var init__9 = __esm({
     index9 = 8;
     component9 = async () => component_cache9 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
     server_id2 = "src/routes/(app)/app/(auth)/sign-up/+page.server.ts";
-    imports9 = ["_app/immutable/nodes/8.B__23EtT.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
+    imports9 = ["_app/immutable/nodes/8.jskyU3gI.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
     stylesheets9 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
     fonts9 = [];
   }
@@ -70964,7 +70965,7 @@ var init__10 = __esm({
     index10 = 9;
     component10 = async () => component_cache10 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
     server_id3 = "src/routes/(app)/app/(auth)/verification/+page.server.ts";
-    imports10 = ["_app/immutable/nodes/9.C6vi9UAI.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
+    imports10 = ["_app/immutable/nodes/9.DGxOHEsM.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
     stylesheets10 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
     fonts10 = [];
   }
@@ -70994,7 +70995,7 @@ var init_index5 = __esm({
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.server.ts.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.server.ts.js
 var page_server_ts_exports4 = {};
 __export(page_server_ts_exports4, {
   actions: () => actions4,
@@ -71002,7 +71003,7 @@ __export(page_server_ts_exports4, {
 });
 var load4, actions4;
 var init_page_server_ts4 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.server.ts.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.server.ts.js"() {
     init_tenants();
     init_chunks();
     init_stores();
@@ -71035,7 +71036,7 @@ var init_page_server_ts4 = __esm({
         const tenant_exists = await event.locals.db.query.tenants_table.findFirst({
           where: eq(tenants_table.slug, form.data.slug)
         });
-        if (tenant_exists || ["sign-in", "sign-out", "verification", "sign-up", "app"].includes(form.data.slug)) {
+        if (tenant_exists || ["sign-in", "sign-out", "verification", "sign-up", "app", "profile"].includes(form.data.slug)) {
           return setError(form, "slug", "Slug not available");
         }
         await event.locals.db.transaction(async (tx) => {
@@ -71507,7 +71508,7 @@ var init_auto_animate = __esm({
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.svelte.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.svelte.js
 var page_svelte_exports5 = {};
 __export(page_svelte_exports5, {
   default: () => _page5
@@ -72359,7 +72360,7 @@ function _page5($$payload, $$props) {
 }
 var defaults5, createAvatar, Root4, Trigger2;
 var init_page_svelte5 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_page.svelte.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.svelte.js"() {
     init_index3();
     init_public();
     init_stores();
@@ -72459,21 +72460,21 @@ var init__11 = __esm({
     init_page_server_ts4();
     index11 = 10;
     component11 = async () => component_cache11 ??= (await Promise.resolve().then(() => (init_page_svelte5(), page_svelte_exports5))).default;
-    server_id4 = "src/routes/(app)/app/(tenant)/+page.server.ts";
-    imports11 = ["_app/immutable/nodes/10.5uozEuyn.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/stores.BptmXAsR.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/Cross2.BpNNkRUU.js", "_app/immutable/chunks/loader-circle.BAKy0nBl.js"];
+    server_id4 = "src/routes/(app)/app/(authenticated)/+page.server.ts";
+    imports11 = ["_app/immutable/nodes/10.CmzsCVRo.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/Cross2.BpNNkRUU.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js"];
     stylesheets11 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
     fonts11 = [];
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.server.ts.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.server.ts.js
 var page_server_ts_exports5 = {};
 __export(page_server_ts_exports5, {
   load: () => load5
 });
 var load5;
 var init_page_server_ts5 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.server.ts.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.server.ts.js"() {
     init_index5();
     load5 = (event) => {
       isTenantUser(event);
@@ -72481,7 +72482,7 @@ var init_page_server_ts5 = __esm({
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.svelte.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.svelte.js
 var page_svelte_exports6 = {};
 __export(page_svelte_exports6, {
   default: () => _page6
@@ -72489,7 +72490,7 @@ __export(page_svelte_exports6, {
 function _page6($$payload) {
 }
 var init_page_svelte6 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(tenant)/_tenant_slug_/_page.svelte.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.svelte.js"() {
   }
 });
 
@@ -72510,23 +72511,37 @@ var init__12 = __esm({
     init_page_server_ts5();
     index12 = 11;
     component12 = async () => component_cache12 ??= (await Promise.resolve().then(() => (init_page_svelte6(), page_svelte_exports6))).default;
-    server_id5 = "src/routes/(app)/app/(tenant)/[tenant_slug]/+page.server.ts";
+    server_id5 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/+page.server.ts";
     imports12 = ["_app/immutable/nodes/11.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
     stylesheets12 = [];
     fonts12 = [];
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.server.ts.js
+var page_server_ts_exports6 = {};
+__export(page_server_ts_exports6, {
+  load: () => load6
+});
+var load6;
+var init_page_server_ts6 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.server.ts.js"() {
+    init_index5();
+    load6 = async (event) => {
+      isAuthenticated(event);
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.svelte.js
 var page_svelte_exports7 = {};
 __export(page_svelte_exports7, {
   default: () => _page7
 });
 function _page7($$payload) {
-  $$payload.out += `Public`;
 }
 var init_page_svelte7 = __esm({
-  ".svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.svelte.js"() {
   }
 });
 
@@ -72537,16 +72552,53 @@ __export(__exports13, {
   fonts: () => fonts13,
   imports: () => imports13,
   index: () => index13,
+  server: () => page_server_ts_exports6,
+  server_id: () => server_id6,
   stylesheets: () => stylesheets13
 });
-var index13, component_cache13, component13, imports13, stylesheets13, fonts13;
+var index13, component_cache13, component13, server_id6, imports13, stylesheets13, fonts13;
 var init__13 = __esm({
   ".svelte-kit/output/server/nodes/12.js"() {
+    init_page_server_ts6();
     index13 = 12;
     component13 = async () => component_cache13 ??= (await Promise.resolve().then(() => (init_page_svelte7(), page_svelte_exports7))).default;
-    imports13 = ["_app/immutable/nodes/12.CdzdaqKc.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/runtime.Jf46wuGD.js"];
+    server_id6 = "src/routes/(app)/app/(authenticated)/profile/+page.server.ts";
+    imports13 = ["_app/immutable/nodes/12.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
     stylesheets13 = [];
     fonts13 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js
+var page_svelte_exports8 = {};
+__export(page_svelte_exports8, {
+  default: () => _page8
+});
+function _page8($$payload) {
+  $$payload.out += `Public`;
+}
+var init_page_svelte8 = __esm({
+  ".svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js"() {
+  }
+});
+
+// .svelte-kit/output/server/nodes/13.js
+var __exports14 = {};
+__export(__exports14, {
+  component: () => component14,
+  fonts: () => fonts14,
+  imports: () => imports14,
+  index: () => index14,
+  stylesheets: () => stylesheets14
+});
+var index14, component_cache14, component14, imports14, stylesheets14, fonts14;
+var init__14 = __esm({
+  ".svelte-kit/output/server/nodes/13.js"() {
+    index14 = 13;
+    component14 = async () => component_cache14 ??= (await Promise.resolve().then(() => (init_page_svelte8(), page_svelte_exports8))).default;
+    imports14 = ["_app/immutable/nodes/13.CdzdaqKc.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/runtime.Jf46wuGD.js"];
+    stylesheets14 = [];
+    fonts14 = [];
   }
 });
 
@@ -73365,12 +73417,12 @@ function remove_reaction(signal, dependency) {
   let reactions_length = 0;
   if (reactions !== null) {
     reactions_length = reactions.length - 1;
-    const index14 = reactions.indexOf(signal);
-    if (index14 !== -1) {
+    const index15 = reactions.indexOf(signal);
+    if (index15 !== -1) {
       if (reactions_length === 0) {
         dependency.reactions = null;
       } else {
-        reactions[index14] = reactions[reactions_length];
+        reactions[index15] = reactions[reactions_length];
         reactions.pop();
       }
     }
@@ -73692,7 +73744,7 @@ function push2(props, runes = false, fn) {
     };
   }
 }
-function pop2(component14) {
+function pop2(component15) {
   const context_stack_item = current_component_context;
   if (context_stack_item !== null) {
     const effects = context_stack_item.e;
@@ -74061,11 +74113,11 @@ function handle_event_propagation(handler_element, event) {
 }
 var all_registered_events = /* @__PURE__ */ new Set();
 var root_event_handles = /* @__PURE__ */ new Set();
-function mount(component14, options22) {
+function mount(component15, options22) {
   const anchor = options22.anchor ?? options22.target.appendChild(empty());
-  return flush_sync(() => _mount(component14, { ...options22, anchor }), false);
+  return flush_sync(() => _mount(component15, { ...options22, anchor }), false);
 }
-function hydrate(component14, options22) {
+function hydrate(component15, options22) {
   const target2 = options22.target;
   const previous_hydrate_nodes = hydrate_nodes;
   try {
@@ -74080,7 +74132,7 @@ function hydrate(component14, options22) {
         throw HYDRATION_ERROR;
       }
       const anchor = hydrate_anchor(node);
-      const instance = _mount(component14, { ...options22, anchor });
+      const instance = _mount(component15, { ...options22, anchor });
       set_hydrating(false);
       return instance;
     }, false);
@@ -74091,7 +74143,7 @@ function hydrate(component14, options22) {
       }
       init_operations2();
       clear_text_content(target2);
-      return mount(component14, options22);
+      return mount(component15, options22);
     }
     throw error2;
   } finally {
@@ -74127,7 +74179,7 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
   };
   event_handle(array_from(all_registered_events));
   root_event_handles.add(event_handle);
-  let component14 = void 0;
+  let component15 = void 0;
   const unmount2 = effect_root(() => {
     branch(() => {
       if (context) {
@@ -74141,7 +74193,7 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
       if (events) {
         props.$$events = events;
       }
-      component14 = Component(anchor, props) || {};
+      component15 = Component(anchor, props) || {};
       if (context) {
         pop2();
       }
@@ -74151,23 +74203,23 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
         target2.removeEventListener(event_name, bound_event_listener);
       }
       root_event_handles.delete(event_handle);
-      mounted_components.delete(component14);
+      mounted_components.delete(component15);
     };
   });
-  mounted_components.set(component14, unmount2);
-  return component14;
+  mounted_components.set(component15, unmount2);
+  return component15;
 }
 var mounted_components = /* @__PURE__ */ new WeakMap();
-function unmount(component14) {
-  const fn = mounted_components.get(component14);
+function unmount(component15) {
+  const fn = mounted_components.get(component15);
   fn?.();
 }
-function asClassComponent$1(component14) {
+function asClassComponent$1(component15) {
   return class extends Svelte4Component {
     /** @param {any} options */
     constructor(options22) {
       super({
-        component: component14,
+        component: component15,
         ...options22
       });
     }
@@ -74242,10 +74294,10 @@ var Svelte4Component = class {
     this.#instance.$destroy();
   }
 };
-function asClassComponent(component14) {
-  const component_constructor = asClassComponent$1(component14);
+function asClassComponent(component15) {
+  const component_constructor = asClassComponent$1(component15);
   const _render = (props, { context } = {}) => {
-    const result = render(component14, { props, context });
+    const result = render(component15, { props, context });
     return {
       css: { code: "", map: null },
       head: result.head,
@@ -74422,7 +74474,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "lneg29"
+  version_hash: "1k5b86q"
 };
 async function get_hooks() {
   return {
@@ -75843,8 +75895,8 @@ async function render_response({
   }
   const { client } = manifest2._;
   const modulepreloads = new Set(client.imports);
-  const stylesheets14 = new Set(client.stylesheets);
-  const fonts14 = new Set(client.fonts);
+  const stylesheets15 = new Set(client.stylesheets);
+  const fonts15 = new Set(client.fonts);
   const link_header_preloads = /* @__PURE__ */ new Set();
   const inline_styles = /* @__PURE__ */ new Map();
   let rendered;
@@ -75900,9 +75952,9 @@ async function render_response({
       for (const url2 of node.imports)
         modulepreloads.add(url2);
       for (const url2 of node.stylesheets)
-        stylesheets14.add(url2);
+        stylesheets15.add(url2);
       for (const url2 of node.fonts)
-        fonts14.add(url2);
+        fonts15.add(url2);
       if (node.inline_styles) {
         Object.entries(await node.inline_styles()).forEach(([k, v2]) => inline_styles.set(k, v2));
       }
@@ -75930,7 +75982,7 @@ async function render_response({
     head2 += `
 	<style${attributes.join("")}>${content}</style>`;
   }
-  for (const dep of stylesheets14) {
+  for (const dep of stylesheets15) {
     const path = prefixed(dep);
     const attributes = ['rel="stylesheet"'];
     if (inline_styles.has(dep)) {
@@ -75944,7 +75996,7 @@ async function render_response({
     head2 += `
 		<link href="${path}" ${attributes.join(" ")}>`;
   }
-  for (const dep of fonts14) {
+  for (const dep of fonts15) {
     const path = prefixed(dep);
     if (resolve_opts.preload({ type: "font", path })) {
       const ext = dep.slice(dep.lastIndexOf(".") + 1);
@@ -76681,11 +76733,11 @@ async function render_page(event, page2, options22, manifest2, state, resolve_op
           const error2 = await handle_error_and_jsonify(event, options22, err);
           while (i2--) {
             if (page2.errors[i2]) {
-              const index14 = (
+              const index15 = (
                 /** @type {number} */
                 page2.errors[i2]
               );
-              const node2 = await manifest2._.nodes[index14]();
+              const node2 = await manifest2._.nodes[index15]();
               let j2 = i2;
               while (!branch2[j2])
                 j2 -= 1;
@@ -76808,20 +76860,20 @@ function parse$1(str, options22) {
   var obj = {};
   var opt = options22 || {};
   var dec = opt.decode || decode2;
-  var index14 = 0;
-  while (index14 < str.length) {
-    var eqIdx = str.indexOf("=", index14);
+  var index15 = 0;
+  while (index15 < str.length) {
+    var eqIdx = str.indexOf("=", index15);
     if (eqIdx === -1) {
       break;
     }
-    var endIdx = str.indexOf(";", index14);
+    var endIdx = str.indexOf(";", index15);
     if (endIdx === -1) {
       endIdx = str.length;
     } else if (endIdx < eqIdx) {
-      index14 = str.lastIndexOf(";", eqIdx - 1) + 1;
+      index15 = str.lastIndexOf(";", eqIdx - 1) + 1;
       continue;
     }
-    var key2 = str.slice(index14, eqIdx).trim();
+    var key2 = str.slice(index15, eqIdx).trim();
     if (void 0 === obj[key2]) {
       var val = str.slice(eqIdx + 1, endIdx).trim();
       if (val.charCodeAt(0) === 34) {
@@ -76829,7 +76881,7 @@ function parse$1(str, options22) {
       }
       obj[key2] = tryDecode(val, dec);
     }
-    index14 = endIdx + 1;
+    index15 = endIdx + 1;
   }
   return obj;
 }
@@ -77828,7 +77880,7 @@ var manifest = (() => {
     assets: /* @__PURE__ */ new Set(["favicon.png"]),
     mimeTypes: { ".png": "image/png" },
     _: {
-      client: { "start": "_app/immutable/entry/start.92c9885l.js", "app": "_app/immutable/entry/app.DDPyr3Mi.js", "imports": ["_app/immutable/entry/start.92c9885l.js", "_app/immutable/chunks/entry.CFRP--2r.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/entry/app.DDPyr3Mi.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"], "stylesheets": [], "fonts": [], "uses_env_dynamic_public": false },
+      client: { "start": "_app/immutable/entry/start.D0NBIC41.js", "app": "_app/immutable/entry/app.BZzIheHQ.js", "imports": ["_app/immutable/entry/start.D0NBIC41.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/entry/app.BZzIheHQ.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"], "stylesheets": [], "fonts": [], "uses_env_dynamic_public": false },
       nodes: [
         __memo(() => Promise.resolve().then(() => (init__(), __exports))),
         __memo(() => Promise.resolve().then(() => (init__2(), __exports2))),
@@ -77842,14 +77894,22 @@ var manifest = (() => {
         __memo(() => Promise.resolve().then(() => (init__10(), __exports10))),
         __memo(() => Promise.resolve().then(() => (init__11(), __exports11))),
         __memo(() => Promise.resolve().then(() => (init__12(), __exports12))),
-        __memo(() => Promise.resolve().then(() => (init__13(), __exports13)))
+        __memo(() => Promise.resolve().then(() => (init__13(), __exports13))),
+        __memo(() => Promise.resolve().then(() => (init__14(), __exports14)))
       ],
       routes: [
         {
-          id: "/(app)/app/(tenant)",
+          id: "/(app)/app/(authenticated)",
           pattern: /^\/app\/?$/,
           params: [],
           page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 10 },
+          endpoint: null
+        },
+        {
+          id: "/(app)/app/(authenticated)/profile",
+          pattern: /^\/app\/profile\/?$/,
+          params: [],
+          page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 12 },
           endpoint: null
         },
         {
@@ -77881,7 +77941,7 @@ var manifest = (() => {
           endpoint: null
         },
         {
-          id: "/(app)/app/(tenant)/[tenant_slug]",
+          id: "/(app)/app/(authenticated)/[tenant_slug]",
           pattern: /^\/app\/([^/]+?)\/?$/,
           params: [{ "name": "tenant_slug", "optional": false, "rest": false, "chained": false }],
           page: { layouts: [0, , 3, 5], errors: [1, 2, , ,], leaf: 11 },
@@ -77891,7 +77951,7 @@ var manifest = (() => {
           id: "/(public)/public",
           pattern: /^\/public\/?$/,
           params: [],
-          page: { layouts: [0], errors: [1], leaf: 12 },
+          page: { layouts: [0], errors: [1], leaf: 13 },
           endpoint: null
         }
       ],

@@ -215,9 +215,9 @@ function stringify(value, reducers) {
     stringified[index22] = str;
     return index22;
   }
-  const index15 = flatten2(value);
-  if (index15 < 0)
-    return `${index15}`;
+  const index18 = flatten2(value);
+  if (index18 < 0)
+    return `${index18}`;
   return `[${stringified.join(",")}]`;
 }
 function stringify_primitive(thing) {
@@ -337,15 +337,15 @@ function push(fn) {
   current_component = { p: current_component, c: null, d: null };
 }
 function pop() {
-  var component15 = (
+  var component17 = (
     /** @type {import('#server').Component} */
     current_component
   );
-  var ondestroy = component15.d;
+  var ondestroy = component17.d;
   if (ondestroy) {
     on_destroy.push(...ondestroy);
   }
-  current_component = component15.p;
+  current_component = component17.p;
 }
 function get_parent_context(component_context) {
   let parent = component_context.p;
@@ -387,7 +387,7 @@ function element(payload, tag, attributes_fn, children_fn) {
     payload.out += `</${tag}>`;
   }
 }
-function render(component15, options3) {
+function render(component17, options3) {
   const payload = create_payload();
   const prev_on_destroy = on_destroy;
   on_destroy = [];
@@ -396,7 +396,7 @@ function render(component15, options3) {
     push();
     current_component.c = options3.context;
   }
-  component15(payload, options3.props, {}, {});
+  component17(payload, options3.props, {}, {});
   if (options3.context) {
     pop();
   }
@@ -983,14 +983,14 @@ var init_foreign_keys = __esm({
       _onUpdate = "no action";
       /** @internal */
       _onDelete = "no action";
-      constructor(config, actions5) {
+      constructor(config, actions6) {
         this.reference = () => {
           const { name: name3, columns, foreignColumns } = config();
           return { name: name3, columns, foreignTable: foreignColumns[0].table, foreignColumns };
         };
-        if (actions5) {
-          this._onUpdate = actions5.onUpdate;
-          this._onDelete = actions5.onDelete;
+        if (actions6) {
+          this._onUpdate = actions6.onUpdate;
+          this._onDelete = actions6.onDelete;
         }
       }
       onUpdate(action) {
@@ -1196,8 +1196,8 @@ var init_common = __esm({
       array(size2) {
         return new PgArrayBuilder(this.config.name, this, size2);
       }
-      references(ref, actions5 = {}) {
-        this.foreignKeyConfigs.push({ ref, actions: actions5 });
+      references(ref, actions6 = {}) {
+        this.foreignKeyConfigs.push({ ref, actions: actions6 });
         return this;
       }
       unique(name3, config) {
@@ -1208,7 +1208,7 @@ var init_common = __esm({
       }
       /** @internal */
       buildForeignKeys(column, table) {
-        return this.foreignKeyConfigs.map(({ ref, actions: actions5 }) => {
+        return this.foreignKeyConfigs.map(({ ref, actions: actions6 }) => {
           return iife(
             (ref2, actions22) => {
               const builder = new ForeignKeyBuilder(() => {
@@ -1224,7 +1224,7 @@ var init_common = __esm({
               return builder.build(table);
             },
             ref,
-            actions5
+            actions6
           );
         });
       }
@@ -2629,8 +2629,8 @@ function haveSameKeys(left2, right2) {
   if (leftKeys.length !== rightKeys.length) {
     return false;
   }
-  for (const [index15, key2] of leftKeys.entries()) {
-    if (key2 !== rightKeys[index15]) {
+  for (const [index18, key2] of leftKeys.entries()) {
+    if (key2 !== rightKeys[index18]) {
       return false;
     }
   }
@@ -3008,14 +3008,14 @@ var init_foreign_keys2 = __esm({
       _onUpdate;
       /** @internal */
       _onDelete;
-      constructor(config, actions5) {
+      constructor(config, actions6) {
         this.reference = () => {
           const { name: name3, columns, foreignColumns } = config();
           return { name: name3, columns, foreignTable: foreignColumns[0].table, foreignColumns };
         };
-        if (actions5) {
-          this._onUpdate = actions5.onUpdate;
-          this._onDelete = actions5.onDelete;
+        if (actions6) {
+          this._onUpdate = actions6.onUpdate;
+          this._onDelete = actions6.onDelete;
         }
       }
       onUpdate(action) {
@@ -3119,8 +3119,8 @@ var init_common2 = __esm({
     SQLiteColumnBuilder = class extends ColumnBuilder {
       static [entityKind] = "SQLiteColumnBuilder";
       foreignKeyConfigs = [];
-      references(ref, actions5 = {}) {
-        this.foreignKeyConfigs.push({ ref, actions: actions5 });
+      references(ref, actions6 = {}) {
+        this.foreignKeyConfigs.push({ ref, actions: actions6 });
         return this;
       }
       unique(name3) {
@@ -3130,7 +3130,7 @@ var init_common2 = __esm({
       }
       /** @internal */
       buildForeignKeys(column, table) {
-        return this.foreignKeyConfigs.map(({ ref, actions: actions5 }) => {
+        return this.foreignKeyConfigs.map(({ ref, actions: actions6 }) => {
           return ((ref2, actions22) => {
             const builder = new ForeignKeyBuilder2(() => {
               const foreignColumn = ref2();
@@ -3143,7 +3143,7 @@ var init_common2 = __esm({
               builder.onDelete(actions22.onDelete);
             }
             return builder.build(table);
-          })(ref, actions5);
+          })(ref, actions6);
         });
       }
     };
@@ -3692,8 +3692,8 @@ var init_dialect = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index15, joinMeta] of joins.entries()) {
-            if (index15 === 0) {
+          for (const [index18, joinMeta] of joins.entries()) {
+            if (index18 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -3710,7 +3710,7 @@ var init_dialect = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join ${table2} on ${joinMeta.on}`
               );
             }
-            if (index15 < joins.length - 1) {
+            if (index18 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -3720,18 +3720,18 @@ var init_dialect = __esm({
         const havingSql = having ? sql` having ${having}` : void 0;
         const orderByList = [];
         if (orderBy) {
-          for (const [index15, orderByValue] of orderBy.entries()) {
+          for (const [index18, orderByValue] of orderBy.entries()) {
             orderByList.push(orderByValue);
-            if (index15 < orderBy.length - 1) {
+            if (index18 < orderBy.length - 1) {
               orderByList.push(sql`, `);
             }
           }
         }
         const groupByList = [];
         if (groupBy2) {
-          for (const [index15, groupByValue] of groupBy2.entries()) {
+          for (const [index18, groupByValue] of groupBy2.entries()) {
             groupByList.push(groupByValue);
-            if (index15 < groupBy2.length - 1) {
+            if (index18 < groupBy2.length - 1) {
               groupByList.push(sql`, `);
             }
           }
@@ -7375,14 +7375,14 @@ var init_stmt = __esm({
         return this;
       }
       /** Binds a parameter by a 1-based index. */
-      bindIndex(index15, value) {
-        if (index15 !== (index15 | 0) || index15 <= 0) {
+      bindIndex(index18, value) {
+        if (index18 !== (index18 | 0) || index18 <= 0) {
           throw new RangeError("Index of a positional argument must be positive integer");
         }
-        while (this._args.length < index15) {
+        while (this._args.length < index18) {
           this._args.push(null);
         }
-        this._args[index15 - 1] = valueToProto(value);
+        this._args[index18 - 1] = valueToProto(value);
         return this;
       }
       /** Binds a parameter by name. */
@@ -11231,14 +11231,14 @@ var init_foreign_keys3 = __esm({
       _onUpdate;
       /** @internal */
       _onDelete;
-      constructor(config, actions5) {
+      constructor(config, actions6) {
         this.reference = () => {
           const { name: name3, columns, foreignColumns } = config();
           return { name: name3, columns, foreignTable: foreignColumns[0].table, foreignColumns };
         };
-        if (actions5) {
-          this._onUpdate = actions5.onUpdate;
-          this._onDelete = actions5.onDelete;
+        if (actions6) {
+          this._onUpdate = actions6.onUpdate;
+          this._onDelete = actions6.onDelete;
         }
       }
       onUpdate(action) {
@@ -11343,8 +11343,8 @@ var init_common3 = __esm({
     MySqlColumnBuilder = class extends ColumnBuilder {
       static [entityKind] = "MySqlColumnBuilder";
       foreignKeyConfigs = [];
-      references(ref, actions5 = {}) {
-        this.foreignKeyConfigs.push({ ref, actions: actions5 });
+      references(ref, actions6 = {}) {
+        this.foreignKeyConfigs.push({ ref, actions: actions6 });
         return this;
       }
       unique(name3) {
@@ -11354,7 +11354,7 @@ var init_common3 = __esm({
       }
       /** @internal */
       buildForeignKeys(column, table) {
-        return this.foreignKeyConfigs.map(({ ref, actions: actions5 }) => {
+        return this.foreignKeyConfigs.map(({ ref, actions: actions6 }) => {
           return ((ref2, actions22) => {
             const builder = new ForeignKeyBuilder3(() => {
               const foreignColumn = ref2();
@@ -11367,7 +11367,7 @@ var init_common3 = __esm({
               builder.onDelete(actions22.onDelete);
             }
             return builder.build(table);
-          })(ref, actions5);
+          })(ref, actions6);
         });
       }
     };
@@ -12728,8 +12728,8 @@ var init_dialect2 = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index15, joinMeta] of joins.entries()) {
-            if (index15 === 0) {
+          for (const [index18, joinMeta] of joins.entries()) {
+            if (index18 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -12755,7 +12755,7 @@ var init_dialect2 = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join${lateralSql} ${table2} on ${joinMeta.on}`
               );
             }
-            if (index15 < joins.length - 1) {
+            if (index18 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -16701,8 +16701,8 @@ var init_dialect3 = __esm({
         })();
         const joinsArray = [];
         if (joins) {
-          for (const [index15, joinMeta] of joins.entries()) {
-            if (index15 === 0) {
+          for (const [index18, joinMeta] of joins.entries()) {
+            if (index18 === 0) {
               joinsArray.push(sql` `);
             }
             const table2 = joinMeta.table;
@@ -16728,7 +16728,7 @@ var init_dialect3 = __esm({
                 sql`${sql.raw(joinMeta.joinType)} join${lateralSql} ${table2} on ${joinMeta.on}`
               );
             }
-            if (index15 < joins.length - 1) {
+            if (index18 < joins.length - 1) {
               joinsArray.push(sql` `);
             }
           }
@@ -19676,9 +19676,9 @@ function mergeValues(a2, b) {
       return { valid: false };
     }
     const newArray = [];
-    for (let index15 = 0; index15 < a2.length; index15++) {
-      const itemA = a2[index15];
-      const itemB = b[index15];
+    for (let index18 = 0; index18 < a2.length; index18++) {
+      const itemA = a2[index18];
+      const itemB = b[index18];
       const sharedValue = mergeValues(itemA, itemB);
       if (!sharedValue.valid) {
         return { valid: false };
@@ -21947,10 +21947,10 @@ var init_lib = __esm({
       //   }) as any;
       //   return merged;
       // }
-      catchall(index15) {
+      catchall(index18) {
         return new _ZodObject({
           ...this._def,
-          catchall: index15
+          catchall: index18
         });
       }
       pick(mask) {
@@ -22438,10 +22438,10 @@ var init_lib = __esm({
         }
         const keyType = this._def.keyType;
         const valueType = this._def.valueType;
-        const pairs = [...ctx.data.entries()].map(([key2, value], index15) => {
+        const pairs = [...ctx.data.entries()].map(([key2, value], index18) => {
           return {
-            key: keyType._parse(new ParseInputLazyPath(ctx, key2, ctx.path, [index15, "key"])),
-            value: valueType._parse(new ParseInputLazyPath(ctx, value, ctx.path, [index15, "value"]))
+            key: keyType._parse(new ParseInputLazyPath(ctx, key2, ctx.path, [index18, "key"])),
+            value: valueType._parse(new ParseInputLazyPath(ctx, value, ctx.path, [index18, "value"]))
           };
         });
         if (ctx.common.async) {
@@ -27116,14 +27116,14 @@ var require_react_development = __commonJS({
         function escapeUserProvidedKey(text3) {
           return text3.replace(userProvidedKeyEscapeRegex, "$&/");
         }
-        function getElementKey(element2, index15) {
+        function getElementKey(element2, index18) {
           if (typeof element2 === "object" && element2 !== null && element2.key != null) {
             {
               checkKeyStringCoercion(element2.key);
             }
             return escape3("" + element2.key);
           }
-          return index15.toString(36);
+          return index18.toString(36);
         }
         function mapIntoArray(children, array3, escapedPrefix, nameSoFar, callback) {
           var type = typeof children;
@@ -29877,10 +29877,10 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           }
           var escape3;
           var html = "";
-          var index15;
+          var index18;
           var lastIndex = 0;
-          for (index15 = match.index; index15 < str.length; index15++) {
-            switch (str.charCodeAt(index15)) {
+          for (index18 = match.index; index18 < str.length; index18++) {
+            switch (str.charCodeAt(index18)) {
               case 34:
                 escape3 = "&quot;";
                 break;
@@ -29899,13 +29899,13 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
               default:
                 continue;
             }
-            if (lastIndex !== index15) {
-              html += str.substring(lastIndex, index15);
+            if (lastIndex !== index18) {
+              html += str.substring(lastIndex, index18);
             }
-            lastIndex = index15 + 1;
+            lastIndex = index18 + 1;
             html += escape3;
           }
-          return lastIndex !== index15 ? html + str.substring(lastIndex, index15) : html;
+          return lastIndex !== index18 ? html + str.substring(lastIndex, index18) : html;
         }
         function escapeTextForBrowser(text3) {
           if (typeof text3 === "boolean" || typeof text3 === "number") {
@@ -32101,12 +32101,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
           return id.toString(32) + overflow;
         }
-        function pushTreeContext(baseContext, totalChildren, index15) {
+        function pushTreeContext(baseContext, totalChildren, index18) {
           var baseIdWithLeadingBit = baseContext.id;
           var baseOverflow = baseContext.overflow;
           var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
           var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-          var slot2 = index15 + 1;
+          var slot2 = index18 + 1;
           var length = getBitLength(totalChildren) + baseLength;
           if (length > 30) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
@@ -32606,12 +32606,12 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           abortSet.add(task);
           return task;
         }
-        function createPendingSegment(request, index15, boundary, formatContext, lastPushedText, textEmbedded) {
+        function createPendingSegment(request, index18, boundary, formatContext, lastPushedText, textEmbedded) {
           return {
             status: PENDING,
             id: -1,
             // lazily assigned later
-            index: index15,
+            index: index18,
             parentFlushed: false,
             chunks: [],
             children: [],
@@ -32870,8 +32870,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
             if (hasId) {
               var prevTreeContext = task.treeContext;
               var totalChildren = 1;
-              var index15 = 0;
-              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
+              var index18 = 0;
+              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index18);
               try {
                 renderNodeDestructive(request, task, value);
               } finally {
@@ -32926,8 +32926,8 @@ var require_react_dom_server_legacy_browser_development = __commonJS({
           if (hasId) {
             var prevTreeContext = task.treeContext;
             var totalChildren = 1;
-            var index15 = 0;
-            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
+            var index18 = 0;
+            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index18);
             try {
               renderNodeDestructive(request, task, children);
             } finally {
@@ -35273,10 +35273,10 @@ var require_react_dom_server_browser_development = __commonJS({
           }
           var escape3;
           var html = "";
-          var index15;
+          var index18;
           var lastIndex = 0;
-          for (index15 = match.index; index15 < str.length; index15++) {
-            switch (str.charCodeAt(index15)) {
+          for (index18 = match.index; index18 < str.length; index18++) {
+            switch (str.charCodeAt(index18)) {
               case 34:
                 escape3 = "&quot;";
                 break;
@@ -35295,13 +35295,13 @@ var require_react_dom_server_browser_development = __commonJS({
               default:
                 continue;
             }
-            if (lastIndex !== index15) {
-              html += str.substring(lastIndex, index15);
+            if (lastIndex !== index18) {
+              html += str.substring(lastIndex, index18);
             }
-            lastIndex = index15 + 1;
+            lastIndex = index18 + 1;
             html += escape3;
           }
-          return lastIndex !== index15 ? html + str.substring(lastIndex, index15) : html;
+          return lastIndex !== index18 ? html + str.substring(lastIndex, index18) : html;
         }
         function escapeTextForBrowser(text3) {
           if (typeof text3 === "boolean" || typeof text3 === "number") {
@@ -37437,12 +37437,12 @@ var require_react_dom_server_browser_development = __commonJS({
           var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
           return id.toString(32) + overflow;
         }
-        function pushTreeContext(baseContext, totalChildren, index15) {
+        function pushTreeContext(baseContext, totalChildren, index18) {
           var baseIdWithLeadingBit = baseContext.id;
           var baseOverflow = baseContext.overflow;
           var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
           var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-          var slot2 = index15 + 1;
+          var slot2 = index18 + 1;
           var length = getBitLength(totalChildren) + baseLength;
           if (length > 30) {
             var numberOfOverflowBits = baseLength - baseLength % 5;
@@ -37942,12 +37942,12 @@ var require_react_dom_server_browser_development = __commonJS({
           abortSet.add(task);
           return task;
         }
-        function createPendingSegment(request, index15, boundary, formatContext, lastPushedText, textEmbedded) {
+        function createPendingSegment(request, index18, boundary, formatContext, lastPushedText, textEmbedded) {
           return {
             status: PENDING,
             id: -1,
             // lazily assigned later
-            index: index15,
+            index: index18,
             parentFlushed: false,
             chunks: [],
             children: [],
@@ -38206,8 +38206,8 @@ var require_react_dom_server_browser_development = __commonJS({
             if (hasId) {
               var prevTreeContext = task.treeContext;
               var totalChildren = 1;
-              var index15 = 0;
-              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
+              var index18 = 0;
+              task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index18);
               try {
                 renderNodeDestructive(request, task, value);
               } finally {
@@ -38262,8 +38262,8 @@ var require_react_dom_server_browser_development = __commonJS({
           if (hasId) {
             var prevTreeContext = task.treeContext;
             var totalChildren = 1;
-            var index15 = 0;
-            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index15);
+            var index18 = 0;
+            task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index18);
             try {
               renderNodeDestructive(request, task, children);
             } finally {
@@ -41883,10 +41883,10 @@ var init_Parser = __esm({
       /** @internal */
       ontextentity(cp) {
         var _a2, _b;
-        const index15 = this.tokenizer.getSectionStart();
-        this.endIndex = index15 - 1;
+        const index18 = this.tokenizer.getSectionStart();
+        this.endIndex = index18 - 1;
         (_b = (_a2 = this.cbs).ontext) === null || _b === void 0 ? void 0 : _b.call(_a2, fromCodePoint(cp));
-        this.startIndex = index15;
+        this.startIndex = index18;
       }
       isVoidElement(name3) {
         return !this.options.xmlMode && voidElements.has(name3);
@@ -42017,8 +42017,8 @@ var init_Parser = __esm({
         this.attribvalue = "";
       }
       getInstructionName(value) {
-        const index15 = value.search(reNameEnd);
-        let name3 = index15 < 0 ? value : value.substr(0, index15);
+        const index18 = value.search(reNameEnd);
+        let name3 = index18 < 0 ? value : value.substr(0, index18);
         if (this.lowerCaseTagNames) {
           name3 = name3.toLowerCase();
         }
@@ -42072,7 +42072,7 @@ var init_Parser = __esm({
         var _a2, _b;
         if (this.cbs.onclosetag) {
           this.endIndex = this.startIndex;
-          for (let index15 = this.stack.length; index15 > 0; this.cbs.onclosetag(this.stack[--index15], true))
+          for (let index18 = this.stack.length; index18 > 0; this.cbs.onclosetag(this.stack[--index18], true))
             ;
         }
         (_b = (_a2 = this.cbs).onend) === null || _b === void 0 ? void 0 : _b.call(_a2);
@@ -42254,9 +42254,9 @@ var init_escape = __esm({
       [62, "&gt;"]
     ]);
     getCodePoint = // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    String.prototype.codePointAt != null ? (str, index15) => str.codePointAt(index15) : (
+    String.prototype.codePointAt != null ? (str, index18) => str.codePointAt(index18) : (
       // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-      (c3, index15) => (c3.charCodeAt(index15) & 64512) === 55296 ? (c3.charCodeAt(index15) - 55296) * 1024 + c3.charCodeAt(index15 + 1) - 56320 + 65536 : c3.charCodeAt(index15)
+      (c3, index18) => (c3.charCodeAt(index18) & 64512) === 55296 ? (c3.charCodeAt(index18) - 55296) * 1024 + c3.charCodeAt(index18 + 1) - 56320 + 65536 : c3.charCodeAt(index18)
     );
     escapeUTF8 = getEscaper(/[&<>'"]/g, xmlCodeMap);
     escapeAttribute = getEscaper(/["&\u00A0]/g, /* @__PURE__ */ new Map([
@@ -43074,11 +43074,11 @@ function putCellIntoLayout(cell, layout, baseRow, baseCol) {
     }
   }
 }
-function getOrInitOffset(offsets, index15) {
-  if (offsets[index15] === void 0) {
-    offsets[index15] = index15 === 0 ? 0 : 1 + getOrInitOffset(offsets, index15 - 1);
+function getOrInitOffset(offsets, index18) {
+  if (offsets[index18] === void 0) {
+    offsets[index18] = index18 === 0 ? 0 : 1 + getOrInitOffset(offsets, index18 - 1);
   }
-  return offsets[index15];
+  return offsets[index18];
 }
 function updateOffset(offsets, base2, span, value) {
   offsets[base2 + span] = Math.max(
@@ -44354,11 +44354,11 @@ var require_output = __commonJS({
       line.set_indent(this.__indent_count, this.__alignment_count);
       return line;
     };
-    OutputLine.prototype.item = function(index15) {
-      if (index15 < 0) {
-        return this.__items[this.__items.length + index15];
+    OutputLine.prototype.item = function(index18) {
+      if (index18 < 0) {
+        return this.__items[this.__items.length + index18];
       } else {
-        return this.__items[index15];
+        return this.__items[index18];
       }
     };
     OutputLine.prototype.has_match = function(pattern2) {
@@ -44615,11 +44615,11 @@ var require_output = __commonJS({
         this.current_line.push(" ");
       }
     };
-    Output.prototype.remove_indent = function(index15) {
+    Output.prototype.remove_indent = function(index18) {
       var output_length = this.__lines.length;
-      while (index15 < output_length) {
-        this.__lines[index15]._remove_indent();
-        index15++;
+      while (index18 < output_length) {
+        this.__lines[index18]._remove_indent();
+        index18++;
       }
       this.current_line._remove_wrap_indent();
     };
@@ -44640,17 +44640,17 @@ var require_output = __commonJS({
       return this.is_empty() || this.current_line.is_empty() && this.previous_line.is_empty();
     };
     Output.prototype.ensure_empty_line_above = function(starts_with, ends_with) {
-      var index15 = this.__lines.length - 2;
-      while (index15 >= 0) {
-        var potentialEmptyLine = this.__lines[index15];
+      var index18 = this.__lines.length - 2;
+      while (index18 >= 0) {
+        var potentialEmptyLine = this.__lines[index18];
         if (potentialEmptyLine.is_empty()) {
           break;
         } else if (potentialEmptyLine.item(0).indexOf(starts_with) !== 0 && potentialEmptyLine.item(-1) !== ends_with) {
-          this.__lines.splice(index15 + 1, 0, new OutputLine(this));
+          this.__lines.splice(index18 + 1, 0, new OutputLine(this));
           this.previous_line = this.__lines[this.__lines.length - 2];
           break;
         }
-        index15--;
+        index18--;
       }
     };
     module.exports.Output = Output;
@@ -44902,36 +44902,36 @@ var require_inputscanner = __commonJS({
       }
       return val;
     };
-    InputScanner.prototype.peek = function(index15) {
+    InputScanner.prototype.peek = function(index18) {
       var val = null;
-      index15 = index15 || 0;
-      index15 += this.__position;
-      if (index15 >= 0 && index15 < this.__input_length) {
-        val = this.__input.charAt(index15);
+      index18 = index18 || 0;
+      index18 += this.__position;
+      if (index18 >= 0 && index18 < this.__input_length) {
+        val = this.__input.charAt(index18);
       }
       return val;
     };
-    InputScanner.prototype.__match = function(pattern2, index15) {
-      pattern2.lastIndex = index15;
+    InputScanner.prototype.__match = function(pattern2, index18) {
+      pattern2.lastIndex = index18;
       var pattern_match = pattern2.exec(this.__input);
       if (pattern_match && !(regexp_has_sticky && pattern2.sticky)) {
-        if (pattern_match.index !== index15) {
+        if (pattern_match.index !== index18) {
           pattern_match = null;
         }
       }
       return pattern_match;
     };
-    InputScanner.prototype.test = function(pattern2, index15) {
-      index15 = index15 || 0;
-      index15 += this.__position;
-      if (index15 >= 0 && index15 < this.__input_length) {
-        return !!this.__match(pattern2, index15);
+    InputScanner.prototype.test = function(pattern2, index18) {
+      index18 = index18 || 0;
+      index18 += this.__position;
+      if (index18 >= 0 && index18 < this.__input_length) {
+        return !!this.__match(pattern2, index18);
       } else {
         return false;
       }
     };
-    InputScanner.prototype.testChar = function(pattern2, index15) {
-      var val = this.peek(index15);
+    InputScanner.prototype.testChar = function(pattern2, index18) {
+      var val = this.peek(index18);
       pattern2.lastIndex = 0;
       return val !== null && pattern2.test(val);
     };
@@ -45035,12 +45035,12 @@ var require_tokenstream = __commonJS({
       }
       return val;
     };
-    TokenStream.prototype.peek = function(index15) {
+    TokenStream.prototype.peek = function(index18) {
       var val = null;
-      index15 = index15 || 0;
-      index15 += this.__position;
-      if (index15 >= 0 && index15 < this.__tokens_length) {
-        val = this.__tokens[index15];
+      index18 = index18 || 0;
+      index18 += this.__position;
+      if (index18 >= 0 && index18 < this.__tokens_length) {
+        val = this.__tokens[index18];
       }
       return val;
     };
@@ -46417,12 +46417,12 @@ var require_beautifier = __commonJS({
       var empty_braces = !next_token.comments_before && next_token.text === "}";
       var empty_anonymous_function = empty_braces && this._flags.last_word === "function" && this._flags.last_token.type === TOKEN.END_EXPR;
       if (this._options.brace_preserve_inline) {
-        var index15 = 0;
+        var index18 = 0;
         var check_token = null;
         this._flags.inline_frame = true;
         do {
-          index15 += 1;
-          check_token = this._tokens.peek(index15 - 1);
+          index18 += 1;
+          check_token = this._tokens.peek(index18 - 1);
           if (check_token.newlines) {
             this._flags.inline_frame = false;
             break;
@@ -48660,12 +48660,12 @@ var init_dist4 = __esm({
       }
       return result;
     });
-    renderAsync = (component15, options3) => __async(void 0, null, function* () {
+    renderAsync = (component17, options3) => __async(void 0, null, function* () {
       var _a2;
       const reactDOMServer = (yield Promise.resolve().then(() => __toESM(require_server_browser(), 1))).default;
       const renderToStream = (_a2 = reactDOMServer.renderToReadableStream) != null ? _a2 : reactDOMServer.renderToStaticNodeStream;
       const doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-      const htmlOrReadableStream = yield renderToStream(component15);
+      const htmlOrReadableStream = yield renderToStream(component17);
       const html = typeof htmlOrReadableStream === "string" ? htmlOrReadableStream : yield readStream(htmlOrReadableStream);
       if (options3 == null ? void 0 : options3.plainText) {
         return convert(html, __spreadValues({
@@ -49685,7 +49685,7 @@ var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     index = 0;
     component = async () => component_cache ??= (await Promise.resolve().then(() => (init_layout_svelte(), layout_svelte_exports))).default;
-    imports = ["_app/immutable/nodes/0.Dtydl-mu.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/misc.heqD49q_.js"];
+    imports = ["_app/immutable/nodes/0.BnBQBQ2v.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/misc.Di9luvOV.js"];
     stylesheets = [];
     fonts = [];
   }
@@ -49781,7 +49781,7 @@ var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     index2 = 1;
     component2 = async () => component_cache2 ??= (await Promise.resolve().then(() => (init_error_svelte(), error_svelte_exports))).default;
-    imports2 = ["_app/immutable/nodes/1.BZFb-wtR.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
+    imports2 = ["_app/immutable/nodes/1.Cnqm34by.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js"];
     stylesheets2 = [];
     fonts2 = [];
   }
@@ -49821,9 +49821,23 @@ var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     index3 = 2;
     component3 = async () => component_cache3 ??= (await Promise.resolve().then(() => (init_error_svelte2(), error_svelte_exports2))).default;
-    imports3 = ["_app/immutable/nodes/2.BsR1nvz3.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"];
-    stylesheets3 = ["_app/immutable/assets/app.00JWBTY9.css"];
+    imports3 = ["_app/immutable/nodes/2.BCArUtNC.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js"];
+    stylesheets3 = ["_app/immutable/assets/app.AG7XtUI2.css"];
     fonts3 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/_layout.server.ts.js
+var layout_server_ts_exports = {};
+__export(layout_server_ts_exports, {
+  load: () => load
+});
+var load;
+var init_layout_server_ts = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/_layout.server.ts.js"() {
+    load = (event) => {
+      return { user: event.locals.user };
+    };
   }
 });
 
@@ -49853,15 +49867,19 @@ __export(__exports4, {
   fonts: () => fonts4,
   imports: () => imports4,
   index: () => index4,
+  server: () => layout_server_ts_exports,
+  server_id: () => server_id,
   stylesheets: () => stylesheets4
 });
-var index4, component_cache4, component4, imports4, stylesheets4, fonts4;
+var index4, component_cache4, component4, server_id, imports4, stylesheets4, fonts4;
 var init__4 = __esm({
   ".svelte-kit/output/server/nodes/3.js"() {
+    init_layout_server_ts();
     index4 = 3;
     component4 = async () => component_cache4 ??= (await Promise.resolve().then(() => (init_layout_svelte2(), layout_svelte_exports2))).default;
-    imports4 = ["_app/immutable/nodes/3.B8RynEBa.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/snippet.CeBRzamk.js"];
-    stylesheets4 = ["_app/immutable/assets/app.00JWBTY9.css"];
+    server_id = "src/routes/(app)/app/+layout.server.ts";
+    imports4 = ["_app/immutable/nodes/3.Cr5hjr6J.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/snippet.CB5fdLoi.js"];
+    stylesheets4 = ["_app/immutable/assets/app.AG7XtUI2.css"];
     fonts4 = [];
   }
 });
@@ -49899,9 +49917,26 @@ var init__5 = __esm({
   ".svelte-kit/output/server/nodes/4.js"() {
     index5 = 4;
     component5 = async () => component_cache5 ??= (await Promise.resolve().then(() => (init_layout_svelte3(), layout_svelte_exports3))).default;
-    imports5 = ["_app/immutable/nodes/4.B-xs2Lii.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/snippet.CeBRzamk.js"];
+    imports5 = ["_app/immutable/nodes/4.BvxBryLA.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/snippet.CB5fdLoi.js"];
     stylesheets5 = [];
     fonts5 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_layout.server.ts.js
+var layout_server_ts_exports2 = {};
+__export(layout_server_ts_exports2, {
+  load: () => load2
+});
+var load2;
+var init_layout_server_ts2 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_layout.server.ts.js"() {
+    init_chunks();
+    load2 = (event) => {
+      if (!event.locals.tenant)
+        error(404, "Tenant not found");
+      return { tenant: event.locals.tenant };
+    };
   }
 });
 
@@ -50112,16 +50147,16 @@ function createSplitModifiers(config) {
     let bracketDepth = 0;
     let modifierStart = 0;
     let postfixModifierPosition;
-    for (let index15 = 0; index15 < className.length; index15++) {
-      let currentCharacter = className[index15];
+    for (let index18 = 0; index18 < className.length; index18++) {
+      let currentCharacter = className[index18];
       if (bracketDepth === 0) {
-        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index15, index15 + separatorLength) === separator)) {
-          modifiers.push(className.slice(modifierStart, index15));
-          modifierStart = index15 + separatorLength;
+        if (currentCharacter === firstSeparatorCharacter && (isSeparatorSingleCharacter || className.slice(index18, index18 + separatorLength) === separator)) {
+          modifiers.push(className.slice(modifierStart, index18));
+          modifierStart = index18 + separatorLength;
           continue;
         }
         if (currentCharacter === "/") {
-          postfixModifierPosition = index15;
+          postfixModifierPosition = index18;
           continue;
         }
       }
@@ -50228,12 +50263,12 @@ function mergeClassList(classList, configUtils) {
   }).reverse().map((parsed) => parsed.originalClassName).join(" ");
 }
 function twJoin() {
-  let index15 = 0;
+  let index18 = 0;
   let argument;
   let resolvedValue;
   let string3 = "";
-  while (index15 < arguments.length) {
-    if (argument = arguments[index15++]) {
+  while (index18 < arguments.length) {
+    if (argument = arguments[index18++]) {
       if (resolvedValue = toValue(argument)) {
         string3 && (string3 += " ");
         string3 += resolvedValue;
@@ -52680,8 +52715,8 @@ function Icon($$payload, $$props) {
   let strokeWidth = value_or_fallback($$props["strokeWidth"], () => 2);
   let absoluteStrokeWidth = value_or_fallback($$props["absoluteStrokeWidth"], () => false);
   let iconNode = $$props["iconNode"];
-  const mergeClasses = (...classes) => classes.filter((className, index15, array3) => {
-    return Boolean(className) && array3.indexOf(className) === index15;
+  const mergeClasses = (...classes) => classes.filter((className, index18, array3) => {
+    return Boolean(className) && array3.indexOf(className) === index18;
   }).join(" ");
   const each_array = ensure_array_like(iconNode);
   $$payload.out += `<svg${spread_attributes(
@@ -52729,13 +52764,6 @@ function Icon($$payload, $$props) {
     iconNode
   });
   pop();
-}
-function cubicOut(t2) {
-  const f2 = t2 - 1;
-  return f2 * f2 * f2 + 1;
-}
-function cn(...inputs) {
-  return twMerge(clsx(inputs));
 }
 function styleToString(style) {
   return Object.keys(style).reduce((str, key2) => {
@@ -53007,6 +53035,13 @@ function Button$1($$payload, $$props) {
   bind_props($$props, { href, type, builders, el });
   pop();
 }
+function cubicOut(t2) {
+  const f2 = t2 - 1;
+  return f2 * f2 * f2 + 1;
+}
+function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
 function Button($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const $$restProps = rest_props($$sanitized_props, ["class", "variant", "size", "builders"]);
@@ -53121,7 +53156,7 @@ function Input($$payload, $$props) {
   bind_props($$props, { class: className, value, readonly: readonly2 });
   pop();
 }
-var defaultAttributes, flyAndScale, hiddenAction, isFunctionWithParams, isBrowser, isFunction, safeOnMount, safeOnDestroy, urlAlphabet, nanoid, kbd, FIRST_KEYS, LAST_KEYS, FIRST_LAST_KEYS, SELECTION_KEYS, documentEscapeKeyStore, useEscapeKeydown, defaults2, buttonVariants;
+var defaultAttributes, hiddenAction, isFunctionWithParams, isBrowser, isFunction, safeOnMount, safeOnDestroy, urlAlphabet, nanoid, kbd, FIRST_KEYS, LAST_KEYS, FIRST_LAST_KEYS, SELECTION_KEYS, documentEscapeKeyStore, useEscapeKeydown, defaults2, flyAndScale, buttonVariants;
 var init_input = __esm({
   ".svelte-kit/output/server/chunks/input.js"() {
     init_index3();
@@ -53141,38 +53176,6 @@ var init_input = __esm({
       "stroke-width": 2,
       "stroke-linecap": "round",
       "stroke-linejoin": "round"
-    };
-    flyAndScale = (node, params = { y: -8, x: 0, start: 0.95, duration: 150 }) => {
-      const style = getComputedStyle(node);
-      const transform = style.transform === "none" ? "" : style.transform;
-      const scaleConversion = (valueA, scaleA, scaleB) => {
-        const [minA, maxA] = scaleA;
-        const [minB, maxB] = scaleB;
-        const percentage = (valueA - minA) / (maxA - minA);
-        const valueB = percentage * (maxB - minB) + minB;
-        return valueB;
-      };
-      const styleToString2 = (style2) => {
-        return Object.keys(style2).reduce((str, key2) => {
-          if (style2[key2] === void 0)
-            return str;
-          return str + `${key2}:${style2[key2]};`;
-        }, "");
-      };
-      return {
-        duration: params.duration ?? 200,
-        delay: 0,
-        css: (t2) => {
-          const y2 = scaleConversion(t2, [0, 1], [params.y ?? 5, 0]);
-          const x2 = scaleConversion(t2, [0, 1], [params.x ?? 0, 0]);
-          const scale = scaleConversion(t2, [0, 1], [params.start ?? 0.95, 1]);
-          return styleToString2({
-            transform: `${transform} translate3d(${x2}px, ${y2}px, 0) scale(${scale})`,
-            opacity: t2
-          });
-        },
-        easing: cubicOut
-      };
     };
     ({
       type: "hidden",
@@ -53431,6 +53434,38 @@ var init_input = __esm({
       weekdayFormat: "narrow",
       ...omit(defaults2, "isDateDisabled", "isDateUnavailable", "value", "locale", "disabled", "readonly", "minValue", "maxValue", "weekdayFormat")
     });
+    flyAndScale = (node, params = { y: -8, x: 0, start: 0.95, duration: 150 }) => {
+      const style = getComputedStyle(node);
+      const transform = style.transform === "none" ? "" : style.transform;
+      const scaleConversion = (valueA, scaleA, scaleB) => {
+        const [minA, maxA] = scaleA;
+        const [minB, maxB] = scaleB;
+        const percentage = (valueA - minA) / (maxA - minA);
+        const valueB = percentage * (maxB - minB) + minB;
+        return valueB;
+      };
+      const styleToString2 = (style2) => {
+        return Object.keys(style2).reduce((str, key2) => {
+          if (style2[key2] === void 0)
+            return str;
+          return str + `${key2}:${style2[key2]};`;
+        }, "");
+      };
+      return {
+        duration: params.duration ?? 200,
+        delay: 0,
+        css: (t2) => {
+          const y2 = scaleConversion(t2, [0, 1], [params.y ?? 5, 0]);
+          const x2 = scaleConversion(t2, [0, 1], [params.x ?? 0, 0]);
+          const scale = scaleConversion(t2, [0, 1], [params.start ?? 0.95, 1]);
+          return styleToString2({
+            transform: `${transform} translate3d(${x2}px, ${y2}px, 0) scale(${scale})`,
+            opacity: t2
+          });
+        },
+        easing: cubicOut
+      };
+    };
     buttonVariants = ce({
       base: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
       variants: {
@@ -53480,12 +53515,12 @@ var init_card_description = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/Cross2.js
+// .svelte-kit/output/server/chunks/avatar-fallback.js
 function last(array3) {
   return array3[array3.length - 1];
 }
 function wrapArray(array3, startIndex) {
-  return array3.map((_2, index15) => array3[(startIndex + index15) % array3.length]);
+  return array3.map((_2, index18) => array3[(startIndex + index18) % array3.length]);
 }
 function sleep2(ms) {
   return new Promise((resolve2) => setTimeout(resolve2, ms));
@@ -53993,6 +54028,175 @@ function getOptionUpdater(options3) {
       store.set(value);
     }
   };
+}
+function getAvatarData() {
+  const NAME = "avatar";
+  const PARTS = ["root", "image", "fallback"];
+  return {
+    NAME,
+    PARTS
+  };
+}
+function setCtx$1(props) {
+  const { NAME, PARTS } = getAvatarData();
+  const getAttrs2 = createBitAttrs(NAME, PARTS);
+  const avatar = { ...createAvatar(removeUndefined(props)), getAttrs: getAttrs2 };
+  setContext(NAME, avatar);
+  return {
+    ...avatar,
+    updateOption: getOptionUpdater(avatar.options)
+  };
+}
+function getImage(src = "") {
+  const { NAME } = getAvatarData();
+  const avatar = getContext(NAME);
+  if (!src) {
+    avatar.options.src.set("");
+  } else {
+    avatar.options.src.set(src);
+  }
+  return avatar;
+}
+function getCtx$1() {
+  const { NAME } = getAvatarData();
+  return getContext(NAME);
+}
+function Avatar$1($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, [
+    "delayMs",
+    "loadingStatus",
+    "onLoadingStatusChange",
+    "asChild",
+    "el"
+  ]);
+  push();
+  let delayMs = value_or_fallback($$props["delayMs"], () => void 0);
+  let loadingStatus = value_or_fallback($$props["loadingStatus"], () => void 0);
+  let onLoadingStatusChange = value_or_fallback($$props["onLoadingStatusChange"], () => void 0);
+  let asChild = value_or_fallback($$props["asChild"], () => false);
+  let el = value_or_fallback($$props["el"], () => void 0);
+  const {
+    states: { loadingStatus: localLoadingStatus },
+    updateOption,
+    getAttrs: getAttrs2
+  } = setCtx$1({
+    src: "",
+    delayMs,
+    onLoadingStatusChange: ({ next: next2 }) => {
+      loadingStatus = next2;
+      onLoadingStatusChange?.(next2);
+      return next2;
+    }
+  });
+  const attrs = getAttrs2("root");
+  loadingStatus !== void 0 && localLoadingStatus.set(loadingStatus);
+  updateOption("delayMs", delayMs);
+  $$payload.out += `<!--[-->`;
+  if (asChild) {
+    $$payload.out += `<!--[-->`;
+    slot($$payload, default_slot($$props), { attrs }, null);
+    $$payload.out += `<!--]-->`;
+    $$payload.out += "<!--]-->";
+  } else {
+    $$payload.out += `<div${spread_attributes({ ...$$restProps, ...attrs })}><!--[-->`;
+    slot($$payload, default_slot($$props), { attrs }, null);
+    $$payload.out += `<!--]--></div>`;
+    $$payload.out += "<!--]!-->";
+  }
+  bind_props($$props, {
+    delayMs,
+    loadingStatus,
+    onLoadingStatusChange,
+    asChild,
+    el
+  });
+  pop();
+}
+function Avatar_image$1($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["src", "alt", "asChild", "el"]);
+  push();
+  var $$store_subs;
+  let image, builder;
+  let src = value_or_fallback($$props["src"], () => void 0);
+  let alt = value_or_fallback($$props["alt"], () => void 0);
+  let asChild = value_or_fallback($$props["asChild"], () => false);
+  let el = value_or_fallback($$props["el"], () => void 0);
+  const attrs = { "data-bits-avatar-image": "" };
+  image = getImage(src).elements.image;
+  builder = store_get($$store_subs ??= {}, "$image", image);
+  Object.assign(builder, attrs);
+  $$payload.out += `<!--[-->`;
+  if (asChild) {
+    $$payload.out += `<!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get builder() {
+          return builder;
+        }
+      },
+      null
+    );
+    $$payload.out += `<!--]-->`;
+    $$payload.out += "<!--]-->";
+  } else {
+    $$payload.out += `<img${spread_attributes({ ...builder, alt, ...$$restProps })} onload="this.__e=event" onerror="this.__e=event">`;
+    $$payload.out += "<!--]!-->";
+  }
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { src, alt, asChild, el });
+  pop();
+}
+function Avatar_fallback$1($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["asChild", "el"]);
+  push();
+  var $$store_subs;
+  let builder;
+  let asChild = value_or_fallback($$props["asChild"], () => false);
+  let el = value_or_fallback($$props["el"], () => void 0);
+  const { elements: { fallback }, getAttrs: getAttrs2 } = getCtx$1();
+  const attrs = getAttrs2("fallback");
+  builder = store_get($$store_subs ??= {}, "$fallback", fallback);
+  Object.assign(builder, attrs);
+  $$payload.out += `<!--[-->`;
+  if (asChild) {
+    $$payload.out += `<!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get builder() {
+          return builder;
+        }
+      },
+      null
+    );
+    $$payload.out += `<!--]-->`;
+    $$payload.out += "<!--]-->";
+  } else {
+    $$payload.out += `<span${spread_attributes({ ...builder, ...$$restProps })}><!--[-->`;
+    slot(
+      $$payload,
+      default_slot($$props),
+      {
+        get builder() {
+          return builder;
+        }
+      },
+      null
+    );
+    $$payload.out += `<!--]--></span>`;
+    $$payload.out += "<!--]!-->";
+  }
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  bind_props($$props, { asChild, el });
+  pop();
 }
 function getDialogData() {
   const NAME = "dialog";
@@ -54592,9 +54796,79 @@ function Cross2($$payload, $$props) {
   bind_props($$props, { size: size2, role, color, ariaLabel, withEvents });
   pop();
 }
-var overridable, isDom, pt, isTouchDevice, isMac, isApple, isIos, LOCK_CLASSNAME, candidateSelectors, candidateSelector, NoElement, matches, getRootNode, isInert, isContentEditable, getCandidates, getCandidatesIteratively, hasTabIndex, getTabIndex, getSortOrderTabIndex, sortOrderedTabbables, isInput, isHiddenInput, isDetailsWithSummary, getCheckedRadio, isTabbableRadio, isRadio, isNonTabbableRadio, isNodeAttached, isZeroArea, isHidden, isDisabledFromFieldset, isNodeMatchingSelectorFocusable, isNodeMatchingSelectorTabbable, isValidShadowRootTabbable, sortByOrder, tabbable, focusable, isTabbable, focusableCandidateSelector, isFocusable, activeFocusTraps, isSelectableInput, isEscapeEvent, isTabEvent, isKeyForward, isKeyBackward, delay, findIndex, valueOrHandler, getActualTarget, internalTrapStack, createFocusTrap$1, visibleModals, useModal, usePortal, useInteractOutside, name2, defaults3, dialogIdParts, linear;
-var init_Cross2 = __esm({
-  ".svelte-kit/output/server/chunks/Cross2.js"() {
+function Avatar($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "delayMs"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let delayMs = value_or_fallback($$props["delayMs"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Avatar$1($$payload, spread_props([
+    {
+      delayMs,
+      class: cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className, delayMs });
+  pop();
+}
+function Avatar_image($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "src", "alt"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let src = value_or_fallback($$props["src"], () => void 0);
+  let alt = value_or_fallback($$props["alt"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Avatar_image$1($$payload, spread_props([
+    {
+      src,
+      alt,
+      class: cn("aspect-square h-full w-full", className)
+    },
+    $$restProps
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className, src, alt });
+  pop();
+}
+function Avatar_fallback($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Avatar_fallback$1($$payload, spread_props([
+    {
+      class: cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className });
+  pop();
+}
+var overridable, isDom, pt, isTouchDevice, isMac, isApple, isIos, LOCK_CLASSNAME, defaults$1, createAvatar, candidateSelectors, candidateSelector, NoElement, matches, getRootNode, isInert, isContentEditable, getCandidates, getCandidatesIteratively, hasTabIndex, getTabIndex, getSortOrderTabIndex, sortOrderedTabbables, isInput, isHiddenInput, isDetailsWithSummary, getCheckedRadio, isTabbableRadio, isRadio, isNonTabbableRadio, isNodeAttached, isZeroArea, isHidden, isDisabledFromFieldset, isNodeMatchingSelectorFocusable, isNodeMatchingSelectorTabbable, isValidShadowRootTabbable, sortByOrder, tabbable, focusable, isTabbable, focusableCandidateSelector, isFocusable, activeFocusTraps, isSelectableInput, isEscapeEvent, isTabEvent, isKeyForward, isKeyBackward, delay, findIndex, valueOrHandler, getActualTarget, internalTrapStack, createFocusTrap$1, visibleModals, useModal, usePortal, useInteractOutside, name2, defaults3, dialogIdParts, linear;
+var init_avatar_fallback = __esm({
+  ".svelte-kit/output/server/chunks/avatar-fallback.js"() {
     init_index3();
     init_index2();
     init_misc();
@@ -54629,6 +54903,70 @@ var init_Cross2 = __esm({
     isApple = () => pt(/mac|iphone|ipad|ipod/i);
     isIos = () => isApple() && !isMac();
     LOCK_CLASSNAME = "data-melt-scroll-lock";
+    defaults$1 = {
+      src: "",
+      delayMs: 0,
+      onLoadingStatusChange: void 0
+    };
+    createAvatar = (props) => {
+      const withDefaults = { ...defaults$1, ...props };
+      const options3 = toWritableStores(omit(withDefaults, "loadingStatus", "onLoadingStatusChange"));
+      const { src, delayMs } = options3;
+      const loadingStatusWritable = withDefaults.loadingStatus ?? writable("loading");
+      const loadingStatus = overridable(loadingStatusWritable, withDefaults?.onLoadingStatusChange);
+      effect2([src, delayMs], ([$src, $delayMs]) => {
+        if (isBrowser) {
+          const image2 = new Image();
+          image2.src = $src;
+          image2.onload = () => {
+            if (delayMs !== void 0) {
+              const timerId = window.setTimeout(() => {
+                loadingStatus.set("loaded");
+              }, $delayMs);
+              return () => window.clearTimeout(timerId);
+            } else {
+              loadingStatus.set("loaded");
+            }
+          };
+          image2.onerror = () => {
+            loadingStatus.set("error");
+          };
+        }
+      });
+      const image = makeElement("avatar-image", {
+        stores: [src, loadingStatus],
+        returned: ([$src, $loadingStatus]) => {
+          const imageStyles = styleToString({
+            display: $loadingStatus === "loaded" ? "block" : "none"
+          });
+          return {
+            src: $src,
+            style: imageStyles
+          };
+        }
+      });
+      const fallback = makeElement("avatar-fallback", {
+        stores: [loadingStatus],
+        returned: ([$loadingStatus]) => {
+          return {
+            style: $loadingStatus === "loaded" ? styleToString({
+              display: "none"
+            }) : void 0,
+            hidden: $loadingStatus === "loaded" ? true : void 0
+          };
+        }
+      });
+      return {
+        elements: {
+          image,
+          fallback
+        },
+        states: {
+          loadingStatus
+        },
+        options: options3
+      };
+    };
     candidateSelectors = ["input:not([inert])", "select:not([inert])", "textarea:not([inert])", "a[href]:not([inert])", "button:not([inert])", "[tabindex]:not(slot):not([inert])", "audio[controls]:not([inert])", "video[controls]:not([inert])", '[contenteditable]:not([contenteditable="false"]):not([inert])', "details>summary:first-of-type:not([inert])", "details:not([inert])"];
     candidateSelector = /* @__PURE__ */ candidateSelectors.join(",");
     NoElement = typeof Element === "undefined";
@@ -55591,9 +55929,9 @@ var init_Cross2 = __esm({
     useModal = (node, config) => {
       let unsubInteractOutside = noop2;
       function removeNodeFromVisibleModals() {
-        const index15 = visibleModals.indexOf(node);
-        if (index15 >= 0) {
-          visibleModals.splice(index15, 1);
+        const index18 = visibleModals.indexOf(node);
+        if (index18 >= 0) {
+          visibleModals.splice(index18, 1);
         }
       }
       function update(config2) {
@@ -55790,163 +56128,6 @@ var layout_svelte_exports4 = {};
 __export(layout_svelte_exports4, {
   default: () => _layout3
 });
-function Circle_user($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "circle",
-      { "cx": "12", "cy": "12", "r": "10" }
-    ],
-    [
-      "circle",
-      { "cx": "12", "cy": "10", "r": "3" }
-    ],
-    [
-      "path",
-      {
-        "d": "M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"
-      }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "circle-user" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Package($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    ["path", { "d": "m7.5 4.27 9 5.15" }],
-    [
-      "path",
-      {
-        "d": "M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
-      }
-    ],
-    ["path", { "d": "m3.3 7 8.7 5 8.7-5" }],
-    ["path", { "d": "M12 22V12" }]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "package" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Home($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-      }
-    ],
-    [
-      "polyline",
-      { "points": "9 22 9 12 15 12 15 22" }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "home" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Shopping_cart($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "circle",
-      { "cx": "8", "cy": "21", "r": "1" }
-    ],
-    [
-      "circle",
-      { "cx": "19", "cy": "21", "r": "1" }
-    ],
-    [
-      "path",
-      {
-        "d": "M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
-      }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "shopping-cart" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Bell($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"
-      }
-    ],
-    [
-      "path",
-      { "d": "M10.3 21a1.94 1.94 0 0 0 3.4 0" }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "bell" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
 function Menu$1($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
@@ -56046,104 +56227,6 @@ function Search($$payload, $$props) {
     }
   ]));
   $$payload.out += `<!--]-->`;
-}
-function Users($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-      }
-    ],
-    [
-      "circle",
-      { "cx": "9", "cy": "7", "r": "4" }
-    ],
-    [
-      "path",
-      { "d": "M22 21v-2a4 4 0 0 0-3-3.87" }
-    ],
-    [
-      "path",
-      { "d": "M16 3.13a4 4 0 0 1 0 7.75" }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "users" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Settings($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
-      }
-    ],
-    [
-      "circle",
-      { "cx": "12", "cy": "12", "r": "3" }
-    ]
-  ];
-  $$payload.out += `<!--[-->`;
-  Icon($$payload, spread_props([
-    { name: "settings" },
-    $$sanitized_props,
-    {
-      iconNode,
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-}
-function Badge($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "href", "variant"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let href = value_or_fallback($$props["href"], () => void 0);
-  let variant = value_or_fallback($$props["variant"], () => "default");
-  const $$tag = href ? "a" : "span";
-  $$payload.out += `<!--[-->`;
-  if ($$tag)
-    element(
-      $$payload,
-      $$tag,
-      () => {
-        $$payload.out += `${spread_attributes({
-          href,
-          class: cn(badgeVariants({ variant, className })),
-          ...$$restProps
-        })}`;
-      },
-      () => {
-        $$payload.out += `<!--[-->`;
-        slot($$payload, default_slot($$props), {}, null);
-        $$payload.out += `<!--]-->`;
-      }
-    );
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, href, variant });
-  pop();
 }
 function addHighlight(element2) {
   element2.setAttribute("data-highlighted", "");
@@ -58423,7 +58506,7 @@ function stateAttr(open) {
   return open ? "open" : "closed";
 }
 function createDropdownMenu(props) {
-  const withDefaults = { ...defaults$1, ...props };
+  const withDefaults = { ...defaults$12, ...props };
   const rootOptions = toWritableStores(omit(withDefaults, "ids"));
   const openWritable = withDefaults.open ?? writable(withDefaults.defaultOpen);
   const rootOpen = overridable(openWritable, withDefaults?.onOpenChange);
@@ -59057,112 +59140,6 @@ function Menu_trigger($$payload, $$props) {
   bind_props($$props, { asChild, id, el });
   pop();
 }
-function Dropdown_menu_item($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "inset"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let inset = value_or_fallback($$props["inset"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Menu_item($$payload, spread_props([
-    {
-      class: cn("relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50", inset && "pl-8", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, inset });
-  pop();
-}
-function Dropdown_menu_label($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "inset"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let inset = value_or_fallback($$props["inset"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Menu_label($$payload, spread_props([
-    {
-      class: cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, inset });
-  pop();
-}
-function Dropdown_menu_content($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, [
-    "class",
-    "sideOffset",
-    "transition",
-    "transitionConfig"
-  ]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let sideOffset = value_or_fallback($$props["sideOffset"], () => 4);
-  let transition = value_or_fallback($$props["transition"], () => flyAndScale);
-  let transitionConfig = value_or_fallback($$props["transitionConfig"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Menu_content($$payload, spread_props([
-    {
-      transition,
-      transitionConfig,
-      sideOffset,
-      class: cn("z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md focus:outline-none", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, {
-    class: className,
-    sideOffset,
-    transition,
-    transitionConfig
-  });
-  pop();
-}
-function Dropdown_menu_separator($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Menu_separator($$payload, spread_props([
-    {
-      class: cn("-mx-1 my-1 h-px bg-muted", className)
-    },
-    $$restProps
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className });
-  pop();
-}
 function Sheet_portal($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const $$restProps = rest_props($$sanitized_props, ["class"]);
@@ -59275,12 +59252,450 @@ function Sheet_content($$payload, $$props) {
   });
   pop();
 }
-function App_shell($$payload, $$props) {
+function Circle_user($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "circle",
+      { "cx": "12", "cy": "12", "r": "10" }
+    ],
+    [
+      "circle",
+      { "cx": "12", "cy": "10", "r": "3" }
+    ],
+    [
+      "path",
+      {
+        "d": "M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"
+      }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "circle-user" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function Dropdown_menu_item($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "inset"]);
   push();
-  let { children } = $$props;
-  $$payload.out += `<div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]"><div class="hidden border-r bg-muted/40 md:block"><div class="flex h-full max-h-screen flex-col gap-2"><div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6"><a href="/" class="flex items-center gap-2 font-semibold"><!--[-->`;
-  Package_2($$payload, { class: "h-6 w-6" });
-  $$payload.out += `<!--]--> <span>Acme Inc</span></a> <!--[-->`;
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let inset = value_or_fallback($$props["inset"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Menu_item($$payload, spread_props([
+    {
+      class: cn("relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:opacity-50", inset && "pl-8", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className, inset });
+  pop();
+}
+function Dropdown_menu_label($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class", "inset"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let inset = value_or_fallback($$props["inset"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Menu_label($$payload, spread_props([
+    {
+      class: cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className, inset });
+  pop();
+}
+function Dropdown_menu_content($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, [
+    "class",
+    "sideOffset",
+    "transition",
+    "transitionConfig"
+  ]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  let sideOffset = value_or_fallback($$props["sideOffset"], () => 4);
+  let transition = value_or_fallback($$props["transition"], () => flyAndScale);
+  let transitionConfig = value_or_fallback($$props["transitionConfig"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Menu_content($$payload, spread_props([
+    {
+      transition,
+      transitionConfig,
+      sideOffset,
+      class: cn("z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md focus:outline-none", className)
+    },
+    $$restProps,
+    {
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, {
+    class: className,
+    sideOffset,
+    transition,
+    transitionConfig
+  });
+  pop();
+}
+function Dropdown_menu_separator($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const $$restProps = rest_props($$sanitized_props, ["class"]);
+  push();
+  let className = value_or_fallback($$props["class"], () => void 0);
+  $$payload.out += `<!--[-->`;
+  Menu_separator($$payload, spread_props([
+    {
+      class: cn("-mx-1 my-1 h-px bg-muted", className)
+    },
+    $$restProps
+  ]));
+  $$payload.out += `<!--]-->`;
+  bind_props($$props, { class: className });
+  pop();
+}
+function App_shell_user_nav($$payload, $$props) {
+  push();
+  var $$store_subs;
+  $$payload.out += `<!--[-->`;
+  Root3($$payload, {
+    children: ($$payload2, $$slotProps) => {
+      $$payload2.out += `<!--[-->`;
+      Trigger($$payload2, {
+        asChild: true,
+        children: ($$payload3, $$slotProps2) => {
+          const builder = $$slotProps2.builder;
+          $$payload3.out += `<!--[-->`;
+          Button($$payload3, {
+            builders: [builder],
+            variant: "secondary",
+            size: "icon",
+            class: "rounded-full",
+            children: ($$payload4, $$slotProps3) => {
+              $$payload4.out += `<!--[-->`;
+              Avatar($$payload4, {
+                class: "size-6",
+                children: ($$payload5, $$slotProps4) => {
+                  $$payload5.out += `<!--[-->`;
+                  if (store_get($$store_subs ??= {}, "$page", page).data.user?.avatar_url) {
+                    $$payload5.out += `<!--[-->`;
+                    Avatar_image($$payload5, {
+                      src: store_get($$store_subs ??= {}, "$page", page).data.user.avatar_url,
+                      alt: store_get($$store_subs ??= {}, "$page", page).data.user.avatar_url
+                    });
+                    $$payload5.out += `<!--]-->`;
+                    $$payload5.out += "<!--]-->";
+                  } else {
+                    $$payload5.out += "<!--]!-->";
+                  }
+                  $$payload5.out += ` <!--[-->`;
+                  Avatar_fallback($$payload5, {
+                    class: "uppercase",
+                    children: ($$payload6, $$slotProps5) => {
+                      $$payload6.out += `<!--[-->`;
+                      Circle_user($$payload6, { class: "size-6" });
+                      $$payload6.out += `<!--]-->`;
+                    },
+                    $$slots: { default: true }
+                  });
+                  $$payload5.out += `<!--]-->`;
+                },
+                $$slots: { default: true }
+              });
+              $$payload4.out += `<!--]--> <span class="sr-only">Toggle user menu</span>`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!--]-->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!--]--> <!--[-->`;
+      Dropdown_menu_content($$payload2, {
+        align: "end",
+        children: ($$payload3, $$slotProps2) => {
+          $$payload3.out += `<!--[-->`;
+          Dropdown_menu_label($$payload3, {
+            class: "font-normal",
+            children: ($$payload4, $$slotProps3) => {
+              $$payload4.out += `<div class="flex flex-col space-y-1"><p class="text-sm font-medium leading-none">${escape_html([
+                store_get($$store_subs ??= {}, "$page", page).data.user.first_name,
+                store_get($$store_subs ??= {}, "$page", page).data.user.last_name
+              ].join(" "))}</p> <p class="text-xs leading-none text-muted-foreground">${escape_html(store_get($$store_subs ??= {}, "$page", page).data.user.email)}</p></div>`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!--]--> <!--[-->`;
+          Dropdown_menu_separator($$payload3, {});
+          $$payload3.out += `<!--]--> <!--[-->`;
+          Dropdown_menu_item($$payload3, {
+            href: "/profile",
+            children: ($$payload4, $$slotProps3) => {
+              $$payload4.out += `Profile`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!--]--> <!--[-->`;
+          Dropdown_menu_separator($$payload3, {});
+          $$payload3.out += `<!--]--> <!--[-->`;
+          Dropdown_menu_item($$payload3, {
+            href: "/sign-out",
+            children: ($$payload4, $$slotProps3) => {
+              $$payload4.out += `Logout`;
+            },
+            $$slots: { default: true }
+          });
+          $$payload3.out += `<!--]-->`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!--]-->`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!--]-->`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+function App_shell_header($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { navigation } = $$props;
+  let open = false;
+  let $$settled = true;
+  let $$inner_payload;
+  function $$render_inner($$payload2) {
+    $$payload2.out += `<header class="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6"><!--[-->`;
+    Root$1($$payload2, {
+      get open() {
+        return open;
+      },
+      set open($$value) {
+        open = $$value;
+        $$settled = false;
+      },
+      children: ($$payload3, $$slotProps) => {
+        $$payload3.out += `<!--[-->`;
+        Trigger$1($$payload3, {
+          asChild: true,
+          children: ($$payload4, $$slotProps2) => {
+            const builder = $$slotProps2.builder;
+            $$payload4.out += `<!--[-->`;
+            Button($$payload4, {
+              variant: "outline",
+              size: "icon",
+              class: "shrink-0 md:hidden",
+              builders: [builder],
+              children: ($$payload5, $$slotProps3) => {
+                $$payload5.out += `<!--[-->`;
+                Menu$1($$payload5, { class: "h-5 w-5" });
+                $$payload5.out += `<!--]--> <span class="sr-only">Toggle navigation menu</span>`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]-->`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]--> <!--[-->`;
+        Sheet_content($$payload3, {
+          side: "left",
+          class: "flex flex-col",
+          children: ($$payload4, $$slotProps2) => {
+            const each_array = ensure_array_like(navigation);
+            $$payload4.out += `<nav class="grid gap-2 text-lg font-medium"><a href="##" class="flex items-center gap-2 text-lg font-semibold"><!--[-->`;
+            Package_2($$payload4, { class: "h-6 w-6" });
+            $$payload4.out += `<!--]--> <span class="sr-only">Acme Inc</span></a> <!--[-->`;
+            for (let $$index = 0; $$index < each_array.length; $$index++) {
+              const nav = each_array[$$index];
+              $$payload4.out += "<!--[-->";
+              const href = "/" + store_get($$store_subs ??= {}, "$page", page).params.tenant_slug + nav.path;
+              const active = !nav.path && href === store_get($$store_subs ??= {}, "$page", page).url.pathname || nav.path && store_get($$store_subs ??= {}, "$page", page).url.pathname.startsWith(href);
+              $$payload4.out += `<a${attr("href", href, false)}${attr("class", cn("mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground", active ? "bg-muted text-foreground" : "text-muted-foreground"), false)}><!--[-->`;
+              nav.icon?.($$payload4, { class: "size-5" });
+              $$payload4.out += `<!--]--> ${escape_html(nav.label)}</a>`;
+              $$payload4.out += "<!--]-->";
+            }
+            $$payload4.out += "<!--]-->";
+            $$payload4.out += `</nav> <div class="mt-auto"><!--[-->`;
+            Card($$payload4, {
+              children: ($$payload5, $$slotProps3) => {
+                $$payload5.out += `<!--[-->`;
+                Card_header($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    $$payload6.out += `<!--[-->`;
+                    Card_title($$payload6, {
+                      children: ($$payload7, $$slotProps5) => {
+                        $$payload7.out += `Upgrade to Pro`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!--]--> <!--[-->`;
+                    Card_description($$payload6, {
+                      children: ($$payload7, $$slotProps5) => {
+                        $$payload7.out += `Unlock all features and get unlimited access to our support team.`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!--]-->`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]--> <!--[-->`;
+                Card_content($$payload5, {
+                  children: ($$payload6, $$slotProps4) => {
+                    $$payload6.out += `<!--[-->`;
+                    Button($$payload6, {
+                      size: "sm",
+                      class: "w-full",
+                      children: ($$payload7, $$slotProps5) => {
+                        $$payload7.out += `Upgrade`;
+                      },
+                      $$slots: { default: true }
+                    });
+                    $$payload6.out += `<!--]-->`;
+                  },
+                  $$slots: { default: true }
+                });
+                $$payload5.out += `<!--]-->`;
+              },
+              $$slots: { default: true }
+            });
+            $$payload4.out += `<!--]--></div>`;
+          },
+          $$slots: { default: true }
+        });
+        $$payload3.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    });
+    $$payload2.out += `<!--]--> <div class="w-full flex-1"><form><div class="relative"><!--[-->`;
+    Search($$payload2, {
+      class: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"
+    });
+    $$payload2.out += `<!--]--> <!--[-->`;
+    Input($$payload2, {
+      type: "search",
+      placeholder: "Search products...",
+      class: "w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
+    });
+    $$payload2.out += `<!--]--></div></form></div> <!--[-->`;
+    App_shell_user_nav($$payload2);
+    $$payload2.out += `<!--]--></header>`;
+  }
+  do {
+    $$settled = true;
+    $$inner_payload = copy_payload($$payload);
+    $$render_inner($$inner_payload);
+  } while (!$$settled);
+  assign_payload($$payload, $$inner_payload);
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+function Bell($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"
+      }
+    ],
+    [
+      "path",
+      { "d": "M10.3 21a1.94 1.94 0 0 0 3.4 0" }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "bell" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function App_shell_sidebar($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { navigation } = $$props;
+  const each_array = ensure_array_like(navigation);
+  $$payload.out += `<aside class="hidden border-r bg-muted/40 md:block"><div class="flex h-full max-h-screen flex-col gap-2"><div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6"><a href="/" class="flex items-center gap-2 font-semibold"><!--[-->`;
+  Avatar($$payload, {
+    class: "size-6",
+    children: ($$payload2, $$slotProps) => {
+      $$payload2.out += `<!--[-->`;
+      if (store_get($$store_subs ??= {}, "$page", page).data.tenant?.logo_square_url) {
+        $$payload2.out += `<!--[-->`;
+        Avatar_image($$payload2, {
+          src: store_get($$store_subs ??= {}, "$page", page).data.tenant?.logo_square_url,
+          alt: store_get($$store_subs ??= {}, "$page", page).data.tenant?.name
+        });
+        $$payload2.out += `<!--]-->`;
+        $$payload2.out += "<!--]-->";
+      } else {
+        $$payload2.out += "<!--]!-->";
+      }
+      $$payload2.out += ` <!--[-->`;
+      Avatar_fallback($$payload2, {
+        class: "uppercase",
+        children: ($$payload3, $$slotProps2) => {
+          $$payload3.out += `${escape_html(store_get($$store_subs ??= {}, "$page", page).data.tenant?.name.split("")[0])}`;
+        },
+        $$slots: { default: true }
+      });
+      $$payload2.out += `<!--]-->`;
+    },
+    $$slots: { default: true }
+  });
+  $$payload.out += `<!--]--> <span class="line-clamp-2">${escape_html(store_get($$store_subs ??= {}, "$page", page).data.tenant?.name)}</span></a> <!--[-->`;
   Button($$payload, {
     variant: "outline",
     size: "icon",
@@ -59292,25 +59707,19 @@ function App_shell($$payload, $$props) {
     },
     $$slots: { default: true }
   });
-  $$payload.out += `<!--]--></div> <div class="flex-1"><nav class="grid items-start px-2 text-sm font-medium lg:px-4"><a href="##" class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"><!--[-->`;
-  Home($$payload, { class: "h-4 w-4" });
-  $$payload.out += `<!--]--> Dashboard</a> <a href="##" class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"><!--[-->`;
-  Shopping_cart($$payload, { class: "h-4 w-4" });
-  $$payload.out += `<!--]--> Orders <!--[-->`;
-  Badge($$payload, {
-    class: "ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
-    children: ($$payload2, $$slotProps) => {
-      $$payload2.out += `6`;
-    },
-    $$slots: { default: true }
-  });
-  $$payload.out += `<!--]--></a> <a href="##" class="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"><!--[-->`;
-  Package($$payload, { class: "h-4 w-4" });
-  $$payload.out += `<!--]--> Products</a> <a href="##" class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"><!--[-->`;
-  Users($$payload, { class: "h-4 w-4" });
-  $$payload.out += `<!--]--> Customers</a> <a href="##" class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"><!--[-->`;
-  Settings($$payload, { class: "size-4" });
-  $$payload.out += `<!--]--> Settings</a></nav></div> <div class="mt-auto p-4"><!--[-->`;
+  $$payload.out += `<!--]--></div> <div class="flex-1"><nav class="grid items-start px-2 text-sm font-medium lg:px-4"><!--[-->`;
+  for (let $$index = 0; $$index < each_array.length; $$index++) {
+    const nav = each_array[$$index];
+    $$payload.out += "<!--[-->";
+    const href = "/" + store_get($$store_subs ??= {}, "$page", page).params.tenant_slug + nav.path;
+    const active = !nav.path && href === store_get($$store_subs ??= {}, "$page", page).url.pathname || nav.path && store_get($$store_subs ??= {}, "$page", page).url.pathname.startsWith(href);
+    $$payload.out += `<a${attr("href", href, false)}${attr("class", cn("flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary", active ? "bg-muted text-primary" : "text-muted-foreground"), false)}><!--[-->`;
+    nav.icon?.($$payload, { class: "size-4" });
+    $$payload.out += `<!--]--> ${escape_html(nav.label)}</a>`;
+    $$payload.out += "<!--]-->";
+  }
+  $$payload.out += "<!--]-->";
+  $$payload.out += `</nav></div> <div class="mt-auto p-4"><!--[-->`;
   Card($$payload, {
     children: ($$payload2, $$slotProps) => {
       $$payload2.out += `<!--[-->`;
@@ -59356,190 +59765,131 @@ function App_shell($$payload, $$props) {
     },
     $$slots: { default: true }
   });
-  $$payload.out += `<!--]--></div></div></div> <div class="flex flex-col"><header class="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6"><!--[-->`;
-  Root3($$payload, {
-    children: ($$payload2, $$slotProps) => {
-      $$payload2.out += `<!--[-->`;
-      Trigger($$payload2, {
-        asChild: true,
-        children: ($$payload3, $$slotProps2) => {
-          const builder = $$slotProps2.builder;
-          $$payload3.out += `<!--[-->`;
-          Button($$payload3, {
-            variant: "outline",
-            size: "icon",
-            class: "shrink-0 md:hidden",
-            builders: [builder],
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `<!--[-->`;
-              Menu$1($$payload4, { class: "h-5 w-5" });
-              $$payload4.out += `<!--]--> <span class="sr-only">Toggle navigation menu</span>`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]-->`;
-        },
-        $$slots: { default: true }
-      });
-      $$payload2.out += `<!--]--> <!--[-->`;
-      Sheet_content($$payload2, {
-        side: "left",
-        class: "flex flex-col",
-        children: ($$payload3, $$slotProps2) => {
-          $$payload3.out += `<nav class="grid gap-2 text-lg font-medium"><a href="##" class="flex items-center gap-2 text-lg font-semibold"><!--[-->`;
-          Package_2($$payload3, { class: "h-6 w-6" });
-          $$payload3.out += `<!--]--> <span class="sr-only">Acme Inc</span></a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"><!--[-->`;
-          Home($$payload3, { class: "h-5 w-5" });
-          $$payload3.out += `<!--]--> Dashboard</a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"><!--[-->`;
-          Shopping_cart($$payload3, { class: "h-5 w-5" });
-          $$payload3.out += `<!--]--> Orders <!--[-->`;
-          Badge($$payload3, {
-            class: "ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `6`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]--></a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"><!--[-->`;
-          Package($$payload3, { class: "h-5 w-5" });
-          $$payload3.out += `<!--]--> Products</a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"><!--[-->`;
-          Users($$payload3, { class: "h-5 w-5" });
-          $$payload3.out += `<!--]--> Customers</a> <a href="##" class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"><!--[-->`;
-          Settings($$payload3, { class: "size-4" });
-          $$payload3.out += `<!--]--> Settings</a></nav> <div class="mt-auto"><!--[-->`;
-          Card($$payload3, {
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `<!--[-->`;
-              Card_header($$payload4, {
-                children: ($$payload5, $$slotProps4) => {
-                  $$payload5.out += `<!--[-->`;
-                  Card_title($$payload5, {
-                    children: ($$payload6, $$slotProps5) => {
-                      $$payload6.out += `Upgrade to Pro`;
-                    },
-                    $$slots: { default: true }
-                  });
-                  $$payload5.out += `<!--]--> <!--[-->`;
-                  Card_description($$payload5, {
-                    children: ($$payload6, $$slotProps5) => {
-                      $$payload6.out += `Unlock all features and get unlimited access to our support team.`;
-                    },
-                    $$slots: { default: true }
-                  });
-                  $$payload5.out += `<!--]-->`;
-                },
-                $$slots: { default: true }
-              });
-              $$payload4.out += `<!--]--> <!--[-->`;
-              Card_content($$payload4, {
-                children: ($$payload5, $$slotProps4) => {
-                  $$payload5.out += `<!--[-->`;
-                  Button($$payload5, {
-                    size: "sm",
-                    class: "w-full",
-                    children: ($$payload6, $$slotProps5) => {
-                      $$payload6.out += `Upgrade`;
-                    },
-                    $$slots: { default: true }
-                  });
-                  $$payload5.out += `<!--]-->`;
-                },
-                $$slots: { default: true }
-              });
-              $$payload4.out += `<!--]-->`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]--></div>`;
-        },
-        $$slots: { default: true }
-      });
-      $$payload2.out += `<!--]-->`;
-    },
-    $$slots: { default: true }
-  });
-  $$payload.out += `<!--]--> <div class="w-full flex-1"><form><div class="relative"><!--[-->`;
-  Search($$payload, {
-    class: "absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"
-  });
-  $$payload.out += `<!--]--> <!--[-->`;
-  Input($$payload, {
-    type: "search",
-    placeholder: "Search products...",
-    class: "w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-  });
-  $$payload.out += `<!--]--></div></form></div> <!--[-->`;
-  Root$1($$payload, {
-    children: ($$payload2, $$slotProps) => {
-      $$payload2.out += `<!--[-->`;
-      Trigger$1($$payload2, {
-        asChild: true,
-        children: ($$payload3, $$slotProps2) => {
-          const builder = $$slotProps2.builder;
-          $$payload3.out += `<!--[-->`;
-          Button($$payload3, {
-            builders: [builder],
-            variant: "secondary",
-            size: "icon",
-            class: "rounded-full",
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `<!--[-->`;
-              Circle_user($$payload4, { class: "h-5 w-5" });
-              $$payload4.out += `<!--]--> <span class="sr-only">Toggle user menu</span>`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]-->`;
-        },
-        $$slots: { default: true }
-      });
-      $$payload2.out += `<!--]--> <!--[-->`;
-      Dropdown_menu_content($$payload2, {
-        align: "end",
-        children: ($$payload3, $$slotProps2) => {
-          $$payload3.out += `<!--[-->`;
-          Dropdown_menu_label($$payload3, {
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `My Account`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]--> <!--[-->`;
-          Dropdown_menu_separator($$payload3, {});
-          $$payload3.out += `<!--]--> <!--[-->`;
-          Dropdown_menu_item($$payload3, {
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `Settings`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]--> <!--[-->`;
-          Dropdown_menu_item($$payload3, {
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `Support`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]--> <!--[-->`;
-          Dropdown_menu_separator($$payload3, {});
-          $$payload3.out += `<!--]--> <!--[-->`;
-          Dropdown_menu_item($$payload3, {
-            children: ($$payload4, $$slotProps3) => {
-              $$payload4.out += `Logout`;
-            },
-            $$slots: { default: true }
-          });
-          $$payload3.out += `<!--]-->`;
-        },
-        $$slots: { default: true }
-      });
-      $$payload2.out += `<!--]-->`;
-    },
-    $$slots: { default: true }
-  });
-  $$payload.out += `<!--]--></header> <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6"><div class="flex items-center"><h1 class="text-lg font-semibold md:text-2xl">Inventory</h1></div> <!--[-->`;
+  $$payload.out += `<!--]--></div></div></aside>`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
+  pop();
+}
+function Users($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+      }
+    ],
+    [
+      "circle",
+      { "cx": "9", "cy": "7", "r": "4" }
+    ],
+    [
+      "path",
+      { "d": "M22 21v-2a4 4 0 0 0-3-3.87" }
+    ],
+    [
+      "path",
+      { "d": "M16 3.13a4 4 0 0 1 0 7.75" }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "users" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function Settings($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+      }
+    ],
+    [
+      "circle",
+      { "cx": "12", "cy": "12", "r": "3" }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "settings" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function Home($$payload, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+      }
+    ],
+    [
+      "polyline",
+      { "points": "9 22 9 12 15 12 15 22" }
+    ]
+  ];
+  $$payload.out += `<!--[-->`;
+  Icon($$payload, spread_props([
+    { name: "home" },
+    $$sanitized_props,
+    {
+      iconNode,
+      children: ($$payload2, $$slotProps) => {
+        $$payload2.out += `<!--[-->`;
+        slot($$payload2, default_slot($$props), {}, null);
+        $$payload2.out += `<!--]-->`;
+      },
+      $$slots: { default: true }
+    }
+  ]));
+  $$payload.out += `<!--]-->`;
+}
+function App_shell($$payload, $$props) {
+  push();
+  var $$store_subs;
+  let { children } = $$props;
+  const navigation = [
+    { path: "", label: "Dashboard", icon: Home },
+    { path: "/users", label: "Users", icon: Users },
+    {
+      path: "/settings",
+      label: "Settings",
+      icon: Settings
+    }
+  ];
+  $$payload.out += `<div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]"><!--[-->`;
+  App_shell_sidebar($$payload, { navigation });
+  $$payload.out += `<!--]--> <div class="flex flex-col"><!--[-->`;
+  App_shell_header($$payload, { navigation });
+  $$payload.out += `<!--]--> <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6"><div class="flex items-center"><h1 class="text-lg font-semibold md:text-2xl">${escape_html(store_get($$store_subs ??= {}, "$page", page).data.pageTitle)}</h1></div> <!--[-->`;
   children($$payload);
   $$payload.out += `<!--]--></main></div></div>`;
+  if ($$store_subs)
+    unsubscribe_stores($$store_subs);
   pop();
 }
 function _layout3($$payload, $$props) {
@@ -59557,32 +59907,19 @@ function _layout3($$payload, $$props) {
   $$payload.out += `<!--]-->`;
   pop();
 }
-var badgeVariants, ignoredKeys, defaults$3, min, max, round, floor, createCoords, oppositeSideMap, oppositeAlignmentMap, computePosition$1, arrow$1, flip$1, offset$1, shift$1, size$1, noOffsets, topLayerSelectors, getElementRects, platform, offset, shift, flip, size, arrow, computePosition, defaultConfig$1, ARROW_TRANSFORM, defaultConfig, usePopper, SUB_OPEN_KEYS, SUB_CLOSE_KEYS, menuIdParts, defaults$2, defaults$1, defaults4, createSeparator, Root$1, Trigger$1, Root3, Trigger, sheetVariants, sheetTransitions;
+var ignoredKeys, defaults$3, min, max, round, floor, createCoords, oppositeSideMap, oppositeAlignmentMap, computePosition$1, arrow$1, flip$1, offset$1, shift$1, size$1, noOffsets, topLayerSelectors, getElementRects, platform, offset, shift, flip, size, arrow, computePosition, defaultConfig$1, ARROW_TRANSFORM, defaultConfig, usePopper, SUB_OPEN_KEYS, SUB_CLOSE_KEYS, menuIdParts, defaults$2, defaults$12, defaults4, createSeparator, Root$1, Trigger$1, sheetVariants, sheetTransitions, Root3, Trigger;
 var init_layout_svelte4 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_layout.svelte.js"() {
     init_index3();
+    init_stores();
     init_input();
     init_misc();
+    init_card_description();
+    init_avatar_fallback();
     init_dist6();
     init_clsx();
-    init_card_description();
     init_index2();
-    init_Cross2();
     init_index_server();
-    badgeVariants = ce({
-      base: "inline-flex select-none items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-      variants: {
-        variant: {
-          default: "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
-          secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-          destructive: "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
-          outline: "text-foreground"
-        }
-      },
-      defaultVariants: {
-        variant: "default"
-      }
-    });
     ignoredKeys = /* @__PURE__ */ new Set(["Shift", "Control", "Alt", "Meta", "CapsLock", "NumLock"]);
     defaults$3 = {
       onMatch: handleRovingFocus,
@@ -60171,7 +60508,7 @@ var init_layout_svelte4 = __esm({
       closeOnItemClick: true,
       onOutsideClick: void 0
     };
-    defaults$1 = {
+    defaults$12 = {
       arrowSize: 8,
       positioning: {
         placement: "bottom"
@@ -60217,10 +60554,8 @@ var init_layout_svelte4 = __esm({
         options: options3
       };
     };
-    Root$1 = Menu;
-    Trigger$1 = Menu_trigger;
-    Root3 = Dialog;
-    Trigger = Dialog_trigger;
+    Root$1 = Dialog;
+    Trigger$1 = Dialog_trigger;
     sheetVariants = ce({
       base: "fixed z-50 gap-4 bg-background p-6 shadow-lg",
       variants: {
@@ -60285,6 +60620,8 @@ var init_layout_svelte4 = __esm({
         }
       }
     };
+    Root3 = Menu;
+    Trigger = Menu_trigger;
   }
 });
 
@@ -60295,16 +60632,77 @@ __export(__exports6, {
   fonts: () => fonts6,
   imports: () => imports6,
   index: () => index6,
+  server: () => layout_server_ts_exports2,
+  server_id: () => server_id2,
   stylesheets: () => stylesheets6
 });
-var index6, component_cache6, component6, imports6, stylesheets6, fonts6;
+var index6, component_cache6, component6, server_id2, imports6, stylesheets6, fonts6;
 var init__6 = __esm({
   ".svelte-kit/output/server/nodes/5.js"() {
+    init_layout_server_ts2();
     index6 = 5;
     component6 = async () => component_cache6 ??= (await Promise.resolve().then(() => (init_layout_svelte4(), layout_svelte_exports4))).default;
-    imports6 = ["_app/immutable/nodes/5.C4M_3Fgj.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/Cross2.BpNNkRUU.js"];
+    server_id2 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/+layout.server.ts";
+    imports6 = ["_app/immutable/nodes/5.D6P_2CqS.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/snippet.CB5fdLoi.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js", "_app/immutable/chunks/proxy.Cu8K3uqY.js", "_app/immutable/chunks/input.DfFwL83s.js", "_app/immutable/chunks/misc.Di9luvOV.js", "_app/immutable/chunks/props.DSAEkJIu.js", "_app/immutable/chunks/8.Bm0gQg8J.js", "_app/immutable/chunks/card-description.CsdiT-TI.js", "_app/immutable/chunks/avatar-fallback.BZdiziGo.js"];
     stylesheets6 = [];
     fonts6 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_layout.server.ts.js
+var layout_server_ts_exports3 = {};
+__export(layout_server_ts_exports3, {
+  load: () => load3
+});
+var load3;
+var init_layout_server_ts3 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_layout.server.ts.js"() {
+    load3 = () => {
+      return { pageTitle: "Settings" };
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_layout.svelte.js
+var layout_svelte_exports5 = {};
+__export(layout_svelte_exports5, {
+  default: () => _layout4
+});
+function _layout4($$payload, $$props) {
+  push();
+  let { children } = $$props;
+  $$payload.out += `<!--[-->`;
+  children($$payload);
+  $$payload.out += `<!--]-->`;
+  pop();
+}
+var init_layout_svelte5 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_layout.svelte.js"() {
+    init_index3();
+  }
+});
+
+// .svelte-kit/output/server/nodes/6.js
+var __exports7 = {};
+__export(__exports7, {
+  component: () => component7,
+  fonts: () => fonts7,
+  imports: () => imports7,
+  index: () => index7,
+  server: () => layout_server_ts_exports3,
+  server_id: () => server_id3,
+  stylesheets: () => stylesheets7
+});
+var index7, component_cache7, component7, server_id3, imports7, stylesheets7, fonts7;
+var init__7 = __esm({
+  ".svelte-kit/output/server/nodes/6.js"() {
+    init_layout_server_ts3();
+    index7 = 6;
+    component7 = async () => component_cache7 ??= (await Promise.resolve().then(() => (init_layout_svelte5(), layout_svelte_exports5))).default;
+    server_id3 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/settings/+layout.server.ts";
+    imports7 = ["_app/immutable/nodes/6.7wD6bC0e.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/snippet.CB5fdLoi.js"];
+    stylesheets7 = [];
+    fonts7 = [];
   }
 });
 
@@ -60323,57 +60721,57 @@ function unflatten(parsed, revivers) {
     parsed
   );
   const hydrated = Array(values.length);
-  function hydrate2(index15, standalone = false) {
-    if (index15 === UNDEFINED)
+  function hydrate2(index18, standalone = false) {
+    if (index18 === UNDEFINED)
       return void 0;
-    if (index15 === NAN)
+    if (index18 === NAN)
       return NaN;
-    if (index15 === POSITIVE_INFINITY)
+    if (index18 === POSITIVE_INFINITY)
       return Infinity;
-    if (index15 === NEGATIVE_INFINITY)
+    if (index18 === NEGATIVE_INFINITY)
       return -Infinity;
-    if (index15 === NEGATIVE_ZERO)
+    if (index18 === NEGATIVE_ZERO)
       return -0;
     if (standalone)
       throw new Error(`Invalid input`);
-    if (index15 in hydrated)
-      return hydrated[index15];
-    const value = values[index15];
+    if (index18 in hydrated)
+      return hydrated[index18];
+    const value = values[index18];
     if (!value || typeof value !== "object") {
-      hydrated[index15] = value;
+      hydrated[index18] = value;
     } else if (Array.isArray(value)) {
       if (typeof value[0] === "string") {
         const type = value[0];
         switch (type) {
           case "Date":
-            hydrated[index15] = new Date(value[1]);
+            hydrated[index18] = new Date(value[1]);
             break;
           case "Set":
             const set2 = /* @__PURE__ */ new Set();
-            hydrated[index15] = set2;
+            hydrated[index18] = set2;
             for (let i2 = 1; i2 < value.length; i2 += 1) {
               set2.add(hydrate2(value[i2]));
             }
             break;
           case "Map":
             const map2 = /* @__PURE__ */ new Map();
-            hydrated[index15] = map2;
+            hydrated[index18] = map2;
             for (let i2 = 1; i2 < value.length; i2 += 2) {
               map2.set(hydrate2(value[i2]), hydrate2(value[i2 + 1]));
             }
             break;
           case "RegExp":
-            hydrated[index15] = new RegExp(value[1], value[2]);
+            hydrated[index18] = new RegExp(value[1], value[2]);
             break;
           case "Object":
-            hydrated[index15] = Object(value[1]);
+            hydrated[index18] = Object(value[1]);
             break;
           case "BigInt":
-            hydrated[index15] = BigInt(value[1]);
+            hydrated[index18] = BigInt(value[1]);
             break;
           case "null":
             const obj = /* @__PURE__ */ Object.create(null);
-            hydrated[index15] = obj;
+            hydrated[index18] = obj;
             for (let i2 = 1; i2 < value.length; i2 += 2) {
               obj[value[i2]] = hydrate2(value[i2 + 1]);
             }
@@ -60383,7 +60781,7 @@ function unflatten(parsed, revivers) {
         }
       } else {
         const array3 = new Array(value.length);
-        hydrated[index15] = array3;
+        hydrated[index18] = array3;
         for (let i2 = 0; i2 < value.length; i2 += 1) {
           const n2 = value[i2];
           if (n2 === HOLE)
@@ -60393,13 +60791,13 @@ function unflatten(parsed, revivers) {
       }
     } else {
       const object2 = {};
-      hydrated[index15] = object2;
+      hydrated[index18] = object2;
       for (const key2 in value) {
         const n2 = value[key2];
         object2[key2] = hydrate2(n2);
       }
     }
-    return hydrated[index15];
+    return hydrated[index18];
   }
   return hydrate2(0);
 }
@@ -60896,10 +61294,10 @@ function _flattenErrors(errors, path) {
     }
   });
 }
-function mergeDefaults(parsedData, defaults6) {
+function mergeDefaults(parsedData, defaults5) {
   if (!parsedData)
-    return clone$1(defaults6);
-  return merge$1.withOptions({ mergeArrays: false }, defaults6, parsedData);
+    return clone$1(defaults5);
+  return merge$1.withOptions({ mergeArrays: false }, defaults5, parsedData);
 }
 function replaceInvalidDefaults(Data, Defaults, _schema, Errors, preprocessed) {
   const defaultType = _schema.additionalProperties && typeof _schema.additionalProperties == "object" ? { __types: schemaInfo(_schema.additionalProperties, false, []).types } : void 0;
@@ -66389,13 +66787,13 @@ ${ctx.expected}`
       maxLength = this.variadic ? null : this.minLength + this.optionals.length;
       maxLengthNode = this.maxLength === null ? null : this.$.node("maxLength", this.maxLength);
       impliedSiblings = this.minLengthNode ? this.maxLengthNode ? [this.minLengthNode, this.maxLengthNode] : [this.minLengthNode] : this.maxLengthNode ? [this.maxLengthNode] : [];
-      childAtIndex(data, index15) {
-        if (index15 < this.prevariadic.length)
-          return this.prevariadic[index15];
+      childAtIndex(data, index18) {
+        if (index18 < this.prevariadic.length)
+          return this.prevariadic[index18];
         const firstPostfixIndex = data.length - this.postfix.length;
-        if (index15 >= firstPostfixIndex)
-          return this.postfix[index15 - firstPostfixIndex];
-        return this.variadic ?? throwInternalError(`Unexpected attempt to access index ${index15} on ${this}`);
+        if (index18 >= firstPostfixIndex)
+          return this.postfix[index18 - firstPostfixIndex];
+        return this.variadic ?? throwInternalError(`Unexpected attempt to access index ${index18} on ${this}`);
       }
       // minLength/maxLength should be checked by Intersection before either traversal
       traverseAllows = (data, ctx) => {
@@ -66599,8 +66997,8 @@ ${ctx.expected}`
         ];
         keyof() {
           let branches = this.$.units(this.literalKeys).branches;
-          this.index?.forEach(({ signature: index15 }) => {
-            branches = branches.concat(index15.branches);
+          this.index?.forEach(({ signature: index18 }) => {
+            branches = branches.concat(index18.branches);
           });
           return this.$.node("union", branches);
         }
@@ -68794,7 +69192,7 @@ ${this.body}    }
           return { $ref: getRelativePath(refs.currentPath, item.path) };
         case "none":
         case "seen": {
-          if (item.path.length < refs.currentPath.length && item.path.every((value, index15) => refs.currentPath[index15] === value)) {
+          if (item.path.length < refs.currentPath.length && item.path.every((value, index18) => refs.currentPath[index18] === value)) {
             console.warn(`Recursive reference detected at ${refs.currentPath.join("/")}! Defaulting to any`);
             return {};
           }
@@ -69351,11 +69749,11 @@ async function superValidate(data, adapter, options3) {
     data = void 0;
   }
   const validator2 = adapter;
-  const defaults6 = options3?.defaults ?? validator2.defaults;
+  const defaults5 = options3?.defaults ?? validator2.defaults;
   const jsonSchema = validator2.jsonSchema;
   const parsed = await parseRequest(data, jsonSchema, options3);
   const addErrors = options3?.errors ?? (options3?.strict ? true : !!parsed.data);
-  const parsedData = options3?.strict ? parsed.data ?? {} : mergeDefaults(parsed.data, defaults6);
+  const parsedData = options3?.strict ? parsed.data ?? {} : mergeDefaults(parsed.data, defaults5);
   let status;
   if (!!parsed.data || addErrors) {
     status = await /* @__PURE__ */ validator2.validate(parsedData);
@@ -69364,7 +69762,7 @@ async function superValidate(data, adapter, options3) {
   }
   const valid = status.success;
   const errors = valid || !addErrors ? {} : mapErrors(status.issues, validator2.shape);
-  const dataWithDefaults = valid ? status.data : replaceInvalidDefaults(options3?.strict ? mergeDefaults(parsedData, defaults6) : parsedData, defaults6, jsonSchema, status.issues, options3?.preprocessed);
+  const dataWithDefaults = valid ? status.data : replaceInvalidDefaults(options3?.strict ? mergeDefaults(parsedData, defaults5) : parsedData, defaults5, jsonSchema, status.issues, options3?.preprocessed);
   let outputData;
   if (jsonSchema.additionalProperties === false) {
     outputData = {};
@@ -69443,9 +69841,9 @@ var init_superValidate = __esm({
 var page_server_ts_exports = {};
 __export(page_server_ts_exports, {
   actions: () => actions,
-  load: () => load
+  load: () => load4
 });
-var load, actions;
+var load4, actions;
 var init_page_server_ts = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-in/_page.server.ts.js"() {
     init_stores();
@@ -69455,7 +69853,7 @@ var init_page_server_ts = __esm({
     init_tenants();
     init_index4();
     init_drizzle_orm();
-    load = async () => {
+    load4 = async () => {
       return {
         form: await superValidate(zod(sign_in_email_schema))
       };
@@ -70358,42 +70756,6 @@ var init_page_svelte = __esm({
   }
 });
 
-// .svelte-kit/output/server/nodes/6.js
-var __exports7 = {};
-__export(__exports7, {
-  component: () => component7,
-  fonts: () => fonts7,
-  imports: () => imports7,
-  index: () => index7,
-  server: () => page_server_ts_exports,
-  server_id: () => server_id,
-  stylesheets: () => stylesheets7
-});
-var index7, component_cache7, component7, server_id, imports7, stylesheets7, fonts7;
-var init__7 = __esm({
-  ".svelte-kit/output/server/nodes/6.js"() {
-    init_page_server_ts();
-    index7 = 6;
-    component7 = async () => component_cache7 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
-    server_id = "src/routes/(app)/app/(auth)/sign-in/+page.server.ts";
-    imports7 = ["_app/immutable/nodes/6.pC4bnxzx.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
-    stylesheets7 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts7 = [];
-  }
-});
-
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.svelte.js
-var page_svelte_exports2 = {};
-__export(page_svelte_exports2, {
-  default: () => _page2
-});
-function _page2($$payload) {
-}
-var init_page_svelte2 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.svelte.js"() {
-  }
-});
-
 // .svelte-kit/output/server/nodes/7.js
 var __exports8 = {};
 __export(__exports8, {
@@ -70401,27 +70763,92 @@ __export(__exports8, {
   fonts: () => fonts8,
   imports: () => imports8,
   index: () => index8,
+  server: () => page_server_ts_exports,
+  server_id: () => server_id4,
   stylesheets: () => stylesheets8
 });
-var index8, component_cache8, component8, imports8, stylesheets8, fonts8;
+var index8, component_cache8, component8, server_id4, imports8, stylesheets8, fonts8;
 var init__8 = __esm({
   ".svelte-kit/output/server/nodes/7.js"() {
+    init_page_server_ts();
     index8 = 7;
-    component8 = async () => component_cache8 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
-    imports8 = ["_app/immutable/nodes/7.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
-    stylesheets8 = [];
+    component8 = async () => component_cache8 ??= (await Promise.resolve().then(() => (init_page_svelte(), page_svelte_exports))).default;
+    server_id4 = "src/routes/(app)/app/(auth)/sign-in/+page.server.ts";
+    imports8 = ["_app/immutable/nodes/7.CfUksjFs.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/props.DSAEkJIu.js", "_app/immutable/chunks/input.DfFwL83s.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js", "_app/immutable/chunks/misc.Di9luvOV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/auth-card.9F5tpRex.js", "_app/immutable/chunks/snippet.CB5fdLoi.js", "_app/immutable/chunks/card-description.CsdiT-TI.js", "_app/immutable/chunks/loader-circle.q7i0hIbw.js", "_app/immutable/chunks/form-errors.DORKbenL.js"];
+    stylesheets8 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
     fonts8 = [];
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.server.ts.js
 var page_server_ts_exports2 = {};
 __export(page_server_ts_exports2, {
   actions: () => actions2,
-  load: () => load2
+  load: () => load5
 });
-var load2, actions2;
+var load5, actions2;
 var init_page_server_ts2 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-out/_page.server.ts.js"() {
+    init_chunks();
+    load5 = async (event) => {
+      if (!event.locals.session) {
+        redirect(302, "/sign-in");
+      }
+      await event.locals.lucia.invalidateSession(event.locals.session.id);
+      const sessionCookie = event.locals.lucia.createBlankSessionCookie();
+      event.cookies.set(sessionCookie.name, sessionCookie.value, {
+        path: ".",
+        ...sessionCookie.attributes
+      });
+      redirect(302, "/sign-in");
+    };
+    actions2 = {
+      default: async (event) => {
+        if (!event.locals.session) {
+          return fail(401);
+        }
+        await event.locals.lucia.invalidateSession(event.locals.session.id);
+        const sessionCookie = event.locals.lucia.createBlankSessionCookie();
+        event.cookies.set(sessionCookie.name, sessionCookie.value, {
+          path: ".",
+          ...sessionCookie.attributes
+        });
+        redirect(302, "/sign-in");
+      }
+    };
+  }
+});
+
+// .svelte-kit/output/server/nodes/8.js
+var __exports9 = {};
+__export(__exports9, {
+  fonts: () => fonts9,
+  imports: () => imports9,
+  index: () => index9,
+  server: () => page_server_ts_exports2,
+  server_id: () => server_id5,
+  stylesheets: () => stylesheets9
+});
+var index9, server_id5, imports9, stylesheets9, fonts9;
+var init__9 = __esm({
+  ".svelte-kit/output/server/nodes/8.js"() {
+    init_page_server_ts2();
+    index9 = 8;
+    server_id5 = "src/routes/(app)/app/(auth)/sign-out/+page.server.ts";
+    imports9 = [];
+    stylesheets9 = [];
+    fonts9 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js
+var page_server_ts_exports3 = {};
+__export(page_server_ts_exports3, {
+  actions: () => actions3,
+  load: () => load6
+});
+var load6, actions3;
+var init_page_server_ts3 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.server.ts.js"() {
     init_stores();
     init_compile();
@@ -70430,7 +70857,7 @@ var init_page_server_ts2 = __esm({
     init_tenants();
     init_index4();
     init_drizzle_orm();
-    load2 = async (event) => {
+    load6 = async (event) => {
       return {
         form: await superValidate(
           { email: event.url.searchParams.get("email") ?? void 0 },
@@ -70439,7 +70866,7 @@ var init_page_server_ts2 = __esm({
         )
       };
     };
-    actions2 = {
+    actions3 = {
       "sign-up-email": async (event) => {
         const form = await superValidate(event, zod(sign_up_email_schema));
         if (!form.valid) {
@@ -70473,11 +70900,11 @@ var init_page_server_ts2 = __esm({
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.svelte.js
-var page_svelte_exports3 = {};
-__export(page_svelte_exports3, {
-  default: () => _page3
+var page_svelte_exports2 = {};
+__export(page_svelte_exports2, {
+  default: () => _page2
 });
-function _page3($$payload, $$props) {
+function _page2($$payload, $$props) {
   push();
   var $$store_subs;
   let { data } = $$props;
@@ -70679,7 +71106,7 @@ function _page3($$payload, $$props) {
     unsubscribe_stores($$store_subs);
   pop();
 }
-var init_page_svelte3 = __esm({
+var init_page_svelte2 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/sign-up/_page.svelte.js"() {
     init_index3();
     init_public();
@@ -70694,38 +71121,38 @@ var init_page_svelte3 = __esm({
   }
 });
 
-// .svelte-kit/output/server/nodes/8.js
-var __exports9 = {};
-__export(__exports9, {
+// .svelte-kit/output/server/nodes/9.js
+var __exports10 = {};
+__export(__exports10, {
   component: () => component9,
-  fonts: () => fonts9,
-  imports: () => imports9,
-  index: () => index9,
-  server: () => page_server_ts_exports2,
-  server_id: () => server_id2,
-  stylesheets: () => stylesheets9
+  fonts: () => fonts10,
+  imports: () => imports10,
+  index: () => index10,
+  server: () => page_server_ts_exports3,
+  server_id: () => server_id6,
+  stylesheets: () => stylesheets10
 });
-var index9, component_cache9, component9, server_id2, imports9, stylesheets9, fonts9;
-var init__9 = __esm({
-  ".svelte-kit/output/server/nodes/8.js"() {
-    init_page_server_ts2();
-    index9 = 8;
-    component9 = async () => component_cache9 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
-    server_id2 = "src/routes/(app)/app/(auth)/sign-up/+page.server.ts";
-    imports9 = ["_app/immutable/nodes/8.jskyU3gI.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/auth-card.akkZtGU2.js", "_app/immutable/chunks/snippet.CeBRzamk.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
-    stylesheets9 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts9 = [];
+var index10, component_cache9, component9, server_id6, imports10, stylesheets10, fonts10;
+var init__10 = __esm({
+  ".svelte-kit/output/server/nodes/9.js"() {
+    init_page_server_ts3();
+    index10 = 9;
+    component9 = async () => component_cache9 ??= (await Promise.resolve().then(() => (init_page_svelte2(), page_svelte_exports2))).default;
+    server_id6 = "src/routes/(app)/app/(auth)/sign-up/+page.server.ts";
+    imports10 = ["_app/immutable/nodes/9.DFQT7COv.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/props.DSAEkJIu.js", "_app/immutable/chunks/input.DfFwL83s.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js", "_app/immutable/chunks/misc.Di9luvOV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/loader-circle.q7i0hIbw.js", "_app/immutable/chunks/auth-card.9F5tpRex.js", "_app/immutable/chunks/snippet.CB5fdLoi.js", "_app/immutable/chunks/card-description.CsdiT-TI.js", "_app/immutable/chunks/form-errors.DORKbenL.js"];
+    stylesheets10 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
+    fonts10 = [];
   }
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.server.ts.js
-var page_server_ts_exports3 = {};
-__export(page_server_ts_exports3, {
-  actions: () => actions3,
-  load: () => load3
+var page_server_ts_exports4 = {};
+__export(page_server_ts_exports4, {
+  actions: () => actions4,
+  load: () => load7
 });
-var load3, actions3;
-var init_page_server_ts3 = __esm({
+var load7, actions4;
+var init_page_server_ts4 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.server.ts.js"() {
     init_stores();
     init_compile();
@@ -70733,7 +71160,7 @@ var init_page_server_ts3 = __esm({
     init_superValidate();
     init_tenants();
     init_drizzle_orm();
-    load3 = async (event) => {
+    load7 = async (event) => {
       return {
         form: await superValidate(
           {
@@ -70745,7 +71172,7 @@ var init_page_server_ts3 = __esm({
         )
       };
     };
-    actions3 = {
+    actions4 = {
       verify: async (event) => {
         const form = await superValidate(event, zod(verification_schema));
         if (!form.valid) {
@@ -70791,11 +71218,11 @@ var init_page_server_ts3 = __esm({
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.svelte.js
-var page_svelte_exports4 = {};
-__export(page_svelte_exports4, {
-  default: () => _page4
+var page_svelte_exports3 = {};
+__export(page_svelte_exports3, {
+  default: () => _page3
 });
-function _page4($$payload, $$props) {
+function _page3($$payload, $$props) {
   push();
   var $$store_subs;
   let { data } = $$props;
@@ -70931,7 +71358,7 @@ function _page4($$payload, $$props) {
     unsubscribe_stores($$store_subs);
   pop();
 }
-var init_page_svelte4 = __esm({
+var init_page_svelte3 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(auth)/verification/_page.svelte.js"() {
     init_index3();
     init_public();
@@ -70947,27 +71374,27 @@ var init_page_svelte4 = __esm({
   }
 });
 
-// .svelte-kit/output/server/nodes/9.js
-var __exports10 = {};
-__export(__exports10, {
+// .svelte-kit/output/server/nodes/10.js
+var __exports11 = {};
+__export(__exports11, {
   component: () => component10,
-  fonts: () => fonts10,
-  imports: () => imports10,
-  index: () => index10,
-  server: () => page_server_ts_exports3,
-  server_id: () => server_id3,
-  stylesheets: () => stylesheets10
+  fonts: () => fonts11,
+  imports: () => imports11,
+  index: () => index11,
+  server: () => page_server_ts_exports4,
+  server_id: () => server_id7,
+  stylesheets: () => stylesheets11
 });
-var index10, component_cache10, component10, server_id3, imports10, stylesheets10, fonts10;
-var init__10 = __esm({
-  ".svelte-kit/output/server/nodes/9.js"() {
-    init_page_server_ts3();
-    index10 = 9;
-    component10 = async () => component_cache10 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
-    server_id3 = "src/routes/(app)/app/(auth)/verification/+page.server.ts";
-    imports10 = ["_app/immutable/nodes/9.DGxOHEsM.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/card-description.pKY-G_7T.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/form-errors.B7RkYRzj.js"];
-    stylesheets10 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts10 = [];
+var index11, component_cache10, component10, server_id7, imports11, stylesheets11, fonts11;
+var init__11 = __esm({
+  ".svelte-kit/output/server/nodes/10.js"() {
+    init_page_server_ts4();
+    index11 = 10;
+    component10 = async () => component_cache10 ??= (await Promise.resolve().then(() => (init_page_svelte3(), page_svelte_exports3))).default;
+    server_id7 = "src/routes/(app)/app/(auth)/verification/+page.server.ts";
+    imports11 = ["_app/immutable/nodes/10.DH58i5ce.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/props.DSAEkJIu.js", "_app/immutable/chunks/input.DfFwL83s.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js", "_app/immutable/chunks/misc.Di9luvOV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/card-description.CsdiT-TI.js", "_app/immutable/chunks/loader-circle.q7i0hIbw.js", "_app/immutable/chunks/form-errors.DORKbenL.js"];
+    stylesheets11 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
+    fonts11 = [];
   }
 });
 
@@ -70996,13 +71423,13 @@ var init_index5 = __esm({
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.server.ts.js
-var page_server_ts_exports4 = {};
-__export(page_server_ts_exports4, {
-  actions: () => actions4,
-  load: () => load4
+var page_server_ts_exports5 = {};
+__export(page_server_ts_exports5, {
+  actions: () => actions5,
+  load: () => load8
 });
-var load4, actions4;
-var init_page_server_ts4 = __esm({
+var load8, actions5;
+var init_page_server_ts5 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.server.ts.js"() {
     init_tenants();
     init_chunks();
@@ -71012,7 +71439,7 @@ var init_page_server_ts4 = __esm({
     init_drizzle_orm();
     init_index5();
     init_private();
-    load4 = async (event) => {
+    load8 = async (event) => {
       const { user } = isAuthenticated(event);
       return {
         tenants: await event.locals.db.select({
@@ -71024,7 +71451,7 @@ var init_page_server_ts4 = __esm({
         form: await superValidate(zod(create_tenant_schema), { id: "create-tenant-form" })
       };
     };
-    actions4 = {
+    actions5 = {
       "create-tenant": async (event) => {
         const { user } = isAuthenticated(event);
         const form = await superValidate(event, zod(create_tenant_schema));
@@ -71509,179 +71936,10 @@ var init_auto_animate = __esm({
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.svelte.js
-var page_svelte_exports5 = {};
-__export(page_svelte_exports5, {
-  default: () => _page5
+var page_svelte_exports4 = {};
+__export(page_svelte_exports4, {
+  default: () => _page4
 });
-function getAvatarData() {
-  const NAME = "avatar";
-  const PARTS = ["root", "image", "fallback"];
-  return {
-    NAME,
-    PARTS
-  };
-}
-function setCtx3(props) {
-  const { NAME, PARTS } = getAvatarData();
-  const getAttrs2 = createBitAttrs(NAME, PARTS);
-  const avatar = { ...createAvatar(removeUndefined(props)), getAttrs: getAttrs2 };
-  setContext(NAME, avatar);
-  return {
-    ...avatar,
-    updateOption: getOptionUpdater(avatar.options)
-  };
-}
-function getImage(src = "") {
-  const { NAME } = getAvatarData();
-  const avatar = getContext(NAME);
-  if (!src) {
-    avatar.options.src.set("");
-  } else {
-    avatar.options.src.set(src);
-  }
-  return avatar;
-}
-function getCtx3() {
-  const { NAME } = getAvatarData();
-  return getContext(NAME);
-}
-function Avatar$1($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, [
-    "delayMs",
-    "loadingStatus",
-    "onLoadingStatusChange",
-    "asChild",
-    "el"
-  ]);
-  push();
-  let delayMs = value_or_fallback($$props["delayMs"], () => void 0);
-  let loadingStatus = value_or_fallback($$props["loadingStatus"], () => void 0);
-  let onLoadingStatusChange = value_or_fallback($$props["onLoadingStatusChange"], () => void 0);
-  let asChild = value_or_fallback($$props["asChild"], () => false);
-  let el = value_or_fallback($$props["el"], () => void 0);
-  const {
-    states: { loadingStatus: localLoadingStatus },
-    updateOption,
-    getAttrs: getAttrs2
-  } = setCtx3({
-    src: "",
-    delayMs,
-    onLoadingStatusChange: ({ next: next2 }) => {
-      loadingStatus = next2;
-      onLoadingStatusChange?.(next2);
-      return next2;
-    }
-  });
-  const attrs = getAttrs2("root");
-  loadingStatus !== void 0 && localLoadingStatus.set(loadingStatus);
-  updateOption("delayMs", delayMs);
-  $$payload.out += `<!--[-->`;
-  if (asChild) {
-    $$payload.out += `<!--[-->`;
-    slot($$payload, default_slot($$props), { attrs }, null);
-    $$payload.out += `<!--]-->`;
-    $$payload.out += "<!--]-->";
-  } else {
-    $$payload.out += `<div${spread_attributes({ ...$$restProps, ...attrs })}><!--[-->`;
-    slot($$payload, default_slot($$props), { attrs }, null);
-    $$payload.out += `<!--]--></div>`;
-    $$payload.out += "<!--]!-->";
-  }
-  bind_props($$props, {
-    delayMs,
-    loadingStatus,
-    onLoadingStatusChange,
-    asChild,
-    el
-  });
-  pop();
-}
-function Avatar_image$1($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["src", "alt", "asChild", "el"]);
-  push();
-  var $$store_subs;
-  let image, builder;
-  let src = value_or_fallback($$props["src"], () => void 0);
-  let alt = value_or_fallback($$props["alt"], () => void 0);
-  let asChild = value_or_fallback($$props["asChild"], () => false);
-  let el = value_or_fallback($$props["el"], () => void 0);
-  const attrs = { "data-bits-avatar-image": "" };
-  image = getImage(src).elements.image;
-  builder = store_get($$store_subs ??= {}, "$image", image);
-  Object.assign(builder, attrs);
-  $$payload.out += `<!--[-->`;
-  if (asChild) {
-    $$payload.out += `<!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get builder() {
-          return builder;
-        }
-      },
-      null
-    );
-    $$payload.out += `<!--]-->`;
-    $$payload.out += "<!--]-->";
-  } else {
-    $$payload.out += `<img${spread_attributes({ ...builder, alt, ...$$restProps })} onload="this.__e=event" onerror="this.__e=event">`;
-    $$payload.out += "<!--]!-->";
-  }
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { src, alt, asChild, el });
-  pop();
-}
-function Avatar_fallback$1($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["asChild", "el"]);
-  push();
-  var $$store_subs;
-  let builder;
-  let asChild = value_or_fallback($$props["asChild"], () => false);
-  let el = value_or_fallback($$props["el"], () => void 0);
-  const { elements: { fallback }, getAttrs: getAttrs2 } = getCtx3();
-  const attrs = getAttrs2("fallback");
-  builder = store_get($$store_subs ??= {}, "$fallback", fallback);
-  Object.assign(builder, attrs);
-  $$payload.out += `<!--[-->`;
-  if (asChild) {
-    $$payload.out += `<!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get builder() {
-          return builder;
-        }
-      },
-      null
-    );
-    $$payload.out += `<!--]-->`;
-    $$payload.out += "<!--]-->";
-  } else {
-    $$payload.out += `<span${spread_attributes({ ...builder, ...$$restProps })}><!--[-->`;
-    slot(
-      $$payload,
-      default_slot($$props),
-      {
-        get builder() {
-          return builder;
-        }
-      },
-      null
-    );
-    $$payload.out += `<!--]--></span>`;
-    $$payload.out += "<!--]!-->";
-  }
-  if ($$store_subs)
-    unsubscribe_stores($$store_subs);
-  bind_props($$props, { asChild, el });
-  pop();
-}
 function Dialog_title$1($$payload, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const $$restProps = rest_props($$sanitized_props, ["level", "asChild", "id", "el"]);
@@ -71998,77 +72256,7 @@ function Chevron_right($$payload, $$props) {
   ]));
   $$payload.out += `<!--]-->`;
 }
-function Avatar($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "delayMs"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let delayMs = value_or_fallback($$props["delayMs"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Avatar$1($$payload, spread_props([
-    {
-      delayMs,
-      class: cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, delayMs });
-  pop();
-}
-function Avatar_image($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class", "src", "alt"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  let src = value_or_fallback($$props["src"], () => void 0);
-  let alt = value_or_fallback($$props["alt"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Avatar_image$1($$payload, spread_props([
-    {
-      src,
-      alt,
-      class: cn("aspect-square h-full w-full", className)
-    },
-    $$restProps
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className, src, alt });
-  pop();
-}
-function Avatar_fallback($$payload, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, ["class"]);
-  push();
-  let className = value_or_fallback($$props["class"], () => void 0);
-  $$payload.out += `<!--[-->`;
-  Avatar_fallback$1($$payload, spread_props([
-    {
-      class: cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)
-    },
-    $$restProps,
-    {
-      children: ($$payload2, $$slotProps) => {
-        $$payload2.out += `<!--[-->`;
-        slot($$payload2, default_slot($$props), {}, null);
-        $$payload2.out += `<!--]-->`;
-      },
-      $$slots: { default: true }
-    }
-  ]));
-  $$payload.out += `<!--]-->`;
-  bind_props($$props, { class: className });
-  pop();
-}
-function _page5($$payload, $$props) {
+function _page4($$payload, $$props) {
   push();
   var $$store_subs;
   let { data } = $$props;
@@ -72144,7 +72332,7 @@ function _page5($$payload, $$props) {
                     Avatar_fallback($$payload5, {
                       class: "uppercase",
                       children: ($$payload6, $$slotProps4) => {
-                        $$payload6.out += `${escape_html(tenant.slug.split("")[0])}`;
+                        $$payload6.out += `${escape_html(tenant.name.split("")[0])}`;
                       },
                       $$slots: { default: true }
                     });
@@ -72358,131 +72546,118 @@ function _page5($$payload, $$props) {
     unsubscribe_stores($$store_subs);
   pop();
 }
-var defaults5, createAvatar, Root4, Trigger2;
-var init_page_svelte5 = __esm({
+var Root4, Trigger2;
+var init_page_svelte4 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_page.svelte.js"() {
     init_index3();
     init_public();
     init_stores();
     init_input();
     init_misc();
-    init_Cross2();
+    init_avatar_fallback();
     init_clsx();
     init_auto_animate();
     init_tenants();
     init_compile();
     init_chunks();
     init_loader_circle();
-    init_index2();
-    defaults5 = {
-      src: "",
-      delayMs: 0,
-      onLoadingStatusChange: void 0
-    };
-    createAvatar = (props) => {
-      const withDefaults = { ...defaults5, ...props };
-      const options3 = toWritableStores(omit(withDefaults, "loadingStatus", "onLoadingStatusChange"));
-      const { src, delayMs } = options3;
-      const loadingStatusWritable = withDefaults.loadingStatus ?? writable("loading");
-      const loadingStatus = overridable(loadingStatusWritable, withDefaults?.onLoadingStatusChange);
-      effect2([src, delayMs], ([$src, $delayMs]) => {
-        if (isBrowser) {
-          const image2 = new Image();
-          image2.src = $src;
-          image2.onload = () => {
-            if (delayMs !== void 0) {
-              const timerId = window.setTimeout(() => {
-                loadingStatus.set("loaded");
-              }, $delayMs);
-              return () => window.clearTimeout(timerId);
-            } else {
-              loadingStatus.set("loaded");
-            }
-          };
-          image2.onerror = () => {
-            loadingStatus.set("error");
-          };
-        }
-      });
-      const image = makeElement("avatar-image", {
-        stores: [src, loadingStatus],
-        returned: ([$src, $loadingStatus]) => {
-          const imageStyles = styleToString({
-            display: $loadingStatus === "loaded" ? "block" : "none"
-          });
-          return {
-            src: $src,
-            style: imageStyles
-          };
-        }
-      });
-      const fallback = makeElement("avatar-fallback", {
-        stores: [loadingStatus],
-        returned: ([$loadingStatus]) => {
-          return {
-            style: $loadingStatus === "loaded" ? styleToString({
-              display: "none"
-            }) : void 0,
-            hidden: $loadingStatus === "loaded" ? true : void 0
-          };
-        }
-      });
-      return {
-        elements: {
-          image,
-          fallback
-        },
-        states: {
-          loadingStatus
-        },
-        options: options3
-      };
-    };
     Root4 = Dialog;
     Trigger2 = Dialog_trigger;
   }
 });
 
-// .svelte-kit/output/server/nodes/10.js
-var __exports11 = {};
-__export(__exports11, {
+// .svelte-kit/output/server/nodes/11.js
+var __exports12 = {};
+__export(__exports12, {
   component: () => component11,
-  fonts: () => fonts11,
-  imports: () => imports11,
-  index: () => index11,
-  server: () => page_server_ts_exports4,
-  server_id: () => server_id4,
-  stylesheets: () => stylesheets11
+  fonts: () => fonts12,
+  imports: () => imports12,
+  index: () => index12,
+  server: () => page_server_ts_exports5,
+  server_id: () => server_id8,
+  stylesheets: () => stylesheets12
 });
-var index11, component_cache11, component11, server_id4, imports11, stylesheets11, fonts11;
-var init__11 = __esm({
-  ".svelte-kit/output/server/nodes/10.js"() {
-    init_page_server_ts4();
-    index11 = 10;
-    component11 = async () => component_cache11 ??= (await Promise.resolve().then(() => (init_page_svelte5(), page_svelte_exports5))).default;
-    server_id4 = "src/routes/(app)/app/(authenticated)/+page.server.ts";
-    imports11 = ["_app/immutable/nodes/10.CmzsCVRo.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/input.C_q-rZkj.js", "_app/immutable/chunks/store.4n1elMwH.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/chunks/misc.heqD49q_.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/stores.Du_ZyxRS.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/Cross2.BpNNkRUU.js", "_app/immutable/chunks/loader-circle.CxdfjmHR.js"];
-    stylesheets11 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
-    fonts11 = [];
+var index12, component_cache11, component11, server_id8, imports12, stylesheets12, fonts12;
+var init__12 = __esm({
+  ".svelte-kit/output/server/nodes/11.js"() {
+    init_page_server_ts5();
+    index12 = 11;
+    component11 = async () => component_cache11 ??= (await Promise.resolve().then(() => (init_page_svelte4(), page_svelte_exports4))).default;
+    server_id8 = "src/routes/(app)/app/(authenticated)/+page.server.ts";
+    imports12 = ["_app/immutable/nodes/11.Cdg8O3MM.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/proxy.Cu8K3uqY.js", "_app/immutable/chunks/props.DSAEkJIu.js", "_app/immutable/chunks/input.DfFwL83s.js", "_app/immutable/chunks/stores.B6b743hY.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js", "_app/immutable/chunks/misc.Di9luvOV.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/avatar-fallback.BZdiziGo.js", "_app/immutable/chunks/loader-circle.q7i0hIbw.js"];
+    stylesheets12 = ["_app/immutable/assets/loader-circle.CrupbAX6.css"];
+    fonts12 = [];
   }
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.server.ts.js
-var page_server_ts_exports5 = {};
-__export(page_server_ts_exports5, {
-  load: () => load5
+var page_server_ts_exports6 = {};
+__export(page_server_ts_exports6, {
+  load: () => load9
 });
-var load5;
-var init_page_server_ts5 = __esm({
+var load9;
+var init_page_server_ts6 = __esm({
   ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.server.ts.js"() {
     init_index5();
-    load5 = (event) => {
+    load9 = (event) => {
       isTenantUser(event);
+      return {
+        pageTitle: "Dashboard"
+      };
     };
   }
 });
 
 // .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.svelte.js
+var page_svelte_exports5 = {};
+__export(page_svelte_exports5, {
+  default: () => _page5
+});
+function _page5($$payload) {
+}
+var init_page_svelte5 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.svelte.js"() {
+  }
+});
+
+// .svelte-kit/output/server/nodes/12.js
+var __exports13 = {};
+__export(__exports13, {
+  component: () => component12,
+  fonts: () => fonts13,
+  imports: () => imports13,
+  index: () => index13,
+  server: () => page_server_ts_exports6,
+  server_id: () => server_id9,
+  stylesheets: () => stylesheets13
+});
+var index13, component_cache12, component12, server_id9, imports13, stylesheets13, fonts13;
+var init__13 = __esm({
+  ".svelte-kit/output/server/nodes/12.js"() {
+    init_page_server_ts6();
+    index13 = 12;
+    component12 = async () => component_cache12 ??= (await Promise.resolve().then(() => (init_page_svelte5(), page_svelte_exports5))).default;
+    server_id9 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/+page.server.ts";
+    imports13 = ["_app/immutable/nodes/12.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
+    stylesheets13 = [];
+    fonts13 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_page.server.ts.js
+var page_server_ts_exports7 = {};
+__export(page_server_ts_exports7, {
+  load: () => load10
+});
+var load10;
+var init_page_server_ts7 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_page.server.ts.js"() {
+    load10 = () => {
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_page.svelte.js
 var page_svelte_exports6 = {};
 __export(page_svelte_exports6, {
   default: () => _page6
@@ -72490,50 +72665,51 @@ __export(page_svelte_exports6, {
 function _page6($$payload) {
 }
 var init_page_svelte6 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/_page.svelte.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/settings/_page.svelte.js"() {
   }
 });
 
-// .svelte-kit/output/server/nodes/11.js
-var __exports12 = {};
-__export(__exports12, {
-  component: () => component12,
-  fonts: () => fonts12,
-  imports: () => imports12,
-  index: () => index12,
-  server: () => page_server_ts_exports5,
-  server_id: () => server_id5,
-  stylesheets: () => stylesheets12
+// .svelte-kit/output/server/nodes/13.js
+var __exports14 = {};
+__export(__exports14, {
+  component: () => component13,
+  fonts: () => fonts14,
+  imports: () => imports14,
+  index: () => index14,
+  server: () => page_server_ts_exports7,
+  server_id: () => server_id10,
+  stylesheets: () => stylesheets14
 });
-var index12, component_cache12, component12, server_id5, imports12, stylesheets12, fonts12;
-var init__12 = __esm({
-  ".svelte-kit/output/server/nodes/11.js"() {
-    init_page_server_ts5();
-    index12 = 11;
-    component12 = async () => component_cache12 ??= (await Promise.resolve().then(() => (init_page_svelte6(), page_svelte_exports6))).default;
-    server_id5 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/+page.server.ts";
-    imports12 = ["_app/immutable/nodes/11.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
-    stylesheets12 = [];
-    fonts12 = [];
+var index14, component_cache13, component13, server_id10, imports14, stylesheets14, fonts14;
+var init__14 = __esm({
+  ".svelte-kit/output/server/nodes/13.js"() {
+    init_page_server_ts7();
+    index14 = 13;
+    component13 = async () => component_cache13 ??= (await Promise.resolve().then(() => (init_page_svelte6(), page_svelte_exports6))).default;
+    server_id10 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/settings/+page.server.ts";
+    imports14 = ["_app/immutable/nodes/13.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
+    stylesheets14 = [];
+    fonts14 = [];
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.server.ts.js
-var page_server_ts_exports6 = {};
-__export(page_server_ts_exports6, {
-  load: () => load6
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/users/_page.server.ts.js
+var page_server_ts_exports8 = {};
+__export(page_server_ts_exports8, {
+  load: () => load11
 });
-var load6;
-var init_page_server_ts6 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.server.ts.js"() {
-    init_index5();
-    load6 = async (event) => {
-      isAuthenticated(event);
+var load11;
+var init_page_server_ts8 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/users/_page.server.ts.js"() {
+    load11 = async (event) => {
+      return {
+        pageTitle: "Users"
+      };
     };
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.svelte.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/users/_page.svelte.js
 var page_svelte_exports7 = {};
 __export(page_svelte_exports7, {
   default: () => _page7
@@ -72541,64 +72717,115 @@ __export(page_svelte_exports7, {
 function _page7($$payload) {
 }
 var init_page_svelte7 = __esm({
-  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.svelte.js"() {
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/_tenant_slug_/users/_page.svelte.js"() {
   }
 });
 
-// .svelte-kit/output/server/nodes/12.js
-var __exports13 = {};
-__export(__exports13, {
-  component: () => component13,
-  fonts: () => fonts13,
-  imports: () => imports13,
-  index: () => index13,
-  server: () => page_server_ts_exports6,
-  server_id: () => server_id6,
-  stylesheets: () => stylesheets13
+// .svelte-kit/output/server/nodes/14.js
+var __exports15 = {};
+__export(__exports15, {
+  component: () => component14,
+  fonts: () => fonts15,
+  imports: () => imports15,
+  index: () => index15,
+  server: () => page_server_ts_exports8,
+  server_id: () => server_id11,
+  stylesheets: () => stylesheets15
 });
-var index13, component_cache13, component13, server_id6, imports13, stylesheets13, fonts13;
-var init__13 = __esm({
-  ".svelte-kit/output/server/nodes/12.js"() {
-    init_page_server_ts6();
-    index13 = 12;
-    component13 = async () => component_cache13 ??= (await Promise.resolve().then(() => (init_page_svelte7(), page_svelte_exports7))).default;
-    server_id6 = "src/routes/(app)/app/(authenticated)/profile/+page.server.ts";
-    imports13 = ["_app/immutable/nodes/12.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
-    stylesheets13 = [];
-    fonts13 = [];
+var index15, component_cache14, component14, server_id11, imports15, stylesheets15, fonts15;
+var init__15 = __esm({
+  ".svelte-kit/output/server/nodes/14.js"() {
+    init_page_server_ts8();
+    index15 = 14;
+    component14 = async () => component_cache14 ??= (await Promise.resolve().then(() => (init_page_svelte7(), page_svelte_exports7))).default;
+    server_id11 = "src/routes/(app)/app/(authenticated)/[tenant_slug]/users/+page.server.ts";
+    imports15 = ["_app/immutable/nodes/14.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
+    stylesheets15 = [];
+    fonts15 = [];
   }
 });
 
-// .svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.server.ts.js
+var page_server_ts_exports9 = {};
+__export(page_server_ts_exports9, {
+  load: () => load12
+});
+var load12;
+var init_page_server_ts9 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.server.ts.js"() {
+    init_index5();
+    load12 = async (event) => {
+      isAuthenticated(event);
+    };
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.svelte.js
 var page_svelte_exports8 = {};
 __export(page_svelte_exports8, {
   default: () => _page8
 });
 function _page8($$payload) {
-  $$payload.out += `Public`;
 }
 var init_page_svelte8 = __esm({
+  ".svelte-kit/output/server/entries/pages/(app)/app/(authenticated)/profile/_page.svelte.js"() {
+  }
+});
+
+// .svelte-kit/output/server/nodes/15.js
+var __exports16 = {};
+__export(__exports16, {
+  component: () => component15,
+  fonts: () => fonts16,
+  imports: () => imports16,
+  index: () => index16,
+  server: () => page_server_ts_exports9,
+  server_id: () => server_id12,
+  stylesheets: () => stylesheets16
+});
+var index16, component_cache15, component15, server_id12, imports16, stylesheets16, fonts16;
+var init__16 = __esm({
+  ".svelte-kit/output/server/nodes/15.js"() {
+    init_page_server_ts9();
+    index16 = 15;
+    component15 = async () => component_cache15 ??= (await Promise.resolve().then(() => (init_page_svelte8(), page_svelte_exports8))).default;
+    server_id12 = "src/routes/(app)/app/(authenticated)/profile/+page.server.ts";
+    imports16 = ["_app/immutable/nodes/15.RBcn971s.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js"];
+    stylesheets16 = [];
+    fonts16 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js
+var page_svelte_exports9 = {};
+__export(page_svelte_exports9, {
+  default: () => _page9
+});
+function _page9($$payload) {
+  $$payload.out += `Public`;
+}
+var init_page_svelte9 = __esm({
   ".svelte-kit/output/server/entries/pages/(public)/public/_page.svelte.js"() {
   }
 });
 
-// .svelte-kit/output/server/nodes/13.js
-var __exports14 = {};
-__export(__exports14, {
-  component: () => component14,
-  fonts: () => fonts14,
-  imports: () => imports14,
-  index: () => index14,
-  stylesheets: () => stylesheets14
+// .svelte-kit/output/server/nodes/16.js
+var __exports17 = {};
+__export(__exports17, {
+  component: () => component16,
+  fonts: () => fonts17,
+  imports: () => imports17,
+  index: () => index17,
+  stylesheets: () => stylesheets17
 });
-var index14, component_cache14, component14, imports14, stylesheets14, fonts14;
-var init__14 = __esm({
-  ".svelte-kit/output/server/nodes/13.js"() {
-    index14 = 13;
-    component14 = async () => component_cache14 ??= (await Promise.resolve().then(() => (init_page_svelte8(), page_svelte_exports8))).default;
-    imports14 = ["_app/immutable/nodes/13.CdzdaqKc.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/runtime.Jf46wuGD.js"];
-    stylesheets14 = [];
-    fonts14 = [];
+var index17, component_cache16, component16, imports17, stylesheets17, fonts17;
+var init__17 = __esm({
+  ".svelte-kit/output/server/nodes/16.js"() {
+    index17 = 16;
+    component16 = async () => component_cache16 ??= (await Promise.resolve().then(() => (init_page_svelte9(), page_svelte_exports9))).default;
+    imports17 = ["_app/immutable/nodes/16.D6KpZ8BT.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/runtime.B_OVq2H2.js"];
+    stylesheets17 = [];
+    fonts17 = [];
   }
 });
 
@@ -73417,12 +73644,12 @@ function remove_reaction(signal, dependency) {
   let reactions_length = 0;
   if (reactions !== null) {
     reactions_length = reactions.length - 1;
-    const index15 = reactions.indexOf(signal);
-    if (index15 !== -1) {
+    const index18 = reactions.indexOf(signal);
+    if (index18 !== -1) {
       if (reactions_length === 0) {
         dependency.reactions = null;
       } else {
-        reactions[index15] = reactions[reactions_length];
+        reactions[index18] = reactions[reactions_length];
         reactions.pop();
       }
     }
@@ -73744,7 +73971,7 @@ function push2(props, runes = false, fn) {
     };
   }
 }
-function pop2(component15) {
+function pop2(component17) {
   const context_stack_item = current_component_context;
   if (context_stack_item !== null) {
     const effects = context_stack_item.e;
@@ -74113,11 +74340,11 @@ function handle_event_propagation(handler_element, event) {
 }
 var all_registered_events = /* @__PURE__ */ new Set();
 var root_event_handles = /* @__PURE__ */ new Set();
-function mount(component15, options22) {
+function mount(component17, options22) {
   const anchor = options22.anchor ?? options22.target.appendChild(empty());
-  return flush_sync(() => _mount(component15, { ...options22, anchor }), false);
+  return flush_sync(() => _mount(component17, { ...options22, anchor }), false);
 }
-function hydrate(component15, options22) {
+function hydrate(component17, options22) {
   const target2 = options22.target;
   const previous_hydrate_nodes = hydrate_nodes;
   try {
@@ -74132,7 +74359,7 @@ function hydrate(component15, options22) {
         throw HYDRATION_ERROR;
       }
       const anchor = hydrate_anchor(node);
-      const instance = _mount(component15, { ...options22, anchor });
+      const instance = _mount(component17, { ...options22, anchor });
       set_hydrating(false);
       return instance;
     }, false);
@@ -74143,7 +74370,7 @@ function hydrate(component15, options22) {
       }
       init_operations2();
       clear_text_content(target2);
-      return mount(component15, options22);
+      return mount(component17, options22);
     }
     throw error2;
   } finally {
@@ -74179,7 +74406,7 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
   };
   event_handle(array_from(all_registered_events));
   root_event_handles.add(event_handle);
-  let component15 = void 0;
+  let component17 = void 0;
   const unmount2 = effect_root(() => {
     branch(() => {
       if (context) {
@@ -74193,7 +74420,7 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
       if (events) {
         props.$$events = events;
       }
-      component15 = Component(anchor, props) || {};
+      component17 = Component(anchor, props) || {};
       if (context) {
         pop2();
       }
@@ -74203,23 +74430,23 @@ function _mount(Component, { target: target2, anchor, props = {}, events, contex
         target2.removeEventListener(event_name, bound_event_listener);
       }
       root_event_handles.delete(event_handle);
-      mounted_components.delete(component15);
+      mounted_components.delete(component17);
     };
   });
-  mounted_components.set(component15, unmount2);
-  return component15;
+  mounted_components.set(component17, unmount2);
+  return component17;
 }
 var mounted_components = /* @__PURE__ */ new WeakMap();
-function unmount(component15) {
-  const fn = mounted_components.get(component15);
+function unmount(component17) {
+  const fn = mounted_components.get(component17);
   fn?.();
 }
-function asClassComponent$1(component15) {
+function asClassComponent$1(component17) {
   return class extends Svelte4Component {
     /** @param {any} options */
     constructor(options22) {
       super({
-        component: component15,
+        component: component17,
         ...options22
       });
     }
@@ -74294,10 +74521,10 @@ var Svelte4Component = class {
     this.#instance.$destroy();
   }
 };
-function asClassComponent(component15) {
-  const component_constructor = asClassComponent$1(component15);
+function asClassComponent(component17) {
+  const component_constructor = asClassComponent$1(component17);
   const _render = (props, { context } = {}) => {
-    const result = render(component15, { props, context });
+    const result = render(component17, { props, context });
     return {
       css: { code: "", map: null },
       head: result.head,
@@ -74319,7 +74546,8 @@ function Root2($$payload, $$props) {
     data_0 = null,
     data_1 = null,
     data_2 = null,
-    data_3 = null
+    data_3 = null,
+    data_4 = null
   } = $$props;
   {
     setContext("__svelte__", stores);
@@ -74346,8 +74574,25 @@ function Root2($$payload, $$props) {
                   data: data_2,
                   children: ($$payload4, $$slotProps3) => {
                     $$payload4.out += `<!--[-->`;
-                    constructors[3]?.($$payload4, { data: data_3, form });
-                    $$payload4.out += `<!--]-->`;
+                    if (constructors[4]) {
+                      $$payload4.out += `<!--[-->`;
+                      constructors[3]?.($$payload4, {
+                        data: data_3,
+                        children: ($$payload5, $$slotProps4) => {
+                          $$payload5.out += `<!--[-->`;
+                          constructors[4]?.($$payload5, { data: data_4, form });
+                          $$payload5.out += `<!--]-->`;
+                        },
+                        $$slots: { default: true }
+                      });
+                      $$payload4.out += `<!--]-->`;
+                      $$payload4.out += "<!--]-->";
+                    } else {
+                      $$payload4.out += `<!--[-->`;
+                      constructors[3]?.($$payload4, { data: data_3, form });
+                      $$payload4.out += `<!--]-->`;
+                      $$payload4.out += "<!--]!-->";
+                    }
                   },
                   $$slots: { default: true }
                 });
@@ -74474,7 +74719,7 @@ var options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1k5b86q"
+  version_hash: "1csoeol"
 };
 async function get_hooks() {
   return {
@@ -74935,8 +75180,8 @@ function is_action_json_request(event) {
   return accept === "application/json" && event.request.method === "POST";
 }
 async function handle_action_json_request(event, options22, server2) {
-  const actions5 = server2?.actions;
-  if (!actions5) {
+  const actions6 = server2?.actions;
+  if (!actions6) {
     const no_actions_error = new SvelteKitError(
       405,
       "Method Not Allowed",
@@ -74957,9 +75202,9 @@ async function handle_action_json_request(event, options22, server2) {
       }
     );
   }
-  check_named_default_separate(actions5);
+  check_named_default_separate(actions6);
   try {
-    const data = await call_action(event, actions5);
+    const data = await call_action(event, actions6);
     if (false)
       ;
     if (data instanceof ActionFailure) {
@@ -75020,8 +75265,8 @@ function is_action_request(event) {
   return event.request.method === "POST";
 }
 async function handle_action_request(event, server2) {
-  const actions5 = server2?.actions;
-  if (!actions5) {
+  const actions6 = server2?.actions;
+  if (!actions6) {
     event.setHeaders({
       // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405
       // "The server must generate an Allow header field in a 405 status code response"
@@ -75036,9 +75281,9 @@ async function handle_action_request(event, server2) {
       )
     };
   }
-  check_named_default_separate(actions5);
+  check_named_default_separate(actions6);
   try {
-    const data = await call_action(event, actions5);
+    const data = await call_action(event, actions6);
     if (false)
       ;
     if (data instanceof ActionFailure) {
@@ -75070,14 +75315,14 @@ async function handle_action_request(event, server2) {
     };
   }
 }
-function check_named_default_separate(actions5) {
-  if (actions5.default && Object.keys(actions5).length > 1) {
+function check_named_default_separate(actions6) {
+  if (actions6.default && Object.keys(actions6).length > 1) {
     throw new Error(
       "When using named actions, the default action cannot be used. See the docs for more info: https://kit.svelte.dev/docs/form-actions#named-actions"
     );
   }
 }
-async function call_action(event, actions5) {
+async function call_action(event, actions6) {
   const url2 = new URL(event.request.url);
   let name3 = "default";
   for (const param of url2.searchParams) {
@@ -75089,7 +75334,7 @@ async function call_action(event, actions5) {
       break;
     }
   }
-  const action = actions5[name3];
+  const action = actions6[name3];
   if (!action) {
     throw new SvelteKitError(404, "Not Found", `No action with name '${name3}' found`);
   }
@@ -75895,8 +76140,8 @@ async function render_response({
   }
   const { client } = manifest2._;
   const modulepreloads = new Set(client.imports);
-  const stylesheets15 = new Set(client.stylesheets);
-  const fonts15 = new Set(client.fonts);
+  const stylesheets18 = new Set(client.stylesheets);
+  const fonts18 = new Set(client.fonts);
   const link_header_preloads = /* @__PURE__ */ new Set();
   const inline_styles = /* @__PURE__ */ new Map();
   let rendered;
@@ -75952,9 +76197,9 @@ async function render_response({
       for (const url2 of node.imports)
         modulepreloads.add(url2);
       for (const url2 of node.stylesheets)
-        stylesheets15.add(url2);
+        stylesheets18.add(url2);
       for (const url2 of node.fonts)
-        fonts15.add(url2);
+        fonts18.add(url2);
       if (node.inline_styles) {
         Object.entries(await node.inline_styles()).forEach(([k, v2]) => inline_styles.set(k, v2));
       }
@@ -75982,7 +76227,7 @@ async function render_response({
     head2 += `
 	<style${attributes.join("")}>${content}</style>`;
   }
-  for (const dep of stylesheets15) {
+  for (const dep of stylesheets18) {
     const path = prefixed(dep);
     const attributes = ['rel="stylesheet"'];
     if (inline_styles.has(dep)) {
@@ -75996,7 +76241,7 @@ async function render_response({
     head2 += `
 		<link href="${path}" ${attributes.join(" ")}>`;
   }
-  for (const dep of fonts15) {
+  for (const dep of fonts18) {
     const path = prefixed(dep);
     if (resolve_opts.preload({ type: "font", path })) {
       const ext = dep.slice(dep.lastIndexOf(".") + 1);
@@ -76733,11 +76978,11 @@ async function render_page(event, page2, options22, manifest2, state, resolve_op
           const error2 = await handle_error_and_jsonify(event, options22, err);
           while (i2--) {
             if (page2.errors[i2]) {
-              const index15 = (
+              const index18 = (
                 /** @type {number} */
                 page2.errors[i2]
               );
-              const node2 = await manifest2._.nodes[index15]();
+              const node2 = await manifest2._.nodes[index18]();
               let j2 = i2;
               while (!branch2[j2])
                 j2 -= 1;
@@ -76860,20 +77105,20 @@ function parse$1(str, options22) {
   var obj = {};
   var opt = options22 || {};
   var dec = opt.decode || decode2;
-  var index15 = 0;
-  while (index15 < str.length) {
-    var eqIdx = str.indexOf("=", index15);
+  var index18 = 0;
+  while (index18 < str.length) {
+    var eqIdx = str.indexOf("=", index18);
     if (eqIdx === -1) {
       break;
     }
-    var endIdx = str.indexOf(";", index15);
+    var endIdx = str.indexOf(";", index18);
     if (endIdx === -1) {
       endIdx = str.length;
     } else if (endIdx < eqIdx) {
-      index15 = str.lastIndexOf(";", eqIdx - 1) + 1;
+      index18 = str.lastIndexOf(";", eqIdx - 1) + 1;
       continue;
     }
-    var key2 = str.slice(index15, eqIdx).trim();
+    var key2 = str.slice(index18, eqIdx).trim();
     if (void 0 === obj[key2]) {
       var val = str.slice(eqIdx + 1, endIdx).trim();
       if (val.charCodeAt(0) === 34) {
@@ -76881,7 +77126,7 @@ function parse$1(str, options22) {
       }
       obj[key2] = tryDecode(val, dec);
     }
-    index15 = endIdx + 1;
+    index18 = endIdx + 1;
   }
   return obj;
 }
@@ -76997,7 +77242,7 @@ function get_cookies(request, url2, trailing_slash) {
   const initial_cookies = parse_1(header, { decode: (value) => value });
   const normalized_url = normalize_path(url2.pathname, trailing_slash);
   const new_cookies = {};
-  const defaults6 = {
+  const defaults5 = {
     httpOnly: true,
     sameSite: "lax",
     secure: url2.hostname === "localhost" && url2.protocol === "http:" ? false : true
@@ -77041,7 +77286,7 @@ function get_cookies(request, url2, trailing_slash) {
      */
     set(name3, value, options22) {
       validate_options(options22);
-      set_internal(name3, value, { ...defaults6, ...options22 });
+      set_internal(name3, value, { ...defaults5, ...options22 });
     },
     /**
      * @param {string} name
@@ -77062,7 +77307,7 @@ function get_cookies(request, url2, trailing_slash) {
       if (!options22.domain || options22.domain === url2.hostname) {
         path = resolve(normalized_url, path);
       }
-      return serialize_1(name3, value, { ...defaults6, ...options22, path });
+      return serialize_1(name3, value, { ...defaults5, ...options22, path });
     }
   };
   function get_cookie_header(destination, header2) {
@@ -77880,7 +78125,7 @@ var manifest = (() => {
     assets: /* @__PURE__ */ new Set(["favicon.png"]),
     mimeTypes: { ".png": "image/png" },
     _: {
-      client: { "start": "_app/immutable/entry/start.D0NBIC41.js", "app": "_app/immutable/entry/app.BZzIheHQ.js", "imports": ["_app/immutable/entry/start.D0NBIC41.js", "_app/immutable/chunks/entry.sm6bfj5y.js", "_app/immutable/chunks/index-client.Vsfol0mn.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/index.DrUETBQY.js", "_app/immutable/entry/app.BZzIheHQ.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/proxy.6qiN9CFF.js", "_app/immutable/chunks/runtime.Jf46wuGD.js", "_app/immutable/chunks/render.Bv0yYwOM.js", "_app/immutable/chunks/template.Cy1XqOF_.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/props.P1SnnUBI.js", "_app/immutable/chunks/index-client.Vsfol0mn.js"], "stylesheets": [], "fonts": [], "uses_env_dynamic_public": false },
+      client: { "start": "_app/immutable/entry/start.B2eFtRAs.js", "app": "_app/immutable/entry/app.CCXjtJuD.js", "imports": ["_app/immutable/entry/start.B2eFtRAs.js", "_app/immutable/chunks/entry.IEnrTTqQ.js", "_app/immutable/chunks/index-client.kvh5swOJ.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/entry/app.CCXjtJuD.js", "_app/immutable/chunks/public.BX7U8bBM.js", "_app/immutable/chunks/proxy.Cu8K3uqY.js", "_app/immutable/chunks/runtime.B_OVq2H2.js", "_app/immutable/chunks/render.pO6a_s3y.js", "_app/immutable/chunks/template.BQ75sTQE.js", "_app/immutable/chunks/disclose-version.Bg9kRutz.js", "_app/immutable/chunks/props.DSAEkJIu.js", "_app/immutable/chunks/8.Bm0gQg8J.js", "_app/immutable/chunks/index-client.kvh5swOJ.js"], "stylesheets": [], "fonts": [], "uses_env_dynamic_public": false },
       nodes: [
         __memo(() => Promise.resolve().then(() => (init__(), __exports))),
         __memo(() => Promise.resolve().then(() => (init__2(), __exports2))),
@@ -77895,63 +78140,80 @@ var manifest = (() => {
         __memo(() => Promise.resolve().then(() => (init__11(), __exports11))),
         __memo(() => Promise.resolve().then(() => (init__12(), __exports12))),
         __memo(() => Promise.resolve().then(() => (init__13(), __exports13))),
-        __memo(() => Promise.resolve().then(() => (init__14(), __exports14)))
+        __memo(() => Promise.resolve().then(() => (init__14(), __exports14))),
+        __memo(() => Promise.resolve().then(() => (init__15(), __exports15))),
+        __memo(() => Promise.resolve().then(() => (init__16(), __exports16))),
+        __memo(() => Promise.resolve().then(() => (init__17(), __exports17)))
       ],
       routes: [
         {
           id: "/(app)/app/(authenticated)",
           pattern: /^\/app\/?$/,
           params: [],
-          page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 10 },
+          page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 11 },
           endpoint: null
         },
         {
           id: "/(app)/app/(authenticated)/profile",
           pattern: /^\/app\/profile\/?$/,
           params: [],
-          page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 12 },
+          page: { layouts: [0, , 3], errors: [1, 2, ,], leaf: 15 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/sign-in",
           pattern: /^\/app\/sign-in\/?$/,
           params: [],
-          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 6 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 7 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/sign-out",
           pattern: /^\/app\/sign-out\/?$/,
           params: [],
-          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 7 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 8 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/sign-up",
           pattern: /^\/app\/sign-up\/?$/,
           params: [],
-          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 8 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 9 },
           endpoint: null
         },
         {
           id: "/(app)/app/(auth)/verification",
           pattern: /^\/app\/verification\/?$/,
           params: [],
-          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 9 },
+          page: { layouts: [0, , 3, 4], errors: [1, 2, , ,], leaf: 10 },
           endpoint: null
         },
         {
           id: "/(app)/app/(authenticated)/[tenant_slug]",
           pattern: /^\/app\/([^/]+?)\/?$/,
           params: [{ "name": "tenant_slug", "optional": false, "rest": false, "chained": false }],
-          page: { layouts: [0, , 3, 5], errors: [1, 2, , ,], leaf: 11 },
+          page: { layouts: [0, , 3, 5], errors: [1, 2, , ,], leaf: 12 },
+          endpoint: null
+        },
+        {
+          id: "/(app)/app/(authenticated)/[tenant_slug]/settings",
+          pattern: /^\/app\/([^/]+?)\/settings\/?$/,
+          params: [{ "name": "tenant_slug", "optional": false, "rest": false, "chained": false }],
+          page: { layouts: [0, , 3, 5, 6], errors: [1, 2, , , ,], leaf: 13 },
+          endpoint: null
+        },
+        {
+          id: "/(app)/app/(authenticated)/[tenant_slug]/users",
+          pattern: /^\/app\/([^/]+?)\/users\/?$/,
+          params: [{ "name": "tenant_slug", "optional": false, "rest": false, "chained": false }],
+          page: { layouts: [0, , 3, 5], errors: [1, 2, , ,], leaf: 14 },
           endpoint: null
         },
         {
           id: "/(public)/public",
           pattern: /^\/public\/?$/,
           params: [],
-          page: { layouts: [0], errors: [1], leaf: 13 },
+          page: { layouts: [0], errors: [1], leaf: 16 },
           endpoint: null
         }
       ],

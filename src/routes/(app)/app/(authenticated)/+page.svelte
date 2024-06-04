@@ -14,6 +14,7 @@
 	import ChevronRight from 'lucide-svelte/icons/chevron-right';
 	import LoaderCircle from 'lucide-svelte/icons/loader-circle';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
+	import UserNav from './(components)/user-nav.svelte';
 
 	let { data } = $props();
 	let createTenantModalOpen = $state($page.url.searchParams.get('create') ? true : false);
@@ -45,8 +46,8 @@
 </svelte:head>
 <main class="mx-auto flex h-dvh max-w-7xl items-center justify-center px-4 py-10 md:px-6 lg:px-8">
 	<Card.Root class="mx-auto max-h-full w-full max-w-sm overflow-scroll">
-		<Card.Header class="sticky top-0 z-10 bg-background/60 backdrop-blur-md">
-			<Card.Title>Your Organisations</Card.Title>
+		<Card.Header class="sticky top-0 z-10 bg-background/60 backdrop-blur-md flex flex-row items-center justify-between">
+			<Card.Title>Your Organisations</Card.Title><UserNav />
 		</Card.Header>
 		<Card.Content>
 			<ul use:autoAnimate>

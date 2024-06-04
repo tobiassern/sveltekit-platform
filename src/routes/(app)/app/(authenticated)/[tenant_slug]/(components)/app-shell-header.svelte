@@ -6,11 +6,12 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
-	import AppShellUserNav from './app-shell-user-nav.svelte';
 	import type { Navigation } from './app-shell.svelte';
 	import { page } from '$app/stores';
 	import { afterNavigate } from '$app/navigation';
 	import { cn } from '$lib/utils';
+	import * as Avatar from '$lib/components/ui/avatar';
+	import UserNav from '../../(components)/user-nav.svelte';
 
 	let { navigation }: { navigation: Navigation } = $props();
 	let open = $state(false);
@@ -29,8 +30,18 @@
 		</Sheet.Trigger>
 		<Sheet.Content side="left" class="flex flex-col">
 			<nav class="grid gap-2 text-lg font-medium">
-				<a href="##" class="flex items-center gap-2 text-lg font-semibold">
-					<Package2 class="h-6 w-6" />
+				<a href="/" class="flex items-center gap-2 text-lg font-semibold">
+					<Avatar.Root class="size-6">
+						{#if $page.data.tenant?.logo_square_url}
+							<Avatar.Image
+								src={$page.data.tenant?.logo_square_url}
+								alt={$page.data.tenant?.name}
+							/>
+						{/if}
+						<Avatar.Fallback class="uppercase"
+							>{$page.data.tenant?.name.split('')[0]}</Avatar.Fallback
+						>
+					</Avatar.Root>
 					<span class="sr-only">Acme Inc</span>
 				</a>
 				{#each navigation as nav}
@@ -50,7 +61,7 @@
 					</a>
 				{/each}
 			</nav>
-			<div class="mt-auto">
+			<!-- <div class="mt-auto">
 				<Card.Root>
 					<Card.Header>
 						<Card.Title>Upgrade to Pro</Card.Title>
@@ -62,7 +73,7 @@
 						<Button size="sm" class="w-full">Upgrade</Button>
 					</Card.Content>
 				</Card.Root>
-			</div>
+			</div> -->
 		</Sheet.Content>
 	</Sheet.Root>
 	<div class="w-full flex-1">
@@ -77,5 +88,5 @@
 			</div>
 		</form>
 	</div>
-	<AppShellUserNav />
+	<UserNav />
 </header>
